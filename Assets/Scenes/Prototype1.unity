@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883ee79660b38fc4b8a8ea6e9e17ebc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultSpeed: 2
+  DefaultSpeed: 5
   DefaultSprintSpeed: 10
   DefaultJumpForce: 10
   m_Rigidbody: {fileID: 815107008}
