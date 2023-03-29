@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 815107006}
   - component: {fileID: 815107007}
   - component: {fileID: 815107008}
+  - component: {fileID: 815107009}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -491,6 +492,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 13dc67f2-6261-4f85-97a8-29a8040feea8
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 815107009}
+        m_TargetAssemblyTypeName: PlayerColor, Assembly-CSharp
+        m_MethodName: ChangeColor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0ffaf091-c99a-4614-af36-3135976f70ad
+    m_ActionName: Player/Color Change
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -513,8 +530,6 @@ MonoBehaviour:
   DefaultJumpForce: 10
   DefaultSprintDelay: 0.5
   DeadZone: 0.1
-  m_isSprinting: 0
-  m_SprintDelay: 0
   m_Rigidbody: {fileID: 815107008}
 --- !u!136 &815107007
 CapsuleCollider:
@@ -546,6 +561,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &815107009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815107003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99fcc6681d55e74fbdd3471ec55c2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColorIndex: 0
+  m_Renderer: {fileID: 1593128685}
 --- !u!1 &1289573924
 GameObject:
   m_ObjectHideFlags: 0

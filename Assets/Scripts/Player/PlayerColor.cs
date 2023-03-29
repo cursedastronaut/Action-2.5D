@@ -5,26 +5,28 @@ using UnityEngine.InputSystem;
 
 public class PlayerColor : MonoBehaviour
 {
-    private Color m_PlayerColor;
-    private float ChangeCD;
-    
-    public int ColorIndex;
-    private int PreviousIndex;
-    private bool m_IsChanging;
-    private bool m_IsChanging_bckp;
+    //Game Design Variables
+    [SerializeField] private Color[] AllColorsPlayerCanSwitchThrough;
+
+    //Game Programming Variables
+    public  int     ColorIndex          = 0;
+    public  int     ColorLevel          = 0;
+    private int     PreviousIndex       = 0;
+    private bool    m_IsChanging        = false;
+    private float   ColorChangingDelay = 0;
 
     [SerializeField] private Renderer m_Renderer;
 
     void Start()
     {
         m_Renderer = GetComponentInChildren<Renderer>();
-        ChangeCD = 0;
     }
 
     
     void Update()
     {
-        ChangeCD += Time.fixedDeltaTime;
+        //If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
+        ColorChangingDelay += Time.deltaTime;
 
         if (m_IsChanging)
         {
@@ -35,63 +37,19 @@ public class PlayerColor : MonoBehaviour
 
         if (ColorIndex != PreviousIndex)
         {
-            SetColor();
+            m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[ColorIndex];
         }
-        m_IsChanging_bckp = m_IsChanging;
         
         ColorIndex %= 6;
 
         PreviousIndex = ColorIndex;
     }
 
-    private void SetColor()
-    {
-        switch (ColorIndex)
-        {
-            case 0:
-                Debug.Log("Black");
-                m_PlayerColor =new Color (0,0,0);
-                break;
-
-            case 1:
-                Debug.Log("Color 1");
-                m_PlayerColor = new Color(0, 1, 0);
-                break;
-
-            case 2:
-                Debug.Log("Color 2");
-                m_PlayerColor = new Color(0, 0, 1);
-                break;
-
-            case 3:
-                Debug.Log("Color 3");
-                m_PlayerColor = new Color(1, 0, 0);
-                break;
-
-            case 4:
-                Debug.Log("Color 4");
-                m_PlayerColor = new Color(1, 1, 0);
-                break;
-
-            case 5:
-                Debug.Log("Color 5");
-                m_PlayerColor = new Color(1, 0, 1);
-                break;
-
-            case 6:
-                Debug.Log("Color 6");
-                m_PlayerColor = new Color(0, 1, 1);
-                break;
-
-        }
-                m_Renderer.material.color = m_PlayerColor;
-    }
-
     public void ChangeColor(InputAction.CallbackContext ctx)
     {
-        if (ChangeCD >= 5)
+        if (ColorChangingDelay >= 0.2f)
         { 
-            ChangeCD = 0;
+            ColorChangingDelay = 0;
             m_IsChanging = ctx.ReadValueAsButton();
         }
     }

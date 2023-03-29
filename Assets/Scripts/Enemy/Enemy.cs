@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
     
     private void playerDetection()
     {
-        Debug.Log(m_DetectionBox.localScale);
         Collider[] objArray = Physics.OverlapBox(m_DetectionBox.position, m_DetectionBox.localScale);
         foreach (var obj in objArray)
         {
