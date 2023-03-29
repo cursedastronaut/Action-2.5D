@@ -386,19 +386,7 @@ MonoBehaviour:
     m_ActionId: 13dc67f2-6261-4f85-97a8-29a8040feea8
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 815107006}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Sprint
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 7fc9c0dd-36dd-4dce-bffb-7ef89bdfbce7
     m_ActionName: Player/Sprint[/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
@@ -421,6 +409,9 @@ MonoBehaviour:
   DefaultSpeed: 5
   DefaultSprintSpeed: 10
   DefaultJumpForce: 10
+  DefaultSprintDelay: 0.5
+  DeadZone: 0.1
+  m_SprintDelay: 0
   m_Rigidbody: {fileID: 815107008}
 --- !u!136 &815107007
 CapsuleCollider:

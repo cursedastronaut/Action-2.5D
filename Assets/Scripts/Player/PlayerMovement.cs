@@ -10,11 +10,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DefaultSpeed;
     [SerializeField] private float DefaultSprintSpeed;
     [SerializeField] private float DefaultJumpForce;
+    [SerializeField] private float DefaultSprintDelay;
+    [SerializeField] private float DeadZone;
 
     //Game Programming Variables
     private Vector2     m_MovementInput = Vector2.zero;
-    private bool        m_isSprinting   = false;
+    public bool        m_isSprinting   = false;
     private bool        m_isJumping     = false;
+    public float       m_SprintDelay   = 0.0f;
     [SerializeField]
     private Rigidbody m_Rigidbody;
 
@@ -26,6 +29,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
+        if ( (m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint) )
+            m_isSprinting = true;
+        if (m_MovementInput.x > DeadZone || m_MovementInput.x < -DeadZone)
+            m_SprintDelay += Time.deltaTime;
+        if (m_MovementInput.x < DeadZone && m_MovementInput.x > -DeadZone)
+        { m_SprintDelay = 0; m_isSprinting = false; }
+
         //Movement depending of input
         float currentSpeed = m_isSprinting == true ? DefaultSprintSpeed : DefaultSpeed;
         transform.position += (transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime;
@@ -49,10 +60,6 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         m_MovementInput = context.ReadValue<Vector2>();
-    }
-    public void Sprint(InputAction.CallbackContext context)
-    {
-        m_isSprinting = context.ReadValueAsButton();
     }
 
     public void Jump(InputAction.CallbackContext context)
