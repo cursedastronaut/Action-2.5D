@@ -5,8 +5,13 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private Transform m_Target;
+    //Game Design Variables
     [SerializeField] private Transform[] m_Path;
+
+    //Game Programming Variables
+    private float initY = 0;
+    private bool isCalculatingPath = false;
+    private Transform m_Target;
     private int m_CurrentPath;
     private NavMeshAgent m_Agent;
     private SphereCollider m_RangeSphere;
@@ -16,7 +21,7 @@ public class Enemy : MonoBehaviour
     {
         m_Agent = GetComponent<NavMeshAgent>();
         m_RangeSphere = GetComponent<SphereCollider>();
-
+        initY = transform.position.y;
     }
 
 
@@ -26,23 +31,24 @@ public class Enemy : MonoBehaviour
     {
         if (m_Target)
         {
-            m_Agent.destination = new Vector3(m_Target.position.x, transform.position.y, m_Target.position.x) ;
+            m_Agent.destination = new Vector3(m_Target.position.x, initY, m_Target.position.x) ;
         }
 
-        if (!m_Agent.hasPath)
+        if (!m_Agent.hasPath && !isCalculatingPath)
         {
-            if (m_Path.Length > 0)
+            Debug.Log("l"+ (m_Path.Length-1));
+            Debug.Log("c"+ m_CurrentPath);
+            if (m_Path.Length-1 <= m_CurrentPath)
             {
-                m_CurrentPath %= m_Path.Length;
-                m_Agent.destination = new Vector3(m_Path[m_CurrentPath++].position.x, transform.position.y, m_Path[m_CurrentPath].position.z) ;
+                m_CurrentPath = 0;
             }
-
-            else
-            {
-                Vector3 random = Random.insideUnitSphere;
-                m_Agent.destination = transform.position + new Vector3(random.x, transform.position.y, random.z) * m_RangeSphere.radius;
-            }
+            m_Agent.SetDestination( new Vector3(m_Path[m_CurrentPath++].position.x, initY, m_Path[m_CurrentPath].position.z));
+            isCalculatingPath = true;
         }
+        if (m_Agent.hasPath && isCalculatingPath)
+            isCalculatingPath = false;
+
+        transform.position = new Vector3(transform.position.x, initY, transform.position.z);
     }
     private void OnTriggerEnter(Collider other)
     {
