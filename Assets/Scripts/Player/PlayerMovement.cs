@@ -15,9 +15,9 @@ public class PlayerMovement : MonoBehaviour
 
     //Game Programming Variables
     private Vector2     m_MovementInput = Vector2.zero;
-    public bool        m_isSprinting   = false;
+    private bool        m_isSprinting   = false;
     private bool        m_isJumping     = false;
-    public float       m_SprintDelay   = 0.0f;
+    private float       m_SprintDelay   = 0.0f;
     [SerializeField]
     private Rigidbody m_Rigidbody;
 
