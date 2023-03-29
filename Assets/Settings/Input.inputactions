@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "Input",
     "maps": [
         {
             "name": "Player",
@@ -33,12 +33,21 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Color Change",
+                    "name": "Color Change +",
                     "type": "Button",
                     "id": "0ffaf091-c99a-4614-af36-3135976f70ad",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Color Change -",
+                    "type": "Button",
+                    "id": "b62f80d1-9e9b-46c2-9535-3ac4dc107249",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -193,7 +202,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Color Change",
+                    "action": "Color Change +",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -204,7 +213,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Color Change",
+                    "action": "Color Change +",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a31eaec4-3056-4c26-b455-2b7f77c91fab",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Color Change +",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2dbed26a-a31f-4b37-9684-006e3c70c1f8",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Color Change -",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3cf73dc-c299-4f1f-af47-23551f94e26d",
+                    "path": "<XInputController>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Color Change -",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fcb4215b-4536-41a6-9aee-54b8ad3759f8",
+                    "path": "<DualShockGamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Color Change -",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

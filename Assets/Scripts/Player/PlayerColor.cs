@@ -13,7 +13,7 @@ public class PlayerColor : MonoBehaviour
     public  int     ColorIndex          = 0;
     public  int     ColorUnlocked       = 0;
     private int     PreviousIndex       = 0;
-    private bool    m_IsChanging        = false;
+    private int     m_IsChanging        = 0;
     private float   ColorChangingDelay = 0;
 
     private Vector3 initialPos;
@@ -31,16 +31,19 @@ public class PlayerColor : MonoBehaviour
     {
         //If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
         ColorChangingDelay += Time.deltaTime;
+        int NumberOfColors = AllColorsPlayerCanSwitchThrough.Length-1;
+        Debug.Log(NumberOfColors);
 
-        
-        if (m_IsChanging)
+        if (m_IsChanging != 0)
         {
-            ColorIndex += 1;
-            m_IsChanging = false;
+            ColorIndex += m_IsChanging;
+            m_IsChanging = 0;
         }
 
-        if (ColorIndex > ColorUnlocked || ColorIndex >= AllColorsPlayerCanSwitchThrough.Length)
+        if (ColorIndex > ColorUnlocked || ColorIndex > NumberOfColors)
             ColorIndex = 0;
+        if (ColorIndex < 0)
+            ColorIndex = ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked;
 
         if (ColorIndex != PreviousIndex)
         {
@@ -51,12 +54,21 @@ public class PlayerColor : MonoBehaviour
     }
 
     //Reads input corresponding to the color change.
-    public void ChangeColor(InputAction.CallbackContext ctx)
+    public void NextColor(InputAction.CallbackContext ctx)
     {
         if (ColorChangingDelay >= 0.2f)
         { 
             ColorChangingDelay = 0;
-            m_IsChanging = ctx.ReadValueAsButton();
+            m_IsChanging = ctx.ReadValueAsButton() ? 1 : 0;
+        }
+    }
+
+    public void PreviousColor(InputAction.CallbackContext ctx)
+    {
+        if (ColorChangingDelay >= 0.2f)
+        {
+            ColorChangingDelay = 0;
+            m_IsChanging = ctx.ReadValueAsButton() ? -1 : 0;
         }
     }
 
