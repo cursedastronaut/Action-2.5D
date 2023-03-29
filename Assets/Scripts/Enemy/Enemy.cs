@@ -9,18 +9,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform[] m_Path;
 
     //Game Programming Variables
-    private float initY = 0;
-    private bool isCalculatingPath = false;
-    private Transform m_Target;
-    private int m_CurrentPath;
-    private NavMeshAgent m_Agent;
-    private SphereCollider m_RangeSphere;
+    [SerializeField] private Transform m_DetectionBox;
+    private float           initY               = 0;
+    private bool            isCalculatingPath   = false;
+    private Transform       m_Target;
+    private int             m_CurrentPath;
+    private NavMeshAgent    m_Agent;
 
 
     private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
-        m_RangeSphere = GetComponent<SphereCollider>();
         initY = transform.position.y;
     }
 
@@ -29,40 +28,33 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_Target)
-        {
-            m_Agent.destination = new Vector3(m_Target.position.x, initY, m_Target.position.x) ;
-        }
-
+        playerDetection();
+        //If the enemy arrived to its desired destination
         if (!m_Agent.hasPath && !isCalculatingPath)
         {
-            Debug.Log("l"+ (m_Path.Length-1));
-            Debug.Log("c"+ m_CurrentPath);
-            if (m_Path.Length-1 <= m_CurrentPath)
+            m_CurrentPath++;
+            if (m_Path.Length <= m_CurrentPath)
             {
                 m_CurrentPath = 0;
             }
-            m_Agent.SetDestination( new Vector3(m_Path[m_CurrentPath++].position.x, initY, m_Path[m_CurrentPath].position.z));
+            m_Agent.SetDestination( new Vector3(m_Path[m_CurrentPath].position.x, initY, m_Path[m_CurrentPath].position.z));
             isCalculatingPath = true;
         }
+        //In case path calculation takes more than one frame, we use this variable
         if (m_Agent.hasPath && isCalculatingPath)
             isCalculatingPath = false;
 
         transform.position = new Vector3(transform.position.x, initY, transform.position.z);
     }
-    private void OnTriggerEnter(Collider other)
+    
+    private void playerDetection()
     {
-        if (other.gameObject.CompareTag("Player"))
+        Debug.Log(m_DetectionBox.localScale);
+        Collider[] objArray = Physics.OverlapBox(m_DetectionBox.position, m_DetectionBox.localScale);
+        foreach (var obj in objArray)
         {
-            m_Target = other.transform;
+            if (obj.CompareTag("Player"))
+                Debug.Log("Player detected");
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            m_Target = null;
-        }
-    }
-
 }
