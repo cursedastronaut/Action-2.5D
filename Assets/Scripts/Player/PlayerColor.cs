@@ -11,7 +11,8 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private float defColorTimer;
 
     //Game Programming Variables
-    [SerializeField] private GameObject UI;
+    [SerializeField] private GameObject UIColPalette;
+    [SerializeField] private GameObject UIColPaletteSelected;
     [SerializeField] private RectTransform UIGauge;
 
     //Color Change Variables
@@ -34,7 +35,7 @@ public class PlayerColor : MonoBehaviour
     {
         m_Renderer = GetComponentInChildren<Renderer>();
         m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[0];
-        m_UiColorPalette_initialPos = UI.transform.position;
+        m_UiColorPalette_initialPos = UIColPalette.transform.position;
         m_UIGauge_maxSize = UIGauge.sizeDelta;
         m_UIGauge_InitialPosition = UIGauge.GetComponentInParent<Transform>().position;
         m_ColorTimer = defColorTimer;
@@ -50,6 +51,11 @@ public class PlayerColor : MonoBehaviour
         if (m_IsChanging != 0)
         {
             ColorIndex += m_IsChanging;
+            Debug.Log((ColorUnlocked - ColorIndex));
+            Debug.Log((ColorUnlocked - ColorIndex) * 48);
+            Debug.Log(-(ColorUnlocked - ColorIndex) * 48);
+            Debug.Log(-((ColorUnlocked - ColorIndex) * 48));
+            UIColPaletteSelected.transform.position = new Vector3(-(ColorUnlocked - ColorIndex) * 48  , UIColPalette.transform.position.y, UIColPalette.transform.position.z);
             m_IsChanging = 0;
         }
 
@@ -69,7 +75,7 @@ public class PlayerColor : MonoBehaviour
     //Reads input corresponding to the color change.
     public void NextColor(InputAction.CallbackContext ctx)
     {
-        if (ColorChangingDelay >= 0.2f && m_ColorTimer <= 0)
+        if (ColorChangingDelay >= 0.2f && m_ColorTimer >= 0)
         { 
             ColorChangingDelay = 0;
             m_IsChanging = ctx.ReadValueAsButton() ? 1 : 0;
@@ -78,7 +84,7 @@ public class PlayerColor : MonoBehaviour
 
     public void PreviousColor(InputAction.CallbackContext ctx)
     {
-        if (ColorChangingDelay >= 0.2f && m_ColorTimer <= 0)
+        if (ColorChangingDelay >= 0.2f && m_ColorTimer >= 0)
         {
             ColorChangingDelay = 0;
             m_IsChanging = ctx.ReadValueAsButton() ? -1 : 0;
@@ -88,12 +94,11 @@ public class PlayerColor : MonoBehaviour
     //Handles Color Palette UI (to show all colors you call loop through)
     private void UIColorPalette()
     {
-        UI.transform.position = new Vector3(m_UiColorPalette_initialPos.x - (UI.GetComponent<RectTransform>().sizeDelta.y * (ColorUnlocked+1)) * UI.transform.localScale.x, m_UiColorPalette_initialPos.y, m_UiColorPalette_initialPos.z);
+        UIColPalette.transform.position = new Vector3(m_UiColorPalette_initialPos.x - (UIColPalette.GetComponent<RectTransform>().sizeDelta.y * (ColorUnlocked+1)) * UIColPalette.transform.localScale.x, m_UiColorPalette_initialPos.y, m_UiColorPalette_initialPos.z);
     }
 
     private void UIColorGauge()
     {
-        Debug.Log(m_ColorTimer);
         if (m_ColorTimer < 0)
             ColorIndex = 0;
         if (ColorIndex == 0)
