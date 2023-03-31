@@ -51,18 +51,17 @@ public class PlayerColor : MonoBehaviour
         if (m_IsChanging != 0)
         {
             ColorIndex += m_IsChanging;
-            Debug.Log((ColorUnlocked - ColorIndex));
-            Debug.Log((ColorUnlocked - ColorIndex) * 48);
-            Debug.Log(-(ColorUnlocked - ColorIndex) * 48);
-            Debug.Log(-((ColorUnlocked - ColorIndex) * 48));
-            UIColPaletteSelected.transform.position = new Vector3(-(ColorUnlocked - ColorIndex) * 48  , UIColPalette.transform.position.y, UIColPalette.transform.position.z);
+           
             m_IsChanging = 0;
         }
+        RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
+        rt.transform.localPosition = new Vector3(ColorIndex * 96, rt.localPosition.y, 0);
 
         if (ColorIndex > ColorUnlocked || ColorIndex > NumberOfColors)
             ColorIndex = 0;
         if (ColorIndex < 0)
             ColorIndex = ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked;
+        Debug.Log(ColorIndex);
 
         if (ColorIndex != PreviousIndex)
         {
