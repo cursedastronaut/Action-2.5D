@@ -786,6 +786,7 @@ MonoBehaviour:
   DefaultSprintSpeed: 10
   DefaultJumpForce: 10
   DefaultSprintDelay: 0.5
+  DefaultSprintOffsetDelay: 0
   DeadZone: 0.1
   m_Rigidbody: {fileID: 815107008}
 --- !u!136 &815107007
@@ -845,7 +846,6 @@ MonoBehaviour:
   UIGauge: {fileID: 1597466994}
   ColorIndex: 0
   ColorUnlocked: 6
-  owo: 96
   m_Renderer: {fileID: 1593128685}
 --- !u!1 &1289573924
 GameObject:

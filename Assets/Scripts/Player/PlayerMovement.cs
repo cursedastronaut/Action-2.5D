@@ -11,11 +11,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DefaultSprintSpeed;
     [SerializeField] private float DefaultJumpForce;
     [SerializeField] private float DefaultSprintDelay;
+    [SerializeField] private float DefaultSprintOffsetDelay;
     [SerializeField] private float DeadZone;
 
     //Game Programming Variables
     private Vector2     m_MovementInput = Vector2.zero;
     private bool        m_isSprinting   = false;
+    private bool        m_canSprint   = false;
     private bool        m_isJumping     = false;
     private float       m_SprintDelay   = 0.0f;
     [SerializeField]
@@ -31,11 +33,13 @@ public class PlayerMovement : MonoBehaviour
     {
         bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
         if ( (m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint) )
-            m_isSprinting = true;
+            m_canSprint = true;
         if (m_MovementInput.x > DeadZone || m_MovementInput.x < -DeadZone)
             m_SprintDelay += Time.deltaTime;
         if (m_MovementInput.x < DeadZone && m_MovementInput.x > -DeadZone)
         { m_SprintDelay = 0; m_isSprinting = false; }
+        if (m_canSprint && m_SprintDelay >= DefaultSprintDelay + DefaultSprintOffsetDelay)
+            m_isSprinting = true;
 
         //Movement depending of input
         float currentSpeed = m_isSprinting == true ? DefaultSprintSpeed : DefaultSpeed;
