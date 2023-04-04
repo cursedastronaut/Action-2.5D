@@ -849,19 +849,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllColorsPlayerCanSwitchThrough:
   - {r: 0, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0.14668608, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0, b: 0.8941431, a: 1}
-  - {r: 0, g: 1, b: 0.16855001, a: 1}
-  - {r: 1, g: 0.9423084, b: 0, a: 1}
+  - {r: 0.9647059, g: 0.8235294, b: 0.34509805, a: 1}
+  - {r: 0, g: 0.54509807, b: 0.7254902, a: 1}
   defColorCooldown: 10
   defColorTimer: 10
   UIColPalette: {fileID: 566162332}
   UIColPaletteSelected: {fileID: 336051675}
   UIGauge: {fileID: 1597466994}
   ColorIndex: 0
-  ColorUnlocked: 6
+  ColorUnlocked: 2
   m_Renderer: {fileID: 1593128685}
 --- !u!1 &1289573924
 GameObject:
