@@ -20,9 +20,9 @@ public class ColorObject : MonoBehaviour
     void FixedUpdate()
     {
         if (SingletonPlayerColor.instance.GetPlayerColor() == colorIndex)
-            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<BoxCollider>().isTrigger = true;
         else
-            GetComponent<BoxCollider>().enabled = true;
+            GetComponent<BoxCollider>().isTrigger = false;
 
         m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[colorIndex];
     }
