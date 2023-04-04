@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -15,14 +16,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DefaultSprintOffsetDelay;
     [SerializeField] private float DeadZone;
     [SerializeField] private float DistanceObject;
+    [SerializeField] private float WallSlidingSpeed;
 
     //Game Programming Variables
-    private Vector2     m_MovementInput = Vector2.zero;
-    private bool        m_isSprinting   = false;
-    private bool        m_canSprint   = false;
-    private bool        m_isJumping     = false;
-    private float       m_SprintDelay   = 0.0f;
-    public bool         m_isHide = false;
+    private Vector2 m_MovementInput = Vector2.zero;
+    private bool m_isSprinting = false;
+    private bool m_canSprint = false;
+    private bool m_isJumping = false;
+    private float m_SprintDelay = 0.0f;
+    private bool m_isWallSliding;
+    public bool m_isHide = false;
     [SerializeField]
     private Rigidbody m_Rigidbody;
 
@@ -35,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
-        if ( (m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint) )
+        if ((m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint))
             m_canSprint = true;
         if (m_MovementInput.x > DeadZone || m_MovementInput.x < -DeadZone)
             m_SprintDelay += Time.deltaTime;
@@ -49,18 +52,36 @@ public class PlayerMovement : MonoBehaviour
         transform.position += (transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime;
 
         //Jump
-        if (m_isJumping && isThereFloor())
+        if (m_isJumping && isThereFloor() || m_isJumping && isThereWall() )
             m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
     }
-    
+
     //Checks if there is floor under the player.
     private bool isThereFloor()
     {
         //TODO: Make it work
-       foreach (var obj in Physics.OverlapSphere(transform.position - new Vector3(0, 1.2f, 0), 0.1f))
-       {
+        foreach (var obj in Physics.OverlapSphere(transform.position - new Vector3(0, 1.2f, 0), 0.1f))
+        {
             return true;
-       }
+        }
+        return false;
+    }
+
+    private bool isThereWall()
+    {
+        for (int i = -1; i <= 1; i+=2)
+        { 
+            if (Physics.Raycast(transform.position, Vector3.right * i, out RaycastHit hit, 0.9f))
+            {
+                if (hit.collider.gameObject.CompareTag("Obstacle"))
+                {
+                    return true;
+            
+                }
+                else
+                    return false;
+            }
+        }
         return false;
     }
 
@@ -74,21 +95,6 @@ public class PlayerMovement : MonoBehaviour
         m_isJumping = context.ReadValueAsButton();
     }
 
-    private void Hide()
-    {
+    
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.back, out hit))
-        {
-            if (hit.distance >= DistanceObject)
-                if (hit.collider.CompareTag("Object"))
-                {
-                    m_isHide = true;
-                }
-                else
-                {
-                    m_isHide = false;
-                }
-        }
-    }
 }
