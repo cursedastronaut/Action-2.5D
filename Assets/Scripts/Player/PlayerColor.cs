@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerColor : MonoBehaviour
 {
     //Game Design Variables
-    [SerializeField] private Color[] AllColorsPlayerCanSwitchThrough;
     [SerializeField] private float defColorCooldown;
     [SerializeField] private float defColorTimer;
 
@@ -35,7 +34,7 @@ public class PlayerColor : MonoBehaviour
     {
         SingletonPlayerColor.instance.ModifyColorIndex(0);
         m_Renderer = GetComponentInChildren<Renderer>();
-        m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[0];
+        m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[0];
         m_UiColorPalette_initialPos = UIColPalette.transform.position;
         m_UIGauge_maxSize = UIGauge.sizeDelta;
         m_UIGauge_InitialPosition = UIGauge.GetComponentInParent<Transform>().position;
@@ -46,7 +45,7 @@ public class PlayerColor : MonoBehaviour
     {
         //If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
         ColorChangingDelay += Time.deltaTime;
-        int NumberOfColors = AllColorsPlayerCanSwitchThrough.Length-1;
+        int NumberOfColors = SingletonPlayerColor.instance.SelectableColors.Length-1;
         UIColorGauge();
         if (m_IsChanging != 0)
         {
@@ -65,7 +64,7 @@ public class PlayerColor : MonoBehaviour
 
         if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex)
         {
-            m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[SingletonPlayerColor.instance.GetPlayerColor()];
+            m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
         }
         UIColorPalette();
         PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();

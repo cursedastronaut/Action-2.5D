@@ -450,7 +450,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorIndex: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &646148953
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,15 +991,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99fcc6681d55e74fbdd3471ec55c2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllColorsPlayerCanSwitchThrough:
-  - {r: 0, g: 0, b: 0, a: 1}
-  - {r: 0.9647059, g: 0.8235294, b: 0.34509805, a: 1}
-  - {r: 0, g: 0.54509807, b: 0.7254902, a: 1}
   defColorCooldown: 10
   defColorTimer: 10
   UIColPalette: {fileID: 566162332}
   UIColPaletteSelected: {fileID: 336051675}
   UIGauge: {fileID: 1597466994}
+  isHidden: 0
   ColorUnlocked: 2
   m_Renderer: {fileID: 1593128685}
 --- !u!114 &815107010
@@ -1016,6 +1012,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ColorIndex: 0
+  SelectableColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.96470594, g: 0.8235295, b: 0.34509805, a: 0}
+  - {r: 0, g: 0.54509807, b: 0.7254902, a: 0}
 --- !u!1 &1289573924
 GameObject:
   m_ObjectHideFlags: 0
