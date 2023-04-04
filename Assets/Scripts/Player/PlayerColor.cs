@@ -14,6 +14,7 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private GameObject UIColPalette;
     [SerializeField] private GameObject UIColPaletteSelected;
     [SerializeField] private RectTransform UIGauge;
+    public  bool    isHidden            = false;
 
     //Color Change Variables
     public  int     ColorUnlocked       = 0;
@@ -116,5 +117,17 @@ public class PlayerColor : MonoBehaviour
             UIGauge.sizeDelta.y);    
     }
 
-    
+    public void Hide(InputAction.CallbackContext context)
+    {
+        if (!context.ReadValueAsButton())
+        { isHidden = false; return; }
+        foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.1f)))
+        {
+            if (obj.CompareTag("Object") &&
+                obj.GetComponent<ColorObject>().colorIndex == SingletonPlayerColor.instance.GetPlayerColor()) //If ObjectColor == PlayerColor
+            {
+                isHidden = true;
+            }
+        }
+    }
 }
