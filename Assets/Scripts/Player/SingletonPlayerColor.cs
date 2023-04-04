@@ -7,6 +7,7 @@ public class SingletonPlayerColor : MonoBehaviour
 {
     public int ColorIndex = 0;
     public static SingletonPlayerColor instance;
+    [SerializeField] public Color[] SelectableColors;
 
     private void Awake()
     {

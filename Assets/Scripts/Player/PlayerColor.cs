@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerColor : MonoBehaviour
 {
     //Game Design Variables
-    [SerializeField] private Color[] AllColorsPlayerCanSwitchThrough;
     [SerializeField] private float defColorCooldown;
     [SerializeField] private float defColorTimer;
 
@@ -14,6 +13,8 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private GameObject UIColPalette;
     [SerializeField] private GameObject UIColPaletteSelected;
     [SerializeField] private RectTransform UIGauge;
+    public  bool    isHidden            = false;
+    private bool    prev_isHidden       = false;
 
     //Color Change Variables
     public  int     ColorUnlocked       = 0;
@@ -34,7 +35,8 @@ public class PlayerColor : MonoBehaviour
     {
         SingletonPlayerColor.instance.ModifyColorIndex(0);
         m_Renderer = GetComponentInChildren<Renderer>();
-        m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[0];
+        Color temp = SingletonPlayerColor.instance.SelectableColors[0];
+        m_Renderer.material.color = new Color(temp.r, temp.g, temp.b, 1.0f) ;
         m_UiColorPalette_initialPos = UIColPalette.transform.position;
         m_UIGauge_maxSize = UIGauge.sizeDelta;
         m_UIGauge_InitialPosition = UIGauge.GetComponentInParent<Transform>().position;
@@ -45,7 +47,7 @@ public class PlayerColor : MonoBehaviour
     {
         //If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
         ColorChangingDelay += Time.deltaTime;
-        int NumberOfColors = AllColorsPlayerCanSwitchThrough.Length-1;
+        int NumberOfColors = SingletonPlayerColor.instance.SelectableColors.Length-1;
         UIColorGauge();
         if (m_IsChanging != 0)
         {
@@ -61,11 +63,16 @@ public class PlayerColor : MonoBehaviour
         if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
             SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
         
-
-        if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex)
+        
+        if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
         {
-            m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[SingletonPlayerColor.instance.GetPlayerColor()];
+            Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
+            m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, isHidden ? 0.5f : 1.0f );
+            prev_isHidden = isHidden;
         }
+
+        if (isHidden)
+            HideCheck();
         UIColorPalette();
         PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
     }
@@ -116,5 +123,24 @@ public class PlayerColor : MonoBehaviour
             UIGauge.sizeDelta.y);    
     }
 
-    
+    public void Hide(InputAction.CallbackContext context)
+    {
+        /*if (!context.ReadValueAsButton())
+        { return; }*/
+        HideCheck();
+    }
+
+    private void HideCheck()
+    {
+        foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.1f)))
+        {
+            if (obj.tag == "Object" /*&&
+                obj.GetComponent<ColorObject>().colorIndex == SingletonPlayerColor.instance.GetPlayerColor()*/) //If ObjectColor == PlayerColor
+            {
+                isHidden = true;
+                return;
+            }
+        }
+        isHidden = false;
+    }
 }

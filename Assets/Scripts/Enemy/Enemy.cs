@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
         Collider[] objArray = Physics.OverlapBox(m_DetectionBox.position, m_DetectionBox.localScale);
         foreach (var obj in objArray)
         {
-            if (obj.CompareTag("Player"))
+            if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
                 Debug.Log("Player detected");
         }
     }

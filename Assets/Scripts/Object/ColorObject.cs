@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class ColorObject : MonoBehaviour
 {
+    //Game Design Variables
     [SerializeField] public int    colorIndex;
-    [SerializeField] private Color  color;
+
+    // Game Programming Variables
+    Renderer m_Renderer;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_Renderer = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         if (SingletonPlayerColor.instance.GetPlayerColor() == colorIndex)
-            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<BoxCollider>().isTrigger = true;
         else
-            GetComponent<BoxCollider>().enabled = true;
+            GetComponent<BoxCollider>().isTrigger = false;
+
+        m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[colorIndex];
     }
 
     

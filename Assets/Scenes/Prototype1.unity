@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 637406870}
   m_Layer: 0
   m_Name: BlockColor
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -450,7 +450,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorIndex: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &646148953
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +923,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b62f80d1-9e9b-46c2-9535-3ac4dc107249
     m_ActionName: Player/Color Change -[/XInputControllerWindows/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 815107009}
+        m_TargetAssemblyTypeName: PlayerColor, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 382f3315-435c-4ec0-a771-9d2b1dd225c9
+    m_ActionName: Player/Hide[/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -992,15 +1007,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99fcc6681d55e74fbdd3471ec55c2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllColorsPlayerCanSwitchThrough:
-  - {r: 0, g: 0, b: 0, a: 1}
-  - {r: 0.9647059, g: 0.8235294, b: 0.34509805, a: 1}
-  - {r: 0, g: 0.54509807, b: 0.7254902, a: 1}
   defColorCooldown: 10
   defColorTimer: 10
   UIColPalette: {fileID: 566162332}
   UIColPaletteSelected: {fileID: 336051675}
   UIGauge: {fileID: 1597466994}
+  isHidden: 0
   ColorUnlocked: 2
   m_Renderer: {fileID: 1593128685}
 --- !u!114 &815107010
@@ -1016,6 +1028,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ColorIndex: 0
+  SelectableColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.96470594, g: 0.8235295, b: 0.34509805, a: 0.5019608}
+  - {r: 0, g: 0.54509807, b: 0.7254902, a: 0}
 --- !u!1 &1289573924
 GameObject:
   m_ObjectHideFlags: 0
