@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DefaultSprintDelay;
     [SerializeField] private float DefaultSprintOffsetDelay;
     [SerializeField] private float DeadZone;
+    [SerializeField] private float DistanceObject;
 
     //Game Programming Variables
     private Vector2     m_MovementInput = Vector2.zero;
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private bool        m_canSprint   = false;
     private bool        m_isJumping     = false;
     private float       m_SprintDelay   = 0.0f;
+    public bool         m_isHide = false;
     [SerializeField]
     private Rigidbody m_Rigidbody;
 
@@ -71,4 +74,21 @@ public class PlayerMovement : MonoBehaviour
         m_isJumping = context.ReadValueAsButton();
     }
 
+    private void Hide()
+    {
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.back, out hit))
+        {
+            if (hit.distance >= DistanceObject)
+                if (hit.collider.CompareTag("Object"))
+                {
+                    m_isHide = true;
+                }
+                else
+                {
+                    m_isHide = false;
+                }
+        }
+    }
 }

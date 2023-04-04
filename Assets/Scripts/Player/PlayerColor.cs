@@ -46,7 +46,6 @@ public class PlayerColor : MonoBehaviour
         //If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
         ColorChangingDelay += Time.deltaTime;
         int NumberOfColors = AllColorsPlayerCanSwitchThrough.Length-1;
-
         UIColorGauge();
         if (m_IsChanging != 0)
         {
@@ -116,4 +115,6 @@ public class PlayerColor : MonoBehaviour
             Mathf.Abs(newScale),
             UIGauge.sizeDelta.y);    
     }
+
+    
 }
