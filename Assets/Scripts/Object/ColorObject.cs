@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ColorObject : MonoBehaviour
 {
-    [SerializeField] private PlayerColor player;
-    [SerializeField] public uint ColorID;
+    [SerializeField] public int    colorIndex;
+    [SerializeField] private Color  color;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,13 +13,13 @@ public class ColorObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        if (SingletonPlayerColor.instance.GetPlayerColor() == colorIndex)
+            GetComponent<BoxCollider>().enabled = false;
+        else
+            GetComponent<BoxCollider>().enabled = true;
     }
 
-    public uint GetColorID()
-    {
-        return ColorID;
-    }
+    
 }

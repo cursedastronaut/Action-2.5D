@@ -16,7 +16,6 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private RectTransform UIGauge;
 
     //Color Change Variables
-    public  int     ColorIndex          = 0;
     public  int     ColorUnlocked       = 0;
     private int     PreviousIndex       = 0;
     private int     m_IsChanging        = 0;
@@ -33,6 +32,7 @@ public class PlayerColor : MonoBehaviour
 
     void Start()
     {
+        SingletonPlayerColor.instance.ModifyColorIndex(0);
         m_Renderer = GetComponentInChildren<Renderer>();
         m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[0];
         m_UiColorPalette_initialPos = UIColPalette.transform.position;
@@ -49,25 +49,25 @@ public class PlayerColor : MonoBehaviour
         UIColorGauge();
         if (m_IsChanging != 0)
         {
-            ColorIndex += m_IsChanging;
+            SingletonPlayerColor.instance.AddToPlayerColor(m_IsChanging);
            
             m_IsChanging = 0;
         }
         RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
-        rt.transform.localPosition = new Vector3(ColorIndex * 96, rt.localPosition.y, 0);
+        rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
 
-        if (ColorIndex > ColorUnlocked || ColorIndex > NumberOfColors)
-            ColorIndex = 0;
-        if (ColorIndex < 0)
-            ColorIndex = ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked;
-        Debug.Log(ColorIndex);
+        if (SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked || SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
+            SingletonPlayerColor.instance.ModifyColorIndex(0);
+        if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
+            SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
+        
 
-        if (ColorIndex != PreviousIndex)
+        if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex)
         {
-            m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[ColorIndex];
+            m_Renderer.material.color = AllColorsPlayerCanSwitchThrough[SingletonPlayerColor.instance.GetPlayerColor()];
         }
         UIColorPalette();
-        PreviousIndex = ColorIndex;
+        PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
     }
 
     //Reads input corresponding to the color change.
@@ -98,8 +98,8 @@ public class PlayerColor : MonoBehaviour
     private void UIColorGauge()
     {
         if (m_ColorTimer < 0)
-            ColorIndex = 0;
-        if (ColorIndex == 0)
+            SingletonPlayerColor.instance.ModifyColorIndex(0);
+        if (SingletonPlayerColor.instance.GetPlayerColor() == 0)
         {
             if (m_ColorTimer < 0)
                 m_ColorTimer -= Time.deltaTime;
