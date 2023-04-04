@@ -78,8 +78,6 @@ public class PlayerMovement : MonoBehaviour
                     return true;
             
                 }
-                else
-                    return false;
             }
         }
         return false;
