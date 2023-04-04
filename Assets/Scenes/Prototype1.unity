@@ -798,10 +798,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultSpeed: 5
   DefaultSprintSpeed: 10
-  DefaultJumpForce: 10
+  DefaultJumpForce: 1
   DefaultSprintDelay: 0.5
   DefaultSprintOffsetDelay: 0
   DeadZone: 0.1
+  DistanceObject: 0
+  m_isHide: 0
   m_Rigidbody: {fileID: 815107008}
 --- !u!136 &815107007
 CapsuleCollider:
