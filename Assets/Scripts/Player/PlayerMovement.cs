@@ -51,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
         //Jump
         if (m_isJumping && isThereFloor())
             m_Rigidbody.AddForce(0, DefaultJumpForce, 0);
+
+        //Hiding
+        Hide();
     }
     
     //Checks if there is floor under the player.
