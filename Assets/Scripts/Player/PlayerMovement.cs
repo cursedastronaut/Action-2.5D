@@ -12,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DefaultSpeed;
     [SerializeField] private float DefaultSprintSpeed;
     [SerializeField] private float DefaultJumpForce;
+    [SerializeField] private float DefaultWallJumpForce;
     [SerializeField] private float DefaultSprintDelay;
     [SerializeField] private float DefaultSprintOffsetDelay;
     [SerializeField] private float DeadZone;
     [SerializeField] private float DistanceObject;
     [SerializeField] private float WallSlidingSpeed;
+    
 
     //Game Programming Variables
     private Vector2 m_MovementInput = Vector2.zero;
@@ -24,8 +26,9 @@ public class PlayerMovement : MonoBehaviour
     private bool m_canSprint = false;
     private bool m_isJumping = false;
     private float m_SprintDelay = 0.0f;
-    private bool m_isWallSliding;
+    private bool m_WallJump;
     public bool m_isHide = false;
+    
     [SerializeField]
     private Rigidbody m_Rigidbody;
 
@@ -52,8 +55,18 @@ public class PlayerMovement : MonoBehaviour
         transform.position += (transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime;
 
         //Jump
-        if (m_isJumping && isThereFloor() || m_isJumping && isThereWall() )
+        if (m_isJumping && isThereFloor() )
             m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
+        else if (isThereWall())
+        {
+            WallSliding();
+            if (m_isJumping)
+            {
+                WallJump();
+            }
+        }
+
+        
     }
 
     //Checks if there is floor under the player.
@@ -71,18 +84,29 @@ public class PlayerMovement : MonoBehaviour
     {
         for (int i = -1; i <= 1; i+=2)
         { 
-            if (Physics.Raycast(transform.position, Vector3.right * i, out RaycastHit hit, 0.9f))
-            {
-                if (hit.collider.gameObject.CompareTag("Obstacle"))
-                {
+            if (Physics.Raycast(transform.position, Vector3.right * i, out RaycastHit hit, 0.6f))
+                if (hit.collider.gameObject.CompareTag("Object"))
                     return true;
-            
-                }
-            }
         }
         return false;
     }
 
+    private void WallSliding()
+    {
+        Vector3 PlayerVelocity = m_Rigidbody.velocity;
+
+        PlayerVelocity.y = Mathf.Clamp(PlayerVelocity.y, -WallSlidingSpeed, float.MaxValue);
+        m_Rigidbody.velocity = PlayerVelocity;
+    }
+
+    private void WallJump()
+    {
+        if (Physics.Raycast(transform.position, Vector3.left, out RaycastHit hit, 0.6f))
+            m_Rigidbody.velocity = new Vector3(transform.right.x * DefaultWallJumpForce , DefaultWallJumpForce, 0);
+        else
+            m_Rigidbody.velocity = new Vector3(-transform.right.x * DefaultWallJumpForce, DefaultWallJumpForce, 0);
+        m_WallJump = true;
+    }
     public void Move(InputAction.CallbackContext context)
     {
         m_MovementInput = context.ReadValue<Vector2>();
