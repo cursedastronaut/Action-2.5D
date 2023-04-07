@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -73,8 +74,21 @@ public class PlayerColor : MonoBehaviour
 
         if (isHidden)
             HideCheck();
+        wallCheck();
         UIColorPalette();
         PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
+    }
+
+    private void wallCheck()
+    {
+        foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.01f, 0.01f, 0.01f)))
+        {
+            if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != obj.GetComponent<ColorObject>().colorIndex) //If ObjectColor == PlayerColor
+            {
+                GetComponent<PlayerDeath>().killPlayer();
+                return;
+            }
+        }
     }
 
     //Reads input corresponding to the color change.

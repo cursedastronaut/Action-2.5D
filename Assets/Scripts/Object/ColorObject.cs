@@ -9,6 +9,7 @@ public class ColorObject : MonoBehaviour
 
     // Game Programming Variables
     Renderer m_Renderer;
+    private bool m_Bool;
 
     // Start is called before the first frame update
     void Start()
@@ -27,5 +28,5 @@ public class ColorObject : MonoBehaviour
         m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[colorIndex];
     }
 
-    
+   
 }
