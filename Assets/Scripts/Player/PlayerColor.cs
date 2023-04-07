@@ -74,12 +74,12 @@ public class PlayerColor : MonoBehaviour
 
         if (isHidden)
             HideCheck();
-        wallCheck();
+        objectCheck();
         UIColorPalette();
         PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
     }
 
-    private void wallCheck()
+    private void objectCheck()
     {
         foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.01f, 0.01f, 0.01f)))
         {
@@ -87,6 +87,10 @@ public class PlayerColor : MonoBehaviour
             {
                 GetComponent<PlayerDeath>().killPlayer();
                 return;
+            }
+            else if (obj.tag == "Portal")
+            {
+                
             }
         }
     }
