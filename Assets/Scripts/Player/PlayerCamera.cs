@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField]    private Transform player;
-                        private float initialZPosition;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]    private Transform		player;
+                        private float			initialZPosition;
+	[SerializeField]	private AnimationCurve	CamShakeX;
+	[SerializeField]	private AnimationCurve	CamShakeY;
+	[SerializeField]	private float			CamShakeForce;
+	[SerializeField]	private float			CamShakeSpeed;
+	[HideInInspector]	public	float			ShakeTime = 0;
+	// Start is called before the first frame update
+	void Start()
     {
         initialZPosition = transform.position.z;
     }
@@ -16,5 +21,10 @@ public class PlayerCamera : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(player.position.x, player.position.y, initialZPosition);
-    }
+		if (ShakeTime > 0)
+		{
+			transform.position += new Vector3(CamShakeX.Evaluate(Time.time * CamShakeSpeed), CamShakeY.Evaluate(Time.time * CamShakeSpeed), 0) * CamShakeForce;
+			ShakeTime -= Time.deltaTime;
+		}
+	}
 }

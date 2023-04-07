@@ -14,6 +14,7 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private GameObject UIColPalette;
     [SerializeField] private GameObject UIColPaletteSelected;
     [SerializeField] private RectTransform UIGauge;
+	[SerializeField] private PlayerCamera m_Camera;
     public  bool    isHidden            = false;
     private bool    prev_isHidden       = false;
 
@@ -64,6 +65,7 @@ public class PlayerColor : MonoBehaviour
         if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
             SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
         
+
         
         if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
         {
@@ -138,7 +140,11 @@ public class PlayerColor : MonoBehaviour
         float newScale = (m_ColorTimer * (100 / (m_ColorTimer < 0 ? defColorCooldown : defColorTimer))) * (m_UIGauge_maxSize.x / 100);
         UIGauge.sizeDelta = new Vector2(
             Mathf.Abs(newScale),
-            UIGauge.sizeDelta.y);    
+            UIGauge.sizeDelta.y);
+
+		Debug.Log(m_ColorTimer/defColorTimer * 100);
+		if (m_ColorTimer / defColorTimer * 100 < 20 )
+			m_Camera.ShakeTime = 1;
     }
 
     public void Hide(InputAction.CallbackContext context)
