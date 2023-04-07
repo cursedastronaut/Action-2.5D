@@ -26,8 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool m_canSprint = false;
     private bool m_isJumping = false;
     private float m_SprintDelay = 0.0f;
-    private bool m_WallJump;
-    public bool m_isHide = false;
+    private PlayerColor m_PlayerColor;
     
     [SerializeField]
     private Rigidbody m_Rigidbody;
@@ -35,11 +34,14 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_PlayerColor = GetComponent<PlayerColor>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (m_PlayerColor.isHidden) return;
+
         bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
         if ((m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint))
             m_canSprint = true;
@@ -109,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
             m_Rigidbody.velocity = new Vector3(transform.right.x * DefaultWallJumpForce , DefaultWallJumpForce, 0);
         else
             m_Rigidbody.velocity = new Vector3(-transform.right.x * DefaultWallJumpForce, DefaultWallJumpForce, 0);
-        m_WallJump = true;
     }
     public void Move(InputAction.CallbackContext context)
     {

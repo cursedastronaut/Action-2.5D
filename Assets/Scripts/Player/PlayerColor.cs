@@ -143,9 +143,13 @@ public class PlayerColor : MonoBehaviour
 
     public void Hide(InputAction.CallbackContext context)
     {
-        /*if (!context.ReadValueAsButton())
-        { return; }*/
-        HideCheck();
+        if (isHidden)
+        {
+            isHidden = false;
+            return;
+        }
+        else
+            HideCheck();
     }
 
     private void HideCheck()
