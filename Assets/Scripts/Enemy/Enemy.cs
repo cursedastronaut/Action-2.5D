@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         foreach (var obj in objArray)
         {
             if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
-                Debug.Log("Player detected");
+                obj.GetComponent<PlayerDeath>().killPlayer();
         }
     }
 }
