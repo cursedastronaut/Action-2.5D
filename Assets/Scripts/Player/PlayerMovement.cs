@@ -75,7 +75,8 @@ public class PlayerMovement : MonoBehaviour
         //TODO: Make it work
         foreach (var obj in Physics.OverlapSphere(transform.position - new Vector3(0, 1.2f, 0), 0.1f))
         {
-            return true;
+            if (!obj.isTrigger)
+                return true;
         }
         return false;
     }
@@ -86,7 +87,10 @@ public class PlayerMovement : MonoBehaviour
         { 
             if (Physics.Raycast(transform.position, Vector3.right * i, out RaycastHit hit, 0.6f))
                 if (hit.collider.gameObject.CompareTag("Object"))
-                    return true;
+                { 
+                        UnityEngine.Debug.Log("Wall touched");
+                        return true;
+                }
         }
         return false;
     }
