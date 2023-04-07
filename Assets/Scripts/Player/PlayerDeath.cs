@@ -20,7 +20,6 @@ public class PlayerDeath : MonoBehaviour
 
     public void killPlayer()
     {
-        Debug.Log(m_Checkpoint);
         transform.position = m_Checkpoint;
     }
 

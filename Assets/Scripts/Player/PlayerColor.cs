@@ -83,7 +83,7 @@ public class PlayerColor : MonoBehaviour
     {
         foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.01f, 0.01f, 0.01f)))
         {
-            if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != obj.GetComponent<ColorObject>().currentColor) //If ObjectColor == PlayerColor
+            if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != obj.GetComponent<Platform>().currentColor) //If ObjectColor == PlayerColor
             {
                 GetComponent<PlayerDeath>().killPlayer();
                 return;
