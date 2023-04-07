@@ -29,6 +29,9 @@ public class Platform : MonoBehaviour
 	private int				m_NextPath			= 0;
 	private int				m_CurrentStep		= 0;
 	private float			m_StepTimer			= 0;
+	private bool			m_IsPlayerColliding = false;
+	private Transform		m_Player;
+
 	//Called eslewhere variables
 	[HideInInspector] public int currentColor = 0;
 
@@ -85,12 +88,34 @@ public class Platform : MonoBehaviour
 		{
 			m_CurrentStep++;
 			m_StepTimer = 0;
-			transform.position += ((m_Path[m_NextPath].position -
-			m_Path[m_CurrentPath].position) / numberOfSteps) ;
+			transform.position += ((m_Path[m_NextPath].position - m_Path[m_CurrentPath].position) / numberOfSteps) ;
+			movePlayerWithPlatform();
 		}
 		m_StepTimer += Time.fixedDeltaTime;
 		
+	}
+	private void movePlayerWithPlatform()
+	{
+		if (m_IsPlayerColliding)
+		{
+			m_Player.position = (m_Player.position - 
+			(transform.position - ((m_Path[m_NextPath].position - m_Path[m_CurrentPath].position) / numberOfSteps)))
+			+ transform.position;
+		}
+	}
 
-		
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.collider.CompareTag("Player"))
+		{
+			m_IsPlayerColliding = true;
+			m_Player = collision.collider.transform;
+		}
+	}
+	private void OnCollisionExit(Collision collision)
+	{
+		if (collision.collider.CompareTag("Player"))
+			m_IsPlayerColliding = false;
 	}
 }
