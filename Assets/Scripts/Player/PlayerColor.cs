@@ -6,167 +6,189 @@ using UnityEngine.InputSystem;
 
 public class PlayerColor : MonoBehaviour
 {
-    //Game Design Variables
-    [SerializeField] private float defColorCooldown;
-    [SerializeField] private float defColorTimer;
+	//Game Design Variables
+	[Header("Game Design Variables")]
+	[SerializeField][Tooltip("The time in seconds it takes to return to a full gauge.")]
+		private float defColorCooldown;
+	[SerializeField][Tooltip("The time in seconds it takes for the gauge to fully drain.")]
+		private float defColorTimer;
 
-    //Game Programming Variables
-    [SerializeField] private GameObject UIColPalette;
-    [SerializeField] private GameObject UIColPaletteSelected;
-    [SerializeField] private RectTransform UIGauge;
-	[SerializeField] private PlayerCamera m_Camera;
-    public  bool    isHidden            = false;
-    private bool    prev_isHidden       = false;
+	//Game Programming Variables
+	[Header("Game Programming Variables")]
+	[SerializeField]	private bool			ShowGPVariables		= false;
 
-    //Color Change Variables
-    public  int     ColorUnlocked       = 0;
-    private int     PreviousIndex       = 0;
-    private int     m_IsChanging        = 0;
-    private float   ColorChangingDelay = 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField] 
+		private GameObject		UIColPalette;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private GameObject		UIColPaletteSelected;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private RectTransform	UIGauge;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private PlayerCamera	m_Camera;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		public  bool			isHidden							= false;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private bool			prev_isHidden						= false;
 
-    //UI Color Palette
-    private Vector3 m_UiColorPalette_initialPos;
-    //UI Color Gauge
-    private Vector2 m_UIGauge_maxSize;
-    private Vector3 m_UIGauge_InitialPosition;
-    private float m_ColorTimer;
+	//Color Change Variables
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		public  int		ColorUnlocked		= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private int		PreviousIndex		= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private int		m_IsChanging		= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private float   ColorChangingDelay	= 0;
 
-    [SerializeField] private Renderer m_Renderer;
+	//UI Color Palette
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private Vector3 m_UiColorPalette_initialPos;
+	//UI Color Gauge
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private Vector2 m_UIGauge_maxSize;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private Vector3 m_UIGauge_InitialPosition;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private float m_ColorTimer;
 
-    void Start()
-    {
-        SingletonPlayerColor.instance.ModifyColorIndex(0);
-        m_Renderer = GetComponentInChildren<Renderer>();
-        Color temp = SingletonPlayerColor.instance.SelectableColors[0];
-        m_Renderer.material.color = new Color(temp.r, temp.g, temp.b, 1.0f) ;
-        m_UiColorPalette_initialPos = UIColPalette.transform.position;
-        m_UIGauge_maxSize = UIGauge.sizeDelta;
-        m_UIGauge_InitialPosition = UIGauge.GetComponentInParent<Transform>().position;
-        m_ColorTimer = defColorTimer;
-    }
-    
-    void Update()
-    {
-        //If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
-        ColorChangingDelay += Time.deltaTime;
-        int NumberOfColors = SingletonPlayerColor.instance.SelectableColors.Length-1;
-        UIColorGauge();
-        if (m_IsChanging != 0)
-        {
-            SingletonPlayerColor.instance.AddToPlayerColor(m_IsChanging);
-           
-            m_IsChanging = 0;
-        }
-        RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
-        rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private Renderer m_Renderer;
 
-        if (SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked || SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
-            SingletonPlayerColor.instance.ModifyColorIndex(0);
-        if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
-            SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
-        
+	void Start()
+	{
+		if (ShowGPVariables) { } //Avoid a warning.
+		SingletonPlayerColor.instance.ModifyColorIndex(0);
+		m_Renderer = GetComponentInChildren<Renderer>();
+		Color temp = SingletonPlayerColor.instance.SelectableColors[0];
+		m_Renderer.material.color = new Color(temp.r, temp.g, temp.b, 1.0f) ;
+		m_UiColorPalette_initialPos = UIColPalette.transform.position;
+		m_UIGauge_maxSize = UIGauge.sizeDelta;
+		m_UIGauge_InitialPosition = UIGauge.GetComponentInParent<Transform>().position;
+		m_ColorTimer = defColorTimer;
+	}
+	
+	void Update()
+	{
+		//If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
+		ColorChangingDelay += Time.deltaTime;
+		int NumberOfColors = SingletonPlayerColor.instance.SelectableColors.Length-1;
+		UIColorGauge();
+		if (m_IsChanging != 0)
+		{
+			SingletonPlayerColor.instance.AddToPlayerColor(m_IsChanging);
+		   
+			m_IsChanging = 0;
+		}
+		RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
+		rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
 
-        
-        if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
-        {
-            Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
-            m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, isHidden ? 0.5f : 1.0f );
-            prev_isHidden = isHidden;
-        }
+		if (SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked || SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
+			SingletonPlayerColor.instance.ModifyColorIndex(0);
+		if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
+			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
+		
 
-        if (isHidden)
-            HideCheck();
-        objectCheck();
-        UIColorPalette();
-        PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
-    }
+		
+		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
+		{
+			Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
+			m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, isHidden ? 0.5f : 1.0f );
+			prev_isHidden = isHidden;
+		}
 
-    private void objectCheck()
-    {
-        foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.01f, 0.01f, 0.01f)))
-        {
-            if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != obj.GetComponent<Platform>().currentColor) //If ObjectColor == PlayerColor
-            {
-                GetComponent<PlayerDeath>().killPlayer();
-                return;
-            }
-            else if (obj.tag == "Portal")
-            {
-                
-            }
-        }
-    }
+		if (isHidden)
+			HideCheck();
+		objectCheck();
+		UIColorPalette();
+		PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
+	}
 
-    //Reads input corresponding to the color change.
-    public void NextColor(InputAction.CallbackContext ctx)
-    {
-        if (ColorChangingDelay >= 0.2f && m_ColorTimer >= 0)
-        { 
-            ColorChangingDelay = 0;
-            m_IsChanging = ctx.ReadValueAsButton() ? 1 : 0;
-        }
-    }
+	private void objectCheck()
+	{
+		foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.01f, 0.01f, 0.01f)))
+		{
+			if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != obj.GetComponent<Platform>().currentColor) //If ObjectColor == PlayerColor
+			{
+				GetComponent<PlayerDeath>().killPlayer();
+				return;
+			}
+			else if (obj.tag == "Portal")
+			{
+				
+			}
+		}
+	}
 
-    public void PreviousColor(InputAction.CallbackContext ctx)
-    {
-        if (ColorChangingDelay >= 0.2f && m_ColorTimer >= 0)
-        {
-            ColorChangingDelay = 0;
-            m_IsChanging = ctx.ReadValueAsButton() ? -1 : 0;
-        }
-    }
+	//Reads input corresponding to the color change.
+	public void NextColor(InputAction.CallbackContext ctx)
+	{
+		if (ColorChangingDelay >= 0.2f && m_ColorTimer >= 0)
+		{ 
+			ColorChangingDelay = 0;
+			m_IsChanging = ctx.ReadValueAsButton() ? 1 : 0;
+		}
+	}
 
-    //Handles Color Palette UI (to show all colors you call loop through)
-    private void UIColorPalette()
-    {
-        UIColPalette.transform.position = new Vector3(m_UiColorPalette_initialPos.x - (UIColPalette.GetComponent<RectTransform>().sizeDelta.y * (ColorUnlocked+1)) * UIColPalette.transform.localScale.x, m_UiColorPalette_initialPos.y, m_UiColorPalette_initialPos.z);
-    }
+	public void PreviousColor(InputAction.CallbackContext ctx)
+	{
+		if (ColorChangingDelay >= 0.2f && m_ColorTimer >= 0)
+		{
+			ColorChangingDelay = 0;
+			m_IsChanging = ctx.ReadValueAsButton() ? -1 : 0;
+		}
+	}
 
-    private void UIColorGauge()
-    {
-        if (m_ColorTimer < 0)
-            SingletonPlayerColor.instance.ModifyColorIndex(0);
-        if (SingletonPlayerColor.instance.GetPlayerColor() == 0)
-        {
-            if (m_ColorTimer < 0)
-                m_ColorTimer -= Time.deltaTime;
-            if (m_ColorTimer <= -defColorCooldown)
-                m_ColorTimer = defColorTimer;
-        }
-        else
-        {
-            m_ColorTimer -= Time.deltaTime;
-        }
-        float newScale = (m_ColorTimer * (100 / (m_ColorTimer < 0 ? defColorCooldown : defColorTimer))) * (m_UIGauge_maxSize.x / 100);
-        UIGauge.sizeDelta = new Vector2(
-            Mathf.Abs(newScale),
-            UIGauge.sizeDelta.y);
+	//Handles Color Palette UI (to show all colors you call loop through)
+	private void UIColorPalette()
+	{
+		UIColPalette.transform.position = new Vector3(m_UiColorPalette_initialPos.x - (UIColPalette.GetComponent<RectTransform>().sizeDelta.y * (ColorUnlocked+1)) * UIColPalette.transform.localScale.x, m_UiColorPalette_initialPos.y, m_UiColorPalette_initialPos.z);
+	}
+
+	private void UIColorGauge()
+	{
+		if (m_ColorTimer < 0)
+			SingletonPlayerColor.instance.ModifyColorIndex(0);
+		if (SingletonPlayerColor.instance.GetPlayerColor() == 0)
+		{
+			if (m_ColorTimer < 0)
+				m_ColorTimer -= Time.deltaTime;
+			if (m_ColorTimer <= -defColorCooldown)
+				m_ColorTimer = defColorTimer;
+		}
+		else
+		{
+			m_ColorTimer -= Time.deltaTime;
+		}
+		float newScale = (m_ColorTimer * (100 / (m_ColorTimer < 0 ? defColorCooldown : defColorTimer))) * (m_UIGauge_maxSize.x / 100);
+		UIGauge.sizeDelta = new Vector2(
+			Mathf.Abs(newScale),
+			UIGauge.sizeDelta.y);
 		if (m_ColorTimer / defColorTimer * 100 < 20 )
 			m_Camera.ShakeTime = 1;
-    }
+	}
 
-    public void Hide(InputAction.CallbackContext context)
-    {
-        if (isHidden)
-        {
-            isHidden = false;
-            return;
-        }
-        else
-            HideCheck();
-    }
+	public void Hide(InputAction.CallbackContext context)
+	{
+		if (isHidden)
+		{
+			isHidden = false;
+			return;
+		}
+		else
+			HideCheck();
+	}
 
-    private void HideCheck()
-    {
-        foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.1f)))
-        {
-            if (obj.tag == "Object" /*&&
-                obj.GetComponent<ColorObject>().colorIndex == SingletonPlayerColor.instance.GetPlayerColor()*/) //If ObjectColor == PlayerColor
-            {
-                isHidden = true;
-                return;
-            }
-        }
-        isHidden = false;
-    }
+	private void HideCheck()
+	{
+		foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.1f)))
+		{
+			if (obj.tag == "Object" /*&&
+				obj.GetComponent<ColorObject>().colorIndex == SingletonPlayerColor.instance.GetPlayerColor()*/) //If ObjectColor == PlayerColor
+			{
+				isHidden = true;
+				return;
+			}
+		}
+		isHidden = false;
+	}
 }

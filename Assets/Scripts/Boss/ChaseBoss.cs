@@ -7,10 +7,12 @@ public class ChaseBoss : MonoBehaviour
 {
 
 	//Game Design Variables
+	[Header("Game Design Variables")]
 	[SerializeField] private float m_Speed;	
 	[SerializeField] private bool  m_GoesLeft;
 
 	//Game Programming Variables
+	[Header("Game Programming Variables")]
 	private bool isStopped = false;
 
 	// Start is called before the first frame update

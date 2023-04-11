@@ -222,6 +222,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: ShowGPVariables
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4069607285294599602, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: m_RootOrder
@@ -282,6 +287,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6073258191082296653, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: ShowGPVariables
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: UIGauge
@@ -297,6 +307,11 @@ PrefabInstance:
       propertyPath: UIColPalette
       value: 
       objectReference: {fileID: 2019502628}
+    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: ShowGPVariables
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: UIColPaletteSelected

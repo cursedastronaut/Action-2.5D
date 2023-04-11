@@ -8,36 +8,49 @@ using UnityEngine.AI;
 public class Platform : MonoBehaviour
 {
 	//Game Design Variables
+	[Header("Game Design Variables")]
 	[SerializeField]	private bool		shouldMove			= false;
 	[SerializeField]	private bool		shouldSwitchColors	= false;
 	[SerializeField]	public int[]		colorIndex;
-	[NaughtyAttributes.ShowIf("shouldSwitchColors")]
-	[SerializeField]	public float		timeBetweenColorSwitch;
-	[NaughtyAttributes.ShowIf("shouldMove")]
-	[SerializeField]	private	Transform[]	m_Path;
-	[NaughtyAttributes.ShowIf("shouldMove")]
-	[SerializeField]	private	int			numberOfSteps;
-	[NaughtyAttributes.ShowIf("shouldMove")]
-	[SerializeField]	private	float		TimeBetweenSteps;
+	[SerializeField][NaughtyAttributes.ShowIf("shouldSwitchColors")][Tooltip("Time it takes before the platform changes color.")]
+		public float		timeBetweenColorSwitch;
+	[SerializeField][NaughtyAttributes.ShowIf("shouldMove")][Tooltip("Place here the Empties that are positionned to the path you wish.")]
+		private	Transform[]	m_Path;
+	[SerializeField][NaughtyAttributes.ShowIf("shouldMove")][Tooltip("Steps between each destination. More is more fluid, but slower.")]
+		private	int			numberOfSteps;
+	[SerializeField][NaughtyAttributes.ShowIf("shouldMove")][Tooltip("Time in seconds between each steps.")]
+		private	float		TimeBetweenSteps;
 
 
 	// Game Programming Variables
-	private	Renderer		m_Renderer;
-	private int				m_Index				= 0;
-	private float			m_Timer				= 0;
-	private int				m_CurrentPath		= 0;
-	private int				m_NextPath			= 0;
-	private int				m_CurrentStep		= 0;
-	private float			m_StepTimer			= 0;
-	private bool			m_IsPlayerColliding = false;
-	private Transform		m_Player;
+	[Header("Game Programming Variables")]
+	[SerializeField] private bool ShowGPVariables = false;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField] 
+		private	Renderer		m_Renderer;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private int				m_Index				= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private float			m_Timer				= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private int				m_CurrentPath		= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private int				m_NextPath			= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private int				m_CurrentStep		= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private float			m_StepTimer			= 0;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private bool			m_IsPlayerColliding = false;
+	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
+		private Transform		m_Player;
 
-	//Called eslewhere variables
-	[HideInInspector] public int currentColor = 0;
+	//Called elsewhere variables
+	[HideInInspector]	public int currentColor = 0;
 
 	// Start is called before the first frame update
 	void Start()
 	{
+		if (ShowGPVariables) { } //Avoid a warning.
 		m_Renderer = GetComponent<Renderer>();
 	}
 
