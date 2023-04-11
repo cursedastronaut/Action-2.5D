@@ -141,8 +141,6 @@ public class PlayerColor : MonoBehaviour
         UIGauge.sizeDelta = new Vector2(
             Mathf.Abs(newScale),
             UIGauge.sizeDelta.y);
-
-		Debug.Log(m_ColorTimer/defColorTimer * 100);
 		if (m_ColorTimer / defColorTimer * 100 < 20 )
 			m_Camera.ShakeTime = 1;
     }
