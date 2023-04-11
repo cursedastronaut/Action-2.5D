@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
+	
 	//Game Design Variables
-	[SerializeField][Tooltip("Drag here the other portal it will go out of.")]
-		private GameObject	m_PortalMate;
-	[SerializeField][Tooltip("Color of the portal. Put the number of the color. (See SingletonPlayerColor in Player)")]
-		private int			colorIndex;
+	[SerializeField][Tooltip(a)]	private GameObject	m_PortalMate;
+	[SerializeField][Tooltip(b)]	private int			colorIndex;
 	// Game Programming Variables
 	[HideInInspector]	Renderer m_Renderer;
 
@@ -40,4 +39,10 @@ public class Portal : MonoBehaviour
 
 
 	}
+
+
+
+
+	private const string a	= "Drag here the other portal it will go out of.";
+	private const string b	= "Color of the portal. Put the number of the color. (See SingletonPlayerColor in Player)";
 }

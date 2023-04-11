@@ -11,18 +11,13 @@ public class Enemy : MonoBehaviour
 
 	//Game Programming Variables
 	[Header("Game Programming Variables")]
-	[SerializeField]	private bool			ShowGPVariables = false;
-	[SerializeField]	private	Transform		m_DetectionBox;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField] 
-		private float			initY				= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private bool			isCalculatingPath   = false;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private Transform		m_Target;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private int				m_CurrentPath;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private NavMeshAgent	m_Agent;
+	[SerializeField]		private bool			ShowGPVariables		= false;
+	[SerializeField]		private	Transform		m_DetectionBox;
+	[IGP][SerializeField]	private float			initY				= 0;
+	[IGP][SerializeField]	private bool			isCalculatingPath   = false;
+	[IGP][SerializeField]	private Transform		m_Target;
+	[IGP][SerializeField]	private int				m_CurrentPath;
+	[IGP][SerializeField]	private NavMeshAgent	m_Agent;
 
 
 	private void Awake()

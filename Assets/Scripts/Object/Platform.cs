@@ -12,37 +12,24 @@ public class Platform : MonoBehaviour
 	[SerializeField]	private bool		shouldMove			= false;
 	[SerializeField]	private bool		shouldSwitchColors	= false;
 	[SerializeField]	public int[]		colorIndex;
-	[SerializeField][NaughtyAttributes.ShowIf("shouldSwitchColors")][Tooltip("Time it takes before the platform changes color.")]
-		public float		timeBetweenColorSwitch;
-	[SerializeField][NaughtyAttributes.ShowIf("shouldMove")][Tooltip("Place here the Empties that are positionned to the path you wish.")]
-		private	Transform[]	m_Path;
-	[SerializeField][NaughtyAttributes.ShowIf("shouldMove")][Tooltip("Steps between each destination. More is more fluid, but slower.")]
-		private	int			numberOfSteps;
-	[SerializeField][NaughtyAttributes.ShowIf("shouldMove")][Tooltip("Time in seconds between each steps.")]
-		private	float		TimeBetweenSteps;
+	[SerializeField,SWC,Tooltip(a)]	public float		timeBetweenColorSwitch;
+	[SerializeField,SM,Tooltip(b)]	private	Transform[]	m_Path;
+	[SerializeField,SM,Tooltip(c)]	private	int			numberOfSteps;
+	[SerializeField,SM,Tooltip(d)]	private	float		TimeBetweenSteps;
 
 
 	// Game Programming Variables
 	[Header("Game Programming Variables")]
-	[SerializeField] private bool ShowGPVariables = false;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField] 
-		private	Renderer		m_Renderer;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private int				m_Index				= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private float			m_Timer				= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private int				m_CurrentPath		= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private int				m_NextPath			= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private int				m_CurrentStep		= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private float			m_StepTimer			= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private bool			m_IsPlayerColliding = false;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private Transform		m_Player;
+	[SerializeField]		private bool			ShowGPVariables		= false;
+	[IGP,SerializeField]	private	Renderer		m_Renderer;
+	[IGP,SerializeField]	private int				m_Index				= 0;
+	[IGP,SerializeField]	private float			m_Timer				= 0;
+	[IGP,SerializeField]	private int				m_CurrentPath		= 0;
+	[IGP,SerializeField]	private int				m_NextPath			= 0;
+	[IGP,SerializeField]	private int				m_CurrentStep		= 0;
+	[IGP,SerializeField]	private float			m_StepTimer			= 0;
+	[IGP,SerializeField]	private bool			m_IsPlayerColliding = false;
+	[IGP,SerializeField]	private Transform		m_Player;
 
 	//Called elsewhere variables
 	[HideInInspector]	public int currentColor = 0;
@@ -131,4 +118,10 @@ public class Platform : MonoBehaviour
 		if (collision.collider.CompareTag("Player"))
 			m_IsPlayerColliding = false;
 	}
+
+
+	private const string a = "Time it takes before the platform changes color.";
+	private const string b = "Place here the Empties that are positionned to the path you wish.";
+	private const string c = "Steps between each destination. More is more fluid, but slower.";
+	private const string d = "Time in seconds between each steps.";
 }

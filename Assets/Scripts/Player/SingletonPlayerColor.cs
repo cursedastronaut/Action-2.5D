@@ -5,16 +5,14 @@ using UnityEngine;
 
 public class SingletonPlayerColor : MonoBehaviour
 {
-	[HideInInspector]	public static SingletonPlayerColor instance;
+	[HideInInspector]		public static SingletonPlayerColor instance;
 
 	[SerializeField][Tooltip("Where all colors the player and the platforms can switch through are set.")]
 		public Color[] SelectableColors;
 	[Header("Game Programming Variables")]
-	[SerializeField] private bool ShowGPVariables = false;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		public int ColorIndex = 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		public GameObject isBeingTeleported;
+	[SerializeField]		private bool ShowGPVariables = false;
+	[IGP][SerializeField]	public int ColorIndex = 0;
+	[IGP][SerializeField]	public GameObject isBeingTeleported;
 
 	private void Awake()
 	{

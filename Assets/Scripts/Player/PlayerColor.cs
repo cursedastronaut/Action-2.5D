@@ -1,59 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+public class Test : System.Attribute
+{
+
+}
 
 public class PlayerColor : MonoBehaviour
 {
 	//Game Design Variables
 	[Header("Game Design Variables")]
-	[SerializeField][Tooltip("The time in seconds it takes to return to a full gauge.")]
-		private float defColorCooldown;
-	[SerializeField][Tooltip("The time in seconds it takes for the gauge to fully drain.")]
-		private float defColorTimer;
+	[SerializeField][Tooltip(a)]private float			defColorCooldown;
+	[SerializeField][Tooltip(b)]private float			defColorTimer;
 
 	//Game Programming Variables
 	[Header("Game Programming Variables")]
-	[SerializeField]	private bool			ShowGPVariables		= false;
-
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField] 
-		private GameObject		UIColPalette;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private GameObject		UIColPaletteSelected;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private RectTransform	UIGauge;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private PlayerCamera	m_Camera;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		public  bool			isHidden							= false;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private bool			prev_isHidden						= false;
+	[SerializeField]			private bool			ShowGPVariables			= false;
+	[IGP,SerializeField]		private GameObject		UIColPalette;
+	[IGP,SerializeField]		private GameObject		UIColPaletteSelected;
+	[IGP,SerializeField]		private RectTransform	UIGauge;
+	[IGP,SerializeField]		private PlayerCamera	m_Camera;
+	[IGP,SerializeField]		public  bool			isHidden				= false;
+	[IGP,SerializeField]		private bool			prev_isHidden			= false;
 
 	//Color Change Variables
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		public  int		ColorUnlocked		= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private int		PreviousIndex		= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private int		m_IsChanging		= 0;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private float   ColorChangingDelay	= 0;
+	[IGP,SerializeField]		public  int		ColorUnlocked		= 0;
+	[IGP,SerializeField]		private int		PreviousIndex		= 0;
+	[IGP,SerializeField]		private int		m_IsChanging		= 0;
+	[IGP,SerializeField]		private float   ColorChangingDelay	= 0;
 
 	//UI Color Palette
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private Vector3 m_UiColorPalette_initialPos;
+	[IGP,SerializeField]		private Vector3 m_UiColorPalette_initialPos;
 	//UI Color Gauge
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private Vector2 m_UIGauge_maxSize;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private Vector3 m_UIGauge_InitialPosition;
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private float m_ColorTimer;
+	[IGP,SerializeField]		private Vector2 m_UIGauge_maxSize;
+	[IGP,SerializeField]		private Vector3 m_UIGauge_InitialPosition;
+	[IGP,SerializeField]		private float m_ColorTimer;
 
-	[NaughtyAttributes.ShowIf("ShowGPVariables")][SerializeField]
-		private Renderer m_Renderer;
-
+	[IGP,SerializeField]		private Renderer m_Renderer;
 	void Start()
 	{
 		if (ShowGPVariables) { } //Avoid a warning.
@@ -191,4 +178,8 @@ public class PlayerColor : MonoBehaviour
 		}
 		isHidden = false;
 	}
+
+
+	private const string a = "The time in seconds it takes to return to a full gauge.";
+	private const string b = "The time in seconds it takes for the gauge to fully drain.";
 }
