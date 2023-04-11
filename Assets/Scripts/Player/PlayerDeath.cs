@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
-    private Vector3 m_Checkpoint;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_Checkpoint = transform.position;
-    }
+	private Vector3 m_Checkpoint;
+	
+	// Start is called before the first frame update
+	void Start()
+	{
+		m_Checkpoint = transform.position;
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		
+	}
 
-    public void killPlayer()
-    {
-        transform.position = m_Checkpoint;
-    }
+	public void killPlayer()
+	{
+		transform.position = m_Checkpoint;
+	}
 
-    public void editCheckpoint(Vector3 input)
-    {
-        m_Checkpoint = input;
-    }
+	public void editCheckpoint(Vector3 input)
+	{
+		m_Checkpoint = input;
+	}
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField]    private Transform		player;
+	[HideInInspector][SerializeField]
+						private Transform		player;
                         private float			initialZPosition;
+	[Header("Shaking Effect")]
 	[SerializeField]	private AnimationCurve	CamShakeX;
 	[SerializeField]	private AnimationCurve	CamShakeY;
 	[SerializeField]	private float			CamShakeForce;

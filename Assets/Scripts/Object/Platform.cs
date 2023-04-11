@@ -8,36 +8,36 @@ using UnityEngine.AI;
 public class Platform : MonoBehaviour
 {
 	//Game Design Variables
+	[Header("Game Design Variables")]
 	[SerializeField]	private bool		shouldMove			= false;
 	[SerializeField]	private bool		shouldSwitchColors	= false;
 	[SerializeField]	public int[]		colorIndex;
-	[NaughtyAttributes.ShowIf("shouldSwitchColors")]
-	[SerializeField]	public float		timeBetweenColorSwitch;
-	[NaughtyAttributes.ShowIf("shouldMove")]
-	[SerializeField]	private	Transform[]	m_Path;
-	[NaughtyAttributes.ShowIf("shouldMove")]
-	[SerializeField]	private	int			numberOfSteps;
-	[NaughtyAttributes.ShowIf("shouldMove")]
-	[SerializeField]	private	float		TimeBetweenSteps;
+	[SerializeField,SWC,Tooltip(a)]	public float		timeBetweenColorSwitch;
+	[SerializeField,SM,Tooltip(b)]	private	Transform[]	m_Path;
+	[SerializeField,SM,Tooltip(c)]	private	int			numberOfSteps;
+	[SerializeField,SM,Tooltip(d)]	private	float		TimeBetweenSteps;
 
 
 	// Game Programming Variables
-	private	Renderer		m_Renderer;
-	private int				m_Index				= 0;
-	private float			m_Timer				= 0;
-	private int				m_CurrentPath		= 0;
-	private int				m_NextPath			= 0;
-	private int				m_CurrentStep		= 0;
-	private float			m_StepTimer			= 0;
-	private bool			m_IsPlayerColliding = false;
-	private Transform		m_Player;
+	[Header("Game Programming Variables")]
+	[SerializeField]		private bool			ShowGPVariables		= false;
+	[IGP,SerializeField]	private	Renderer		m_Renderer;
+	[IGP,SerializeField]	private int				m_Index				= 0;
+	[IGP,SerializeField]	private float			m_Timer				= 0;
+	[IGP,SerializeField]	private int				m_CurrentPath		= 0;
+	[IGP,SerializeField]	private int				m_NextPath			= 0;
+	[IGP,SerializeField]	private int				m_CurrentStep		= 0;
+	[IGP,SerializeField]	private float			m_StepTimer			= 0;
+	[IGP,SerializeField]	private bool			m_IsPlayerColliding = false;
+	[IGP,SerializeField]	private Transform		m_Player;
 
-	//Called eslewhere variables
-	[HideInInspector] public int currentColor = 0;
+	//Called elsewhere variables
+	[HideInInspector]	public int currentColor = 0;
 
 	// Start is called before the first frame update
 	void Start()
 	{
+		if (ShowGPVariables) { } //Avoid a warning.
 		m_Renderer = GetComponent<Renderer>();
 	}
 
@@ -118,4 +118,10 @@ public class Platform : MonoBehaviour
 		if (collision.collider.CompareTag("Player"))
 			m_IsPlayerColliding = false;
 	}
+
+
+	private const string a = "Time it takes before the platform changes color.";
+	private const string b = "Place here the Empties that are positionned to the path you wish.";
+	private const string c = "Steps between each destination. More is more fluid, but slower.";
+	private const string d = "Time in seconds between each steps.";
 }
