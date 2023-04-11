@@ -150,6 +150,61 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "924f9fba-7bad-47b2-87d5-99fb88372bc4",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "fd041fd3-0b6b-4f84-8600-82e093d03fac",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "44c6dec9-b1f9-4864-8ae6-d32f35ad3aa7",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "a288484b-5519-4bb2-9287-3d4f50c15dac",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "21d318b3-c95d-4fd3-bbf1-ee63e949c874",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
@@ -206,6 +261,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5ca27376-2315-4633-a7cf-d84d787af342",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1504d686-a93a-49d5-8326-59e73fbad59b",
                     "path": "<DualShockGamepad>/rightShoulder",
                     "interactions": "",
@@ -230,6 +296,17 @@
                     "name": "",
                     "id": "a31eaec4-3056-4c26-b455-2b7f77c91fab",
                     "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Color Change +",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0eb70111-c3ff-4ab2-8fa4-aa5b4c3f5a9b",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -272,6 +349,17 @@
                 },
                 {
                     "name": "",
+                    "id": "fbaae398-92b6-420b-b887-6fbdb098a6c6",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Color Change -",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8a34e5d8-d139-4a75-9e2a-8e09244a2226",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -296,6 +384,17 @@
                     "name": "",
                     "id": "e5d3ed72-48a6-4eb9-8f22-ce5bcaf1ca15",
                     "path": "<DualShockGamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4e5c683-1247-499e-ba09-3da60d879100",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
