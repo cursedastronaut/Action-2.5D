@@ -294,9 +294,19 @@ PrefabInstance:
       objectReference: {fileID: 428809722}
     - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
+      propertyPath: UITriangle
+      value: 
+      objectReference: {fileID: 1785904583}
+    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
       propertyPath: UIColPalette
       value: 
       objectReference: {fileID: 2019502628}
+    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: ShowGPVariables
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: UIColPaletteSelected
@@ -510,6 +520,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346385570}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!224 &1785904583 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 731481285192463906, guid: 6d025a71be60d7145a87ddc80c304190,
+    type: 3}
+  m_PrefabInstance: {fileID: 2019502625}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1807796092
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class Test : System.Attribute
 {
@@ -23,6 +24,7 @@ public class PlayerColor : MonoBehaviour
 	[IGP,SerializeField]		private GameObject		UIColPalette;
 	[IGP,SerializeField]		private GameObject		UIColPaletteSelected;
 	[IGP,SerializeField]		private RectTransform	UIGauge;
+	[IGP,SerializeField]		private RectTransform	UITriangle;
 	[IGP,SerializeField]		private PlayerCamera	m_Camera;
 	[IGP,SerializeField]		public  bool			isHidden				= false;
 	[IGP,SerializeField]		private bool			prev_isHidden			= false;
@@ -40,6 +42,12 @@ public class PlayerColor : MonoBehaviour
 	[IGP,SerializeField]		private Vector3 m_UIGauge_InitialPosition;
 	[IGP,SerializeField]		private float m_ColorTimer;
 
+	//UI Color Triangle
+	[IGP, SerializeField]		private float			m_TriangleAnimationTime;
+	[IGP, SerializeField]		private float			m_TriangleAnimationProgress;
+	[IGP, SerializeField]		private AnimationCurve	m_TriangleAnimation;
+	[IGP, SerializeField]		private bool			m_TriangleShouldAnim		= false;
+	[IGP]						private Quaternion		ui_TriangleStartRot = Quaternion.identity;
 	[IGP,SerializeField]		private Renderer m_Renderer;
 	void Start()
 	{
@@ -63,8 +71,8 @@ public class PlayerColor : MonoBehaviour
 		if (m_IsChanging != 0)
 		{
 			SingletonPlayerColor.instance.AddToPlayerColor(m_IsChanging);
-		   
-			m_IsChanging = 0;
+			m_TriangleShouldAnim = true;
+			 m_IsChanging = 0;
 		}
 		RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
 		rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
@@ -83,10 +91,12 @@ public class PlayerColor : MonoBehaviour
 			prev_isHidden = isHidden;
 		}
 
+
 		if (isHidden)
 			HideCheck();
 		objectCheck();
 		UIColorPalette();
+		UIColorTriangleUpdate();
 		PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
 	}
 
@@ -180,6 +190,23 @@ public class PlayerColor : MonoBehaviour
 	}
 
 
+
+	void UIColorTriangleUpdate()
+	{
+		if (!m_TriangleShouldAnim) return;
+
+		int playerColor = SingletonPlayerColor.instance.GetPlayerColor();
+		m_TriangleAnimationProgress += Time.deltaTime / m_TriangleAnimationTime;
+		Quaternion rotation = Quaternion.Slerp(ui_TriangleStartRot, Quaternion.Euler(0, 0, 120 * playerColor), m_TriangleAnimation.Evaluate(m_TriangleAnimationProgress));
+		UITriangle.transform.rotation = rotation;
+
+		if (m_TriangleAnimationProgress >= 1) 
+		{
+			m_TriangleShouldAnim = false;
+			m_TriangleAnimationProgress = 0;
+			ui_TriangleStartRot = UITriangle.transform.rotation;
+		}
+	}
 	private const string a = "The time in seconds it takes to return to a full gauge.";
 	private const string b = "The time in seconds it takes for the gauge to fully drain.";
 }
