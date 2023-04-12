@@ -144,7 +144,7 @@ public class PlayerColor : MonoBehaviour
 	private void UIColorGauge()
 	{
 		if (m_ColorTimer < 0)
-			SingletonPlayerColor.instance.ModifyColorIndex(0);
+			m_IsChanging = -SingletonPlayerColor.instance.GetPlayerColor();
 		if (SingletonPlayerColor.instance.GetPlayerColor() == 0)
 		{
 			if (m_ColorTimer < 0)

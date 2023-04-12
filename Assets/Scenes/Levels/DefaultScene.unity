@@ -305,63 +305,13 @@ PrefabInstance:
     - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: ShowGPVariables
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: UIColPaletteSelected
       value: 
       objectReference: {fileID: 2019502627}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimationTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
-        type: 3}
-      propertyPath: m_TriangleAnimation.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9071401364590015076, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: m_Camera
