@@ -767,7 +767,7 @@
                 {
                     "name": "",
                     "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
-                    "path": "*/{Cancel}",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -915,6 +915,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee271ed6-8f8d-4d9f-9911-aee7b9a1347a",
+                    "path": "<DualShockGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

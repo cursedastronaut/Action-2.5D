@@ -6,23 +6,32 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
-public class MainMenu : MonoBehaviour
+public class MenuNavigation : MonoBehaviour
 {
-    [SerializeField] private List<Selectable> m_MenuItems;
+    [SerializeField] private List<Button> m_MenuItems;
+    [SerializeField] private GameObject m_MenuItemVisual;
+
     private int m_SelectedItemIndex = 0;
     private bool m_SubmitPressed;
+    private bool m_CancelPressed;
     private Vector2 m_Navigation;
 
     public void Submit(InputAction.CallbackContext context)
     {
-        Debug.Log("Button pressed");
+        Debug.Log("Submit pressed");
         m_SubmitPressed = context.ReadValueAsButton();
+    }
+
+    public void Cancel(InputAction.CallbackContext context)
+    {
+        Debug.Log("Cancel pressed");
+        m_CancelPressed = context.ReadValueAsButton();
     }
 
     public void Navigate(InputAction.CallbackContext context) 
     {
         m_Navigation = context.ReadValue<Vector2>() ;
-        Debug.Log("navigation");
+        //Debug.Log("navigation");
     }
 
     private void SelectMenuItem(int index)
@@ -36,12 +45,21 @@ public class MainMenu : MonoBehaviour
         // select the current menu item
         m_MenuItems[index].Select();
         m_MenuItems[index].interactable = false;
+
+        // set the position and scale of the visual indicator
+        if (m_MenuItemVisual != null)
+        {
+            m_MenuItemVisual.transform.position = m_MenuItems[index].transform.position;
+        }
     }
-    
+
+
+
     void Start()
     {
-        m_MenuItems = new List<Selectable>(FindObjectsOfType<Selectable>());
+        m_MenuItems = new List<Button>(FindObjectsOfType<Button>());
     }
+
     private void Update()
     {
         // move to the next menu item when the player presses the Down button on the controller
@@ -65,8 +83,14 @@ public class MainMenu : MonoBehaviour
         // select the current menu item when the player presses the Submit button on the controller
         if (m_SubmitPressed)
         {
-            m_MenuItems[m_SelectedItemIndex].Select();
+            m_MenuItems[m_SelectedItemIndex].onClick.Invoke();
             m_SubmitPressed = false;
         }
+
+        
+
+        //Debug.Log($"Navigation: {m_Navigation.x}, {m_Navigation.y}");
+        //Debug.Log($"Selected item index: {m_SelectedItemIndex}");
+
     }
 }

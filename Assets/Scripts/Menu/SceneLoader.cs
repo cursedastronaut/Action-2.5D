@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayButton : MonoBehaviour
+public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] private string Scene;
     public void OnClick()
     {
         Debug.Log("uzu");
+        SceneManager.LoadScene(Scene, 0);
     }
 
     
