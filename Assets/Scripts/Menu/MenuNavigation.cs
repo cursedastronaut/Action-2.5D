@@ -11,6 +11,7 @@ public class MenuNavigation : MonoBehaviour
     [SerializeField] private List<Button> m_MenuItems;
     [SerializeField] private GameObject m_MenuItemVisual;
 
+    private float m_SwitchTime;
     private int m_SelectedItemIndex = 0;
     private bool m_SubmitPressed;
     private bool m_CancelPressed;
@@ -57,20 +58,22 @@ public class MenuNavigation : MonoBehaviour
 
     void Start()
     {
-        m_MenuItems = new List<Button>(FindObjectsOfType<Button>());
+        //m_MenuItems = new List<Button>(FindObjectsOfType<Button>());
     }
 
     private void Update()
     {
-        // move to the next menu item when the player presses the Down button on the controller
-        if (m_Navigation.y < 0 && !m_SubmitPressed)
+            // move to the next menu item when the player presses the Down button on the controller
+        if (m_Navigation.y < 0 && !m_SubmitPressed && m_SwitchTime <= 0)
         {
             m_SelectedItemIndex = (m_SelectedItemIndex + 1) % m_MenuItems.Count;
             SelectMenuItem(m_SelectedItemIndex);
+            m_SwitchTime = 45;
         }
-
+        else
+        m_SwitchTime--;
         // move to the previous menu item when the player presses the Up button on the controller
-        if (m_Navigation.y > 0 && !m_SubmitPressed)
+        if (m_Navigation.y > 0 && !m_SubmitPressed && m_SwitchTime <= 0)
         {
             m_SelectedItemIndex--;
             if (m_SelectedItemIndex < 0)
@@ -78,19 +81,15 @@ public class MenuNavigation : MonoBehaviour
                 m_SelectedItemIndex = m_MenuItems.Count - 1;
             }
             SelectMenuItem(m_SelectedItemIndex);
+            m_SwitchTime = 45;
         }
 
-        // select the current menu item when the player presses the Submit button on the controller
+    // select the current menu item when the player presses the Submit button on the controller
         if (m_SubmitPressed)
         {
             m_MenuItems[m_SelectedItemIndex].onClick.Invoke();
             m_SubmitPressed = false;
         }
-
-        
-
-        //Debug.Log($"Navigation: {m_Navigation.x}, {m_Navigation.y}");
-        //Debug.Log($"Selected item index: {m_SelectedItemIndex}");
-
     }
+
 }
