@@ -600,7 +600,13 @@ MonoBehaviour:
   m_Path:
   - {fileID: 441300200}
   - {fileID: 432694193}
+  ShowGPVariables: 0
   m_DetectionBox: {fileID: 1924837423}
+  initY: 0
+  isCalculatingPath: 0
+  m_Target: {fileID: 0}
+  m_CurrentPath: 0
+  m_Agent: {fileID: 0}
 --- !u!195 &723444386
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -824,6 +830,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: ShowGPVariables
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: SelectableColors.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: SelectableColors.Array.data[1].b
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: SelectableColors.Array.data[1].g
+      value: 0.17580721
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: SelectableColors.Array.data[1].r
+      value: 0.1490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: SelectableColors.Array.data[2].b
+      value: 0.1477839
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: SelectableColors.Array.data[2].g
+      value: 0.6650101
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870591807050028634, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: SelectableColors.Array.data[2].r
+      value: 0.764151
+      objectReference: {fileID: 0}
     - target: {fileID: 4069607285294599602, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
       propertyPath: m_RootOrder
@@ -883,6 +929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073258191082296653, guid: 46d4bca212523fa47980dbb252deaf82,
+        type: 3}
+      propertyPath: ShowGPVariables
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8105919675990540694, guid: 46d4bca212523fa47980dbb252deaf82,
         type: 3}
@@ -1096,6 +1147,16 @@ MonoBehaviour:
   m_Path: []
   numberOfSteps: 0
   TimeBetweenSteps: 0
+  ShowGPVariables: 0
+  m_Renderer: {fileID: 0}
+  m_Index: 0
+  m_Timer: 0
+  m_CurrentPath: 0
+  m_NextPath: 0
+  m_CurrentStep: 0
+  m_StepTimer: 0
+  m_IsPlayerColliding: 0
+  m_Player: {fileID: 0}
   currentColor: 0
 --- !u!1 &1769569513
 GameObject:
