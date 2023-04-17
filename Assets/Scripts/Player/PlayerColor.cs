@@ -41,6 +41,7 @@ public class PlayerColor : MonoBehaviour
 	[IGP,SerializeField]		private Vector2 m_UIGauge_maxSize;
 	[IGP,SerializeField]		private Vector3 m_UIGauge_InitialPosition;
 	[IGP,SerializeField]		private float m_ColorTimer;
+	[IGP,SerializeField]		private float m_ColorGaugeDefXPos;
 
 	//UI Color Triangle
 	[IGP, SerializeField]		private float			m_TriangleAnimationTime;
@@ -60,6 +61,7 @@ public class PlayerColor : MonoBehaviour
 		m_UIGauge_maxSize = UIGauge.sizeDelta;
 		m_UIGauge_InitialPosition = UIGauge.GetComponentInParent<Transform>().position;
 		m_ColorTimer = defColorTimer;
+		m_ColorGaugeDefXPos = UIGauge.position.x + UIGauge.sizeDelta.x/2;
 	}
 	
 	void Update()
@@ -161,6 +163,7 @@ public class PlayerColor : MonoBehaviour
 		UIGauge.sizeDelta = new Vector2(
 			Mathf.Abs(newScale),
 			UIGauge.sizeDelta.y);
+		UIGauge.transform.position = new Vector3(m_ColorGaugeDefXPos - UIGauge.sizeDelta.x / 2, UIGauge.transform.position.y);
 		if (m_ColorTimer / defColorTimer * 100 < 20 )
 			m_Camera.ShakeTime = 1;
 	}
