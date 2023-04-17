@@ -803,6 +803,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 13dc67f2-6261-4f85-97a8-29a8040feea8
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6dcfba21-76d8-45de-87f3-fae610a19dbe
+    m_ActionName: Player/Pause[/DualShock4GamepadHID/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: UI
