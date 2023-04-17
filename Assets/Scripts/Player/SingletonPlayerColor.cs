@@ -34,6 +34,8 @@ public class SingletonPlayerColor : MonoBehaviour
 		ColorIndex += colorIndex;
 		if (SingletonPlayerColor.instance.GetPlayerColor() > SelectableColors.Length-1)
 			SingletonPlayerColor.instance.ModifyColorIndex(0);
+		if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
+			SingletonPlayerColor.instance.ModifyColorIndex(SelectableColors.Length - 1);
 	}
 
 	public void ModifyColorIndex(int colorIndex)
