@@ -1,5 +1,7 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +10,9 @@ public class Enemy : MonoBehaviour
 	//Game Design Variables
 	[Header("Game Design Variables")]
 	[SerializeField]	private Transform[]		m_Path;
+	
+	[SerializeField]	private bool			m_TurnOff;
+	[SerializeField]	protected float			m_TurnOffSpeed = 5;
 
 	//Game Programming Variables
 	[Header("Game Programming Variables")]
@@ -18,6 +23,8 @@ public class Enemy : MonoBehaviour
 	[IGP][SerializeField]	private Transform		m_Target;
 	[IGP][SerializeField]	private int				m_CurrentPath;
 	[IGP][SerializeField]	private NavMeshAgent	m_Agent;
+	[IGP][SerializeField]	private bool			m_IsOff;
+	[IGP][SerializeField]	private float			m_TurnOffTime;
 
 
 	private void Awake()
@@ -49,15 +56,53 @@ public class Enemy : MonoBehaviour
 			isCalculatingPath = false;
 
 		transform.position = new Vector3(transform.position.x, initY, transform.position.z);
-	}
-	
-	private void playerDetection()
+
+
+		if (!m_TurnOff)
+			return;
+
+        m_TurnOffTime += Time.fixedDeltaTime;
+		if (m_TurnOffTime < m_TurnOffSpeed)
+			return;
+         
+		m_IsOff = !m_IsOff;
+        m_TurnOffTime = 0;
+
+                
+        // Get the game object that you want to disable
+        GameObject detectionBox = transform.GetChild(1).gameObject;
+		Light light = transform.GetChild(2).GetComponent<Light>();
+
+        // Check if the game object is not null and m_IsOff is true
+        if (detectionBox != null && m_IsOff)
+        {
+            // Disable the Renderer component of the game object
+            Renderer renderer = detectionBox.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.enabled = false;
+				light.enabled = false;
+            }
+        }
+        else if (detectionBox != null)
+        {
+            Renderer renderer = detectionBox.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.enabled = true;
+				light.enabled = true;
+            }
+        }
+    }
+
+    private void playerDetection()
 	{
 		Collider[] objArray = Physics.OverlapBox(m_DetectionBox.position, m_DetectionBox.localScale);
-		foreach (var obj in objArray)
-		{
-			if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
-				obj.GetComponent<PlayerDeath>().killPlayer();
-		}
+		if (m_IsOff ==  false)
+			foreach (var obj in objArray)
+			{
+				if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
+					obj.GetComponent<PlayerDeath>().killPlayer();
+			}
 	}
 }

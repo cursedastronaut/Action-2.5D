@@ -689,6 +689,8 @@ MonoBehaviour:
   m_Path:
   - {fileID: 441300200}
   - {fileID: 432694193}
+  m_TurnOff: 0
+  m_TurnOffSpeed: 5
   ShowGPVariables: 1
   m_DetectionBox: {fileID: 1924837423}
   initY: 0
@@ -696,6 +698,8 @@ MonoBehaviour:
   m_Target: {fileID: 0}
   m_CurrentPath: 0
   m_Agent: {fileID: 0}
+  m_IsOff: 0
+  m_TurnOffTime: 0
 --- !u!195 &723444386
 NavMeshAgent:
   m_ObjectHideFlags: 0
