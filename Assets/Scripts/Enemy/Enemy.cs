@@ -10,28 +10,25 @@ public class Enemy : MonoBehaviour
     //Game Design Variables
     [Header("Game Design Variables")]
     [SerializeField] private Transform[] m_Path;
-
+	[SerializeField] private float m_Speed;
     [SerializeField] private bool m_TurnOff;
     [SerializeField] protected float m_TurnOffSpeed = 5;
 
     //Game Programming Variables
     [Header("Game Programming Variables")]
-    [SerializeField] private bool ShowGPVariables = false;
-    [SerializeField] private Transform m_DetectionBox;
-    [IGP][SerializeField] private float initY = 0;
-    [IGP][SerializeField] private bool isCalculatingPath = false;
-    [IGP][SerializeField] private Transform m_Target;
-    [IGP][SerializeField] private int m_CurrentPath;
-    [IGP][SerializeField] private NavMeshAgent m_Agent;
-    [IGP][SerializeField] private bool m_IsOff;
-    [IGP][SerializeField] private float m_TurnOffTime;
+    [SerializeField]		private bool		ShowGPVariables		= false;
+    [SerializeField]		private Transform	m_DetectionBox;
+	[IGP][SerializeField]	private float		currentGo			= 0;
+    [IGP][SerializeField]	private bool		isCalculatingPath	= false;
+    [IGP][SerializeField]	private Transform	m_Target;
+    [IGP][SerializeField]	private int			m_CurrentPath;
+    [IGP][SerializeField]	private bool		m_IsOff;
+    [IGP][SerializeField]	private float		m_TurnOffTime;
 
 
     private void Awake()
     {
         if (ShowGPVariables) { } //Avoid a warning.
-        m_Agent = GetComponent<NavMeshAgent>();
-        initY = transform.position.y;
     }
 
 
@@ -39,7 +36,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerDetection();
+        playerDetection();/*
         //If the enemy arrived to its desired destination
         if (!m_Agent.hasPath && !isCalculatingPath)
         {
@@ -50,12 +47,8 @@ public class Enemy : MonoBehaviour
             }
             m_Agent.SetDestination(new Vector3(m_Path[m_CurrentPath].position.x, initY, m_Path[m_CurrentPath].position.z));
             isCalculatingPath = true;
-        }
-        //In case path calculation takes more than one frame, we use this variable
-        if (m_Agent.hasPath && isCalculatingPath)
-            isCalculatingPath = false;
-
-        transform.position = new Vector3(transform.position.x, initY, transform.position.z);
+        }*/
+		Movement();
 
 
         if (!m_TurnOff)
@@ -105,4 +98,15 @@ public class Enemy : MonoBehaviour
                     obj.GetComponent<PlayerDeath>().killPlayer();
             }
     }
+	
+	private void Movement()
+	{
+		Vector3 target = m_Path[m_CurrentPath].position;
+		Vector3 current = transform.position;
+
+		transform.position = Vector3.MoveTowards(current, target, m_Speed * Time.deltaTime);
+
+		if (Vector3.Distance(current, target) < 0.5f)
+			m_CurrentPath = (m_CurrentPath + 1) % m_Path.Length;
+	}
 }
