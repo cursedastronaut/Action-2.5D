@@ -18,9 +18,6 @@ public class Enemy : MonoBehaviour
     [Header("Game Programming Variables")]
     [SerializeField]		private bool		ShowGPVariables		= false;
     [SerializeField]		private Transform	m_DetectionBox;
-	[IGP][SerializeField]	private float		currentGo			= 0;
-    [IGP][SerializeField]	private bool		isCalculatingPath	= false;
-    [IGP][SerializeField]	private Transform	m_Target;
     [IGP][SerializeField]	private int			m_CurrentPath;
     [IGP][SerializeField]	private bool		m_IsOff;
     [IGP][SerializeField]	private float		m_TurnOffTime;
