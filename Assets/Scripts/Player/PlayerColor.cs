@@ -17,6 +17,8 @@ public class PlayerColor : MonoBehaviour
 	[Header("Game Design Variables")]
 	[SerializeField][Tooltip(a)]private float			defColorCooldown;
 	[SerializeField][Tooltip(b)]private float			defColorTimer;
+	[SerializeField][Tooltip(c)]private float			RechargeMultiplier;
+	[SerializeField][Tooltip(d)]private float			ScreenShakeLevel;
 
 	//Game Programming Variables
 	[Header("Game Programming Variables")]
@@ -151,7 +153,7 @@ public class PlayerColor : MonoBehaviour
 		if (SingletonPlayerColor.instance.GetPlayerColor() == 0)
 		{
 			if (m_ColorTimer < defColorTimer)
-				m_ColorTimer += Time.deltaTime;
+				m_ColorTimer += Time.deltaTime * RechargeMultiplier;
 		}
 		else
 		{
@@ -162,7 +164,7 @@ public class PlayerColor : MonoBehaviour
 			Mathf.Abs(newScale),
 			UIGauge.sizeDelta.y);
 		UIGauge.transform.position = new Vector3(m_ColorGaugeDefXPos - UIGauge.sizeDelta.x / 2, UIGauge.transform.position.y);
-		if (m_ColorTimer / defColorTimer * 100 < 20 && m_ColorTimer / defColorTimer * 100 > 15)
+		if (m_ColorTimer / defColorTimer * 100 < ScreenShakeLevel && m_ColorTimer / defColorTimer * 100 > ScreenShakeLevel-5)
 			m_Camera.ShakeTime = 0.2f;
 	}
 
@@ -211,4 +213,6 @@ public class PlayerColor : MonoBehaviour
 	}
 	private const string a = "The time in seconds it takes to return to a full gauge.";
 	private const string b = "The time in seconds it takes for the gauge to fully drain.";
+	private const string c = "defColorTimer multiplied by THIS gives the time it takes for the color gauge to fully fill back up.";
+	private const string d = "At what percentage of the color bar should the screen shake. (Between 0 and 100)";
 }
