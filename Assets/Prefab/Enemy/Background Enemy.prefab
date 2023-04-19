@@ -134,6 +134,16 @@ MonoBehaviour:
   m_Speed: 0
   m_TurnOff: 0
   m_TurnOffSpeed: 5
+  EnemyKind: 3
+  FloatingAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  FloatingAnimationForce: 0
+  FloatingAnimationSpeed: 0
+  FloatingEnemyModel: {fileID: 0}
   ShowGPVariables: 0
   m_DetectionBox: {fileID: 4512165318800474878}
   m_Light: {fileID: 8920377939414913390}
