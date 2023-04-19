@@ -148,23 +148,28 @@ public class PlayerColor : MonoBehaviour
 
 	private void UIColorGauge()
 	{
+		bool isDrained = true;
 		if (m_ColorTimer < 0)
 			m_IsChanging = -SingletonPlayerColor.instance.GetPlayerColor();
 		if (SingletonPlayerColor.instance.GetPlayerColor() == 0)
 		{
 			if (m_ColorTimer < defColorTimer)
+			{
 				m_ColorTimer += Time.deltaTime * RechargeMultiplier;
+				isDrained = false;
+			}
 		}
 		else
 		{
-			m_ColorTimer -= Time.deltaTime;
+			isDrained = true;
+			m_ColorTimer -= Time.deltaTime; 
 		}
 		float newScale = (m_ColorTimer * (100 / defColorTimer)) * (m_UIGauge_maxSize.x / 100);
 		UIGauge.sizeDelta = new Vector2(
 			Mathf.Abs(newScale),
 			UIGauge.sizeDelta.y);
 		UIGauge.transform.position = new Vector3(m_ColorGaugeDefXPos - UIGauge.sizeDelta.x / 2, UIGauge.transform.position.y);
-		if (m_ColorTimer / defColorTimer * 100 < ScreenShakeLevel && m_ColorTimer / defColorTimer * 100 > ScreenShakeLevel-5)
+		if (m_ColorTimer / defColorTimer * 100 < ScreenShakeLevel && m_ColorTimer / defColorTimer * 100 > ScreenShakeLevel-5 && isDrained)
 			m_Camera.ShakeTime = 0.2f;
 	}
 
