@@ -15,25 +15,27 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField, Tooltip(h)]	private float DefaultSpeed;
 	[SerializeField][Tooltip(a)]	private float DefaultSprintSpeed;
 	[SerializeField][Tooltip(b)]	private float DefaultJumpForce;
-	[SerializeField][Tooltip(c)]	private float DefaultWallJumpForce;
+	[SerializeField][Tooltip(c)]	private Vector2 DefaultWallJumpForce;
 	[SerializeField][Tooltip(d)]	private float DefaultSprintDelay;
 	[SerializeField][Tooltip(e)]	private float DefaultSprintOffsetDelay;
 	[SerializeField][Tooltip(f)]	private float DeadZone;
 	[SerializeField][Tooltip(g)]	private float WallSlidingSpeed;
 	[SerializeField]				private float maxVelocity;
+	[SerializeField]				private float CoyoteTime;
 
-
-	//Game Programming Variables
-	[Header("Game Programming Variables")]
+    //Game Programming Variables
+    [Header("Game Programming Variables")]
 	[SerializeField] private bool ShowGPVariables = false;
 	[IGP][SerializeField] private Vector2 m_MovementInput = Vector2.zero;
 	[IGP][SerializeField] private bool m_isSprinting = false;
 	[IGP][SerializeField] private bool m_canSprint = false;
 	[IGP][SerializeField] private bool m_isJumping = false;
 	[IGP]
-	[SerializeField] private bool m_isWallJumping = false;
-	[IGP][SerializeField] private float m_SprintDelay = 0.0f;
+	[SerializeField]	private bool m_isWallJumping = false;
+	[IGP][SerializeField]private float m_SprintDelay = 0.0f;
+	[IGP][SerializeField] private float CoyoteTimeCD;
 	[IGP][SerializeField] private PlayerColor m_PlayerColor;
+	
 
 	[SerializeField]
 	private Rigidbody m_Rigidbody;
@@ -66,9 +68,9 @@ public class PlayerMovement : MonoBehaviour
 		//Movement depending of input
 		float currentSpeed = m_isSprinting == true ? DefaultSprintSpeed : DefaultSpeed;
 		if (m_isWallJumping)
-			m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed), ForceMode.Acceleration);
+			m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime , ForceMode.Acceleration);
 		else
-            m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed), ForceMode.VelocityChange);
+            m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime, ForceMode.VelocityChange);
         ax = Mathf.Clamp(m_Rigidbody.velocity.x, -maxVelocity, maxVelocity);
 		m_Rigidbody.velocity = new Vector3 (ax, m_Rigidbody.velocity.y, 0);
 		if (isThereFloor())
@@ -76,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
 		//Jump
 		if (m_isJumping && isThereFloor())
-			m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
+			m_Rigidbody.AddForce(0, DefaultJumpForce * Time.deltaTime, 0, ForceMode.VelocityChange);
 		else if (isThereWall())
 		{
 			WallSliding();
@@ -137,10 +139,20 @@ public class PlayerMovement : MonoBehaviour
             wallNormal = rightHit.normal;
 
         float direction = Mathf.Sign(Vector3.Dot(wallNormal, transform.up));
-        m_Rigidbody.velocity = new Vector3(direction * DefaultWallJumpForce * wallNormal.x, DefaultWallJumpForce, 0);
+        m_Rigidbody.velocity = new Vector3(direction * DefaultWallJumpForce.x * wallNormal.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
 
 
     }
+
+	private bool Coyote()
+	{
+		if (isThereWall() || isThereFloor())
+		{
+
+		}
+
+		return true;
+	}
 	public void Move(InputAction.CallbackContext context)
 	{
 		m_MovementInput = context.ReadValue<Vector2>();

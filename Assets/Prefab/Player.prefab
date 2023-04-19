@@ -300,20 +300,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883ee79660b38fc4b8a8ea6e9e17ebc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultSpeed: 5
-  DefaultSprintSpeed: 10
-  DefaultJumpForce: 1
-  DefaultWallJumpForce: 5
+  DefaultSpeed: 100
+  DefaultSprintSpeed: 200
+  DefaultJumpForce: 100
+  DefaultWallJumpForce: {x: 1000, y: 2000}
   DefaultSprintDelay: 0.5
   DefaultSprintOffsetDelay: 0
   DeadZone: 0.1
   WallSlidingSpeed: 0
-  ShowGPVariables: 0
+  maxVelocity: 5
+  CoyoteTime: 0
+  ShowGPVariables: 1
   m_MovementInput: {x: 0, y: 0}
   m_isSprinting: 0
-  m_canSprint: 0
+  m_canSprint: 1
   m_isJumping: 0
+  m_isWallJumping: 0
   m_SprintDelay: 0
+  CoyoteTimeCD: 0
   m_PlayerColor: {fileID: 0}
   m_Rigidbody: {fileID: 2343786531767787264}
 --- !u!136 &6574062170210240873
@@ -360,6 +364,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defColorCooldown: 10
   defColorTimer: 10
+  RechargeMultiplier: 0
+  ScreenShakeLevel: 0
   ShowGPVariables: 1
   UIGauge: {fileID: 0}
   UITriangle: {fileID: 0}
@@ -374,6 +380,7 @@ MonoBehaviour:
   m_UIGauge_maxSize: {x: 0, y: 0}
   m_UIGauge_InitialPosition: {x: 0, y: 0, z: 0}
   m_ColorTimer: 0
+  m_ColorGaugeDefXPos: 0
   m_TriangleAnimationTime: 0.25
   m_TriangleAnimationProgress: 0
   m_TriangleAnimation:
