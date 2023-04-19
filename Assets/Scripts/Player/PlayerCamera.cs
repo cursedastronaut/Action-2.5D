@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-	[HideInInspector][SerializeField]
+	[SerializeField]
 						private Transform		player;
                         private float			initialZPosition;
 	[Header("Shaking Effect")]
