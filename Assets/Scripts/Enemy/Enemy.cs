@@ -9,13 +9,22 @@ public class Enemy : MonoBehaviour
 {
     //Game Design Variables
     [Header("Game Design Variables")]
-    [SerializeField] private Transform[] m_Path;
-	[SerializeField] private float m_Speed;
-    [SerializeField] private bool m_TurnOff;
-    [SerializeField] protected float m_TurnOffSpeed = 5;
+    [SerializeField]				private Transform[] m_Path;
+	[SerializeField]				private float m_Speed;
+    [SerializeField]				private bool m_TurnOff;
+    [SerializeField]				protected float m_TurnOffSpeed = 5;
+	[SerializeField][Tooltip(a)]	public int EnemyKind;
+	[SerializeField]				private	AnimationCurve	FloatingAnimationCurve;
+	[SerializeField]				private float			FloatingAnimationForce;
+	[SerializeField]				private float			FloatingAnimationSpeed;
+	[SerializeField]				private Transform		FloatingEnemyModel;
 
-    //Game Programming Variables
-    [Header("Game Programming Variables")]
+
+
+
+
+	//Game Programming Variables
+	[Header("Game Programming Variables")]
     [SerializeField]		private bool		ShowGPVariables		= false;
     [SerializeField]		private Transform	m_DetectionBox;
     [SerializeField]		private GameObject	m_Light;
@@ -89,10 +98,26 @@ public class Enemy : MonoBehaviour
 	{
 		Vector3 target = m_Path[m_CurrentPath].position;
 		Vector3 current = transform.position;
-
+		
 		transform.position = Vector3.MoveTowards(current, target, m_Speed * Time.deltaTime);
+		Animation();
+
 
 		if (Vector3.Distance(current, target) < 0.5f)
 			m_CurrentPath = (m_CurrentPath + 1) % m_Path.Length;
 	}
+
+	private void Animation()
+	{
+		if (EnemyKind == 0 || EnemyKind == 1 || EnemyKind == 3)
+			transform.LookAt(m_Path[m_CurrentPath]);
+		if (EnemyKind == 0)
+			FloatingEnemyModel.position = transform.position + new Vector3(0, FloatingAnimationCurve.Evaluate(Time.time * FloatingAnimationSpeed) , 0) * FloatingAnimationForce;
+	}
+
+
+	private const string a = "0: Floating Enemy" +
+							"\n1: Security Enemy" +
+							"\n2: Bottom Enemy" +
+							"\n3: Background Enemy";
 }

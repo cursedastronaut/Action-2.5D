@@ -130,10 +130,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9672dac9a6af0a746a8800674eecf37d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Path: []
-  m_Speed: 0
+  m_Path:
+  - {fileID: 0}
+  - {fileID: 0}
+  m_Speed: 4.78
   m_TurnOff: 0
   m_TurnOffSpeed: 5
+  EnemyKind: 0
+  FloatingAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.000030517578
+      value: -0.00015640259
+      inSlope: -2.0928977
+      outSlope: -4.983139
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.0237549
+    - serializedVersion: 3
+      time: 0.2485512
+      value: -0.9934255
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7268076
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.00006545894
+      inSlope: -4.765104
+      outSlope: -4.765104
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.34638765
+      outWeight: 0.33333334
+    m_PreInfinity: 1
+    m_PostInfinity: 1
+    m_RotationOrder: 4
+  FloatingAnimationForce: 0.5
+  FloatingAnimationSpeed: 0.5
+  FloatingEnemyModel: {fileID: 1617115991422876264}
   ShowGPVariables: 0
   m_DetectionBox: {fileID: 4512165318800474878}
   m_Light: {fileID: 8920377939414913390}
