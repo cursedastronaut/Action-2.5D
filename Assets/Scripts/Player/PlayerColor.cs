@@ -150,16 +150,14 @@ public class PlayerColor : MonoBehaviour
 			m_IsChanging = -SingletonPlayerColor.instance.GetPlayerColor();
 		if (SingletonPlayerColor.instance.GetPlayerColor() == 0)
 		{
-			if (m_ColorTimer < 0)
-				m_ColorTimer -= Time.deltaTime;
-			if (m_ColorTimer <= -defColorCooldown)
-				m_ColorTimer = defColorTimer;
+			if (m_ColorTimer < defColorTimer)
+				m_ColorTimer += Time.deltaTime;
 		}
 		else
 		{
 			m_ColorTimer -= Time.deltaTime;
 		}
-		float newScale = (m_ColorTimer * (100 / (m_ColorTimer < 0 ? defColorCooldown : defColorTimer))) * (m_UIGauge_maxSize.x / 100);
+		float newScale = (m_ColorTimer * (100 / defColorTimer)) * (m_UIGauge_maxSize.x / 100);
 		UIGauge.sizeDelta = new Vector2(
 			Mathf.Abs(newScale),
 			UIGauge.sizeDelta.y);
