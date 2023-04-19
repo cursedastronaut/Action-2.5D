@@ -35,6 +35,11 @@ public class IGPAttribute : ShowIfAttributeBase
 	{
 		Inverted = false;
 	}
+	public IGPAttribute(int tempa)
+			: base(tempa == 0 ? "true" : "false")
+	{
+		Inverted = false;
+	}
 
 	public IGPAttribute(EConditionOperator conditionOperator, params string[] conditions)
 		: base(conditionOperator, conditions)

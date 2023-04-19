@@ -32,7 +32,7 @@ public class Platform : MonoBehaviour
 	[IGP,SerializeField]	private Transform		m_Player;
 
 	//Called elsewhere variables
-	[HideInInspector]	public int currentColor = 0;
+	[IGP]	public int currentColor = 0;
 
 	// Start is called before the first frame update
 	void Start()
@@ -55,7 +55,7 @@ public class Platform : MonoBehaviour
 
 		//Changes material color to the corresponding color in the Universal Color Array.
 		m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[colorIndex[m_Index]];
-		currentColor = m_Index;
+		currentColor = colorIndex[m_Index];
 	}
 	private void SwitchColor()
 	{
