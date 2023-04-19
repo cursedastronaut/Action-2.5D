@@ -164,8 +164,8 @@ public class PlayerColor : MonoBehaviour
 			Mathf.Abs(newScale),
 			UIGauge.sizeDelta.y);
 		UIGauge.transform.position = new Vector3(m_ColorGaugeDefXPos - UIGauge.sizeDelta.x / 2, UIGauge.transform.position.y);
-		if (m_ColorTimer / defColorTimer * 100 < 20 )
-			m_Camera.ShakeTime = 1;
+		if (m_ColorTimer / defColorTimer * 100 < 20 && m_ColorTimer / defColorTimer * 100 > 15)
+			m_Camera.ShakeTime = 0.2f;
 	}
 
 	public void Hide(InputAction.CallbackContext context)
