@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField][Tooltip(e)]	private float DefaultSprintOffsetDelay;
 	[SerializeField][Tooltip(f)]	private float DeadZone;
 	[SerializeField][Tooltip(g)]	private float WallSlidingSpeed;
+	[SerializeField]				private float maxVelocity;
 
 
 	//Game Programming Variables
@@ -27,11 +30,16 @@ public class PlayerMovement : MonoBehaviour
 	[IGP][SerializeField] private bool m_isSprinting = false;
 	[IGP][SerializeField] private bool m_canSprint = false;
 	[IGP][SerializeField] private bool m_isJumping = false;
+	[IGP]
+	[SerializeField] private bool m_isWallJumping = false;
 	[IGP][SerializeField] private float m_SprintDelay = 0.0f;
 	[IGP][SerializeField] private PlayerColor m_PlayerColor;
 
 	[SerializeField]
 	private Rigidbody m_Rigidbody;
+
+	private float ax;
+	private Vector3 m_Velocity;
 
 	// Start is called before the first frame update
 	void Start()
@@ -57,7 +65,14 @@ public class PlayerMovement : MonoBehaviour
 
 		//Movement depending of input
 		float currentSpeed = m_isSprinting == true ? DefaultSprintSpeed : DefaultSpeed;
-		transform.position += (transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime;
+		if (m_isWallJumping)
+			m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed), ForceMode.Acceleration);
+		else
+            m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed), ForceMode.VelocityChange);
+        ax = Mathf.Clamp(m_Rigidbody.velocity.x, -maxVelocity, maxVelocity);
+		m_Rigidbody.velocity = new Vector3 (ax, m_Rigidbody.velocity.y, 0);
+		if (isThereFloor())
+			m_isWallJumping = false;
 
 		//Jump
 		if (m_isJumping && isThereFloor())
@@ -68,8 +83,12 @@ public class PlayerMovement : MonoBehaviour
 			if (m_isJumping)
 			{
 				WallJump();
+				m_isWallJumping = true;
+
 			}
 		}
+		
+				
 
 
 	}
@@ -91,11 +110,12 @@ public class PlayerMovement : MonoBehaviour
 		for (int i = -1; i <= 1; i += 2)
 		{
 			if (Physics.Raycast(transform.position, Vector3.right * i, out RaycastHit hit, 0.6f))
-				if (hit.collider.gameObject.CompareTag("Object"))
-				{
-					UnityEngine.Debug.Log("Wall touched");
-					return true;
-				}
+				if (hit.collider.isTrigger == false)
+					if (hit.collider.gameObject.CompareTag("Object"))
+					{
+						UnityEngine.Debug.Log("Wall touched");
+						return true;
+					}
 		}
 		return false;
 	}
@@ -110,11 +130,17 @@ public class PlayerMovement : MonoBehaviour
 
 	private void WallJump()
 	{
-		if (Physics.Raycast(transform.position, Vector3.left, out RaycastHit hit, 0.6f))
-			m_Rigidbody.velocity = new Vector3(transform.right.x * DefaultWallJumpForce, DefaultWallJumpForce, 0);
-		else
-			m_Rigidbody.velocity = new Vector3(-transform.right.x * DefaultWallJumpForce, DefaultWallJumpForce, 0);
-	}
+        Vector3 wallNormal = Vector3.zero;
+        if (Physics.Raycast(transform.position, Vector3.left, out RaycastHit leftHit, 0.6f))
+            wallNormal = leftHit.normal;
+        else if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit rightHit, 0.6f))
+            wallNormal = rightHit.normal;
+
+        float direction = Mathf.Sign(Vector3.Dot(wallNormal, transform.up));
+        m_Rigidbody.velocity = new Vector3(direction * DefaultWallJumpForce * wallNormal.x, DefaultWallJumpForce, 0);
+
+
+    }
 	public void Move(InputAction.CallbackContext context)
 	{
 		m_MovementInput = context.ReadValue<Vector2>();
