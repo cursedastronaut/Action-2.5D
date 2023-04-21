@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,28 +13,27 @@ public class PlayerMovement : MonoBehaviour
 	//Game Design Variables
 	[Header("Game Design Variables")]
 	[SerializeField, Tooltip(h)]	private float DefaultSpeed;
-	[SerializeField][Tooltip(a)]	private float DefaultSprintSpeed;
-	[SerializeField][Tooltip(b)]	private float DefaultJumpForce;
-	[SerializeField][Tooltip(c)]	private Vector2 DefaultWallJumpForce;
-	[SerializeField][Tooltip(d)]	private float DefaultSprintDelay;
-	[SerializeField][Tooltip(e)]	private float DefaultSprintOffsetDelay;
-	[SerializeField][Tooltip(f)]	private float DeadZone;
-	[SerializeField][Tooltip(g)]	private float WallSlidingSpeed;
+	[SerializeField, Tooltip(a)]	private float DefaultSprintSpeed;
+	[SerializeField, Tooltip(b)]	private float DefaultJumpForce;
+	[SerializeField, Tooltip(c)]	private Vector2 DefaultWallJumpForce;
+	[SerializeField, Tooltip(d)]	private float DefaultSprintDelay;
+	[SerializeField, Tooltip(e)]	private float DefaultSprintOffsetDelay;
+	[SerializeField, Tooltip(f)]	private float DeadZone;
+	[SerializeField, Tooltip(g)]	private float WallSlidingSpeed;
 	[SerializeField]				private float maxVelocity;
 
     //Game Programming Variables
     [Header("Game Programming Variables")]
 	[SerializeField] private bool ShowGPVariables = false;
-	[IGP][SerializeField] private Vector2 m_MovementInput = Vector2.zero;
-	[IGP][SerializeField] private bool m_isSprinting = false;
-	[IGP][SerializeField] private bool m_canSprint = false;
-	[IGP][SerializeField] private bool m_isJumping = false;
-    [IGP][SerializeField] private bool m_isMoving = false;
-    [IGP]
-	[SerializeField]	private bool m_isWallJumping = false;
-	[IGP][SerializeField]private float m_SprintDelay = 0.0f;
-	[IGP][SerializeField] private float CoyoteTimeCD;
-	[IGP][SerializeField] private PlayerColor m_PlayerColor;
+	[IGP, SerializeField] private Vector2 m_MovementInput = Vector2.zero;
+	[IGP, SerializeField] private bool m_isSprinting = false;
+	[IGP, SerializeField] private bool m_canSprint = false;
+	[IGP, SerializeField] private bool m_isJumping = false;
+    [IGP, SerializeField] private bool m_isMoving = false;
+    [IGP, SerializeField] private bool m_isWallJumping = false;
+	[IGP, SerializeField] private float m_SprintDelay = 0.0f;
+	[IGP, SerializeField] private float CoyoteTimeCD;
+	[IGP, SerializeField] private PlayerColor m_PlayerColor;
 	
 
 	[SerializeField]
@@ -47,7 +45,9 @@ public class PlayerMovement : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		if (ShowGPVariables) { }
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+        if (ShowGPVariables) { }
 		m_PlayerColor = GetComponent<PlayerColor>();
 	}
 
@@ -69,9 +69,9 @@ public class PlayerMovement : MonoBehaviour
 		//Movement depending of input
 		float currentSpeed = m_isSprinting == true ? DefaultSprintSpeed : DefaultSpeed;
 		if (m_isWallJumping)
-			m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime, ForceMode.Acceleration);
+			m_Rigidbody.AddForce(currentSpeed * m_MovementInput.x * Time.deltaTime * transform.right, ForceMode.Acceleration);
 		else
-            m_Rigidbody.AddForce((transform.right * m_MovementInput.x * currentSpeed) * Time.deltaTime, ForceMode.VelocityChange);
+            m_Rigidbody.AddForce(currentSpeed * m_MovementInput.x * Time.deltaTime * transform.right, ForceMode.VelocityChange);
         ax = Mathf.Clamp(m_Rigidbody.velocity.x, -maxVelocity, maxVelocity);
 		m_Rigidbody.velocity = new Vector3 (ax, m_Rigidbody.velocity.y, 0);
 		if (IsThereFloor())
@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 			WallSliding();
 			if (m_isJumping && IsWallJumpable())
 			{
-				UnityEngine.Debug.Log("Wall jump");
+				Debug.Log("Wall jump");
 				WallJump();
 				m_isWallJumping = true;
 
@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 				if (hit.collider.isTrigger == false)
 					if (hit.collider.gameObject.CompareTag("Object"))
 					{
-						UnityEngine.Debug.Log("Wall touched");
+						Debug.Log("Wall touched");
 						return true;
 					}
 		}
