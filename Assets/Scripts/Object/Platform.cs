@@ -11,6 +11,7 @@ public class Platform : MonoBehaviour
 	[Header("Game Design Variables")]
 	[SerializeField]	private bool		shouldMove			= false;
 	[SerializeField]	private bool		shouldSwitchColors	= false;
+	[SerializeField]	public	bool		shouldAllowHiding	= true;
 	[SerializeField]	public int[]		colorIndex;
 	[SerializeField,SWC,Tooltip(a)]	public float		timeBetweenColorSwitch;
 	[SerializeField,SM,Tooltip(b)]	private	Transform[]	m_Path;
