@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 					}
 		}
 		return false;
-	}
+	} //
 
 	private bool IsWallJumpable()
 	{
