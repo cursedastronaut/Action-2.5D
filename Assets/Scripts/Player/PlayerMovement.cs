@@ -30,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
 	[IGP][SerializeField] private bool m_isSprinting = false;
 	[IGP][SerializeField] private bool m_canSprint = false;
 	[IGP][SerializeField] private bool m_isJumping = false;
-	[IGP]
+    [IGP][SerializeField] private bool m_isMoving = false;
+    [IGP]
 	[SerializeField]	private bool m_isWallJumping = false;
 	[IGP][SerializeField]private float m_SprintDelay = 0.0f;
 	[IGP][SerializeField] private float CoyoteTimeCD;
@@ -61,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 		if (m_MovementInput.x > DeadZone || m_MovementInput.x < -DeadZone)
 			m_SprintDelay += Time.deltaTime;
 		if (m_MovementInput.x < DeadZone && m_MovementInput.x > -DeadZone)
-		{ m_SprintDelay = 0; m_isSprinting = false; }
+		{ m_SprintDelay = 0; m_isSprinting = false; m_isMoving = false; }
 		if (m_canSprint && m_SprintDelay >= DefaultSprintDelay + DefaultSprintOffsetDelay)
 			m_isSprinting = true;
 
@@ -82,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 		else if (IsThereWall())
 		{
 			WallSliding();
-			if (m_isJumping && IsWallJumpable() )
+			if (m_isJumping && IsWallJumpable())
 			{
 				UnityEngine.Debug.Log("Wall jump");
 				WallJump();
@@ -91,15 +92,20 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
+		if (m_isMoving == false && IsThereFloor() && m_isJumping == false)
+		{
+			m_Rigidbody.velocity = Vector3.zero;
+		}
+
 	}
 
 	//Checks if there is floor under the player.
 	private bool IsThereFloor()
 	{
 		//TODO: Make it work
-		foreach (var obj in Physics.OverlapSphere(transform.position - new Vector3(0, 1.2f, 0), 0.1f))
+		if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1))
 		{
-			if (!obj.isTrigger)
+			if (!hit.collider.isTrigger)
 				return true;
 		}
 		return false;
