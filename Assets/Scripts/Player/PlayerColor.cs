@@ -82,13 +82,14 @@ public class PlayerColor : MonoBehaviour
 		//RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
 		//rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
 
-		if (SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked || SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
+		if (/*SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked ||*/ SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
 			SingletonPlayerColor.instance.ModifyColorIndex(0);
 		if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
 			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
-		
 
-		
+
+		Debug.Log("s"+SingletonPlayerColor.instance.GetPlayerColor());
+		Debug.Log("p"+PreviousIndex);
 		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
 		{
 			Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
