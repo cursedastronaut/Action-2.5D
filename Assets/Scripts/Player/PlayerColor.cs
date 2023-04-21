@@ -88,8 +88,6 @@ public class PlayerColor : MonoBehaviour
 			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
 
 
-		Debug.Log("s"+SingletonPlayerColor.instance.GetPlayerColor());
-		Debug.Log("p"+PreviousIndex);
 		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
 		{
 			Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];

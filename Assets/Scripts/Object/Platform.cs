@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Platform : MonoBehaviour
 {
@@ -15,8 +16,7 @@ public class Platform : MonoBehaviour
 	[SerializeField]	public int[]		colorIndex;
 	[SerializeField,SWC,Tooltip(a)]	public float		timeBetweenColorSwitch;
 	[SerializeField,SM,Tooltip(b)]	private	Transform[]	m_Path;
-	[SerializeField,SM,Tooltip(c)]	private	int			numberOfSteps;
-	[SerializeField,SM,Tooltip(d)]	private	float		TimeBetweenSteps;
+	[SerializeField,SM,Tooltip(c)]	private	float		m_Speed;
 
 
 	// Game Programming Variables
@@ -72,35 +72,45 @@ public class Platform : MonoBehaviour
 
 	private void Movement()
 	{
-		//If the platform arrived to its desired destination
-		if (m_CurrentStep >= numberOfSteps)
-		{
-			m_CurrentPath++; m_CurrentStep= 0;
-			if (m_Path.Length <= m_CurrentPath)
-				m_CurrentPath = 0;
-		}
 
-		if (m_NextPath == m_CurrentPath)
-		{
-			m_NextPath = m_CurrentPath+1 >= m_Path.Length ? 0 : m_CurrentPath+1;
-		}
+		Vector3 target = m_Path[m_CurrentPath].position;
+		Vector3 current = transform.position;
+		Vector3 previous = transform.position;
+		transform.position = Vector3.MoveTowards(current, target, m_Speed * Time.deltaTime);
+		//movePlayerWithPlatform(previous);
 
-		if (m_StepTimer >= TimeBetweenSteps)
-		{
-			m_CurrentStep++;
-			m_StepTimer = 0;
-			transform.position += ((m_Path[m_NextPath].position - m_Path[m_CurrentPath].position) / numberOfSteps) ;
-			movePlayerWithPlatform();
-		}
-		m_StepTimer += Time.fixedDeltaTime;
-		
+		if (Vector3.Distance(current, target) < 0.5f)
+			m_CurrentPath = (m_CurrentPath + 1) % m_Path.Length;
+		/*
+				//If the platform arrived to its desired destination
+				if (m_CurrentStep >= numberOfSteps)
+				{
+					m_CurrentPath++; m_CurrentStep= 0;
+					if (m_Path.Length <= m_CurrentPath)
+						m_CurrentPath = 0;
+				}
+
+				if (m_NextPath == m_CurrentPath)
+				{
+					m_NextPath = m_CurrentPath+1 >= m_Path.Length ? 0 : m_CurrentPath+1;
+				}
+
+				if (m_StepTimer >= TimeBetweenSteps)
+				{
+					m_CurrentStep++;
+					m_StepTimer = 0;
+					transform.position += ((m_Path[m_NextPath].position - m_Path[m_CurrentPath].position) / numberOfSteps) ;
+					movePlayerWithPlatform();
+				}
+				m_StepTimer += Time.fixedDeltaTime;*/
+
 	}
-	private void movePlayerWithPlatform()
+	private void movePlayerWithPlatform(Vector3 previous)
 	{
 		if (m_IsPlayerColliding)
 		{
 			m_Player.position = (m_Player.position - 
-			(transform.position - ((m_Path[m_NextPath].position - m_Path[m_CurrentPath].position) / numberOfSteps)))
+			previous)
 			+ transform.position;
 		}
 	}
@@ -123,6 +133,5 @@ public class Platform : MonoBehaviour
 
 	private const string a = "Time it takes before the platform changes color.";
 	private const string b = "Place here the Empties that are positionned to the path you wish.";
-	private const string c = "Steps between each destination. More is more fluid, but slower.";
-	private const string d = "Time in seconds between each steps.";
+	private const string c = "Speed of the platform";
 }
