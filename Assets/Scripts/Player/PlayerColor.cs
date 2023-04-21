@@ -82,13 +82,12 @@ public class PlayerColor : MonoBehaviour
 		//RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
 		//rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
 
-		if (SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked || SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
+		if (/*SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked ||*/ SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
 			SingletonPlayerColor.instance.ModifyColorIndex(0);
 		if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
 			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
-		
 
-		
+
 		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
 		{
 			Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
@@ -188,8 +187,8 @@ public class PlayerColor : MonoBehaviour
 	{
 		foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.1f)))
 		{
-			if (obj.tag == "Object" /*&&
-				obj.GetComponent<ColorObject>().colorIndex == SingletonPlayerColor.instance.GetPlayerColor()*/) //If ObjectColor == PlayerColor
+			if (obj.tag == "Object" &&
+				obj.GetComponent<Platform>().currentColor == SingletonPlayerColor.instance.GetPlayerColor() && obj.GetComponent<Platform>().shouldAllowHiding) //If ObjectColor == PlayerColor
 			{
 				isHidden = true;
 				return;
