@@ -27,9 +27,6 @@ public class Platform : MonoBehaviour
 	[IGP,SerializeField]	private int				m_Index				= 0;
 	[IGP,SerializeField]	private float			m_Timer				= 0;
 	[IGP,SerializeField]	private int				m_CurrentPath		= 0;
-	[IGP,SerializeField]	private int				m_NextPath			= 0;
-	[IGP,SerializeField]	private int				m_CurrentStep		= 0;
-	[IGP,SerializeField]	private float			m_StepTimer			= 0;
 	[IGP,SerializeField]	private bool			m_IsPlayerColliding = false;
 	[IGP,SerializeField]	private Transform		m_Player;
 

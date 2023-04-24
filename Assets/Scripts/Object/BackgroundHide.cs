@@ -18,7 +18,6 @@ public class BackgroundHide : MonoBehaviour
 	[Header("Game Programming Variables")]
 	[SerializeField]		private bool			ShowGPVariables		= false;
 	[IGP,SerializeField]	private	Renderer		m_Renderer;
-	[IGP,SerializeField]	private bool			m_IsPlayerColliding = false;
 	[IGP,SerializeField]	private Transform		m_Player;
 
 	// Start is called before the first frame update
