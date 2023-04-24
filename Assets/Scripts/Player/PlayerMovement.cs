@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 	[IGP, SerializeField] private bool m_isSprinting = false;
 	[IGP, SerializeField] private bool m_canSprint = false;
 	[IGP, SerializeField] private bool m_isJumping = false;
+	[IGP,SerializeField] private bool m_canJump = true;
     [IGP, SerializeField] private bool m_isMoving = false;
     [IGP, SerializeField] private bool m_isWallJumping = false;
 	[IGP, SerializeField] private float m_SprintDelay = 0.0f;
@@ -40,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody m_Rigidbody;
 
 	private float ax;
-	private Vector3 m_Velocity;
 
 	// Start is called before the first frame update
 	void Start()
@@ -75,11 +75,17 @@ public class PlayerMovement : MonoBehaviour
         ax = Mathf.Clamp(m_Rigidbody.velocity.x, -maxVelocity, maxVelocity);
 		m_Rigidbody.velocity = new Vector3 (ax, m_Rigidbody.velocity.y, 0);
 		if (IsThereFloor())
+		{
 			m_isWallJumping = false;
+			m_canJump = true;
+		}
 
 		//Jump
-		if (m_isJumping && IsThereFloor())
+		if (m_isJumping && IsThereFloor() && m_canJump)
+		{
 			m_Rigidbody.AddForce(0, DefaultJumpForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+			m_canJump = false;
+		}
 		else if (IsThereWall())
 		{
 			WallSliding();
@@ -96,17 +102,20 @@ public class PlayerMovement : MonoBehaviour
 		{
 			m_Rigidbody.velocity = Vector3.zero;
 		}
-
+		
 	}
 
 	//Checks if there is floor under the player.
 	private bool IsThereFloor()
 	{
-		//TODO: Make it work
-		if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1))
+		if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.01f))
 		{
 			if (!hit.collider.isTrigger)
+			{
+				Debug.Log("Floor");
 				return true;
+			}
+			
 		}
 		return false;
 	}
@@ -155,27 +164,19 @@ public class PlayerMovement : MonoBehaviour
 
 	private void WallJump()
 	{
-		RaycastHit hit = new();
         Vector3 wallNormal = Vector3.zero;
 		if (Physics.Raycast(transform.position, Vector3.left, out RaycastHit leftHit, 0.6f))
 		{
 			wallNormal = leftHit.normal;
-			hit = leftHit;
+		
 		}
 
 		else if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit rightHit, 0.6f))
 		{
 			wallNormal = rightHit.normal;
-			hit = rightHit;
+			
 		}
-
-		else
-		{
-			hit = new();
-		}
-
-		float direction = Mathf.Sign(Vector3.Dot(wallNormal, transform.up));
-		Debug.Log(direction);
+		
 		Debug.Log(wallNormal);
 		m_Rigidbody.velocity = new Vector3(wallNormal.x * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
     }
