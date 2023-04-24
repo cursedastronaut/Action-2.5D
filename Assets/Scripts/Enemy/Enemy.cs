@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         if (!m_TurnOff)
             return;
 
-        m_TurnOffTime += Time.fixedDeltaTime;
+        m_TurnOffTime += Time.deltaTime;
         if (m_TurnOffTime < m_TurnOffSpeed)
             return;
 
