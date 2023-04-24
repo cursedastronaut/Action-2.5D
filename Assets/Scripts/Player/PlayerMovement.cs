@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 			WallSliding();
 			if (m_isJumping && IsWallJumpable())
 			{
-				Debug.Log("Wall jump");
+				//Debug.Log("Wall jump");
 				WallJump();
 				m_isWallJumping = true;
 
@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 				if (hit.collider.isTrigger == false)
 					if (hit.collider.gameObject.CompareTag("Object"))
 					{
-						Debug.Log("Wall touched");
+						//Debug.Log("Wall touched");
 						return true;
 					}
 		}
@@ -175,7 +175,9 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		float direction = Mathf.Sign(Vector3.Dot(wallNormal, transform.up));
-		m_Rigidbody.velocity = new Vector3(direction * DefaultWallJumpForce.x * wallNormal.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
+		Debug.Log(direction);
+		Debug.Log(wallNormal);
+		m_Rigidbody.velocity = new Vector3(direction * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
     }
 
 	public void Move(InputAction.CallbackContext context)
