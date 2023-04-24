@@ -33,16 +33,6 @@ public class BackgroundHide : MonoBehaviour
 		//Changes material color to the corresponding color in the Universal Color Array.
 		m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[colorIndex];
 	}
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.CompareTag("Player"))
-			m_IsPlayerColliding = true;
-	}
-	private void OnTriggerExit(Collider other)
-	{
-		if (other.CompareTag("Player"))
-			m_IsPlayerColliding = false;
-	}
 
 
 	private const string a = "Time it takes before the platform changes color.";

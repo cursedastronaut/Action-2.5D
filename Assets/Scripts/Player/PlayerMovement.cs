@@ -26,16 +26,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("Game Programming Variables")]
 	[SerializeField] private bool ShowGPVariables = false;
 	[IGP, SerializeField] private Vector2 m_MovementInput = Vector2.zero;
-	[IGP, SerializeField] private bool m_isSprinting = false;
-	[IGP, SerializeField] private bool m_canSprint = false;
-	[IGP, SerializeField] private bool m_isJumping = false;
-	[IGP,SerializeField] private bool m_canJump = true;
-    [IGP, SerializeField] private bool m_isMoving = false;
-    [IGP, SerializeField] private bool m_isWallJumping = false;
-	[IGP, SerializeField] private float m_SprintDelay = 0.0f;
+	[IGP, SerializeField] private bool m_isSprinting	= false;
+	[IGP, SerializeField] private bool m_canSprint		= false;
+	[IGP, SerializeField] private bool m_isJumping		= false;
+	[IGP, SerializeField] private bool m_isInAir		= false;
+	[IGP, SerializeField] private bool m_canJump		= false;
+    [IGP, SerializeField] private bool m_isMoving		= false;
+    [IGP, SerializeField] private bool m_isWallJumping	= false;
+	[IGP, SerializeField] private float m_SprintDelay	= 0.0f;
 	[IGP, SerializeField] private float CoyoteTimeCD;
 	[IGP, SerializeField] private PlayerColor m_PlayerColor;
-	
+	[IGP, SerializeField] private GameObject m_Feet;
+
 
 	[SerializeField]
 	private Rigidbody m_Rigidbody;
@@ -52,10 +54,11 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
 	{
 		if (m_PlayerColor.isHidden) return;
 
+		float factorInAir = m_canJump ? 1 : 4;
 		bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
 		if ((m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint))
 			m_canSprint = true;
@@ -71,20 +74,23 @@ public class PlayerMovement : MonoBehaviour
 		if (m_isWallJumping)
 			m_Rigidbody.AddForce(currentSpeed * m_MovementInput.x * Time.deltaTime * transform.right, ForceMode.Acceleration);
 		else
-            m_Rigidbody.AddForce(currentSpeed * m_MovementInput.x * Time.deltaTime * transform.right, ForceMode.VelocityChange);
+            m_Rigidbody.AddForce(currentSpeed/factorInAir * (m_MovementInput.x) * Time.deltaTime * transform.right, ForceMode.VelocityChange);
         ax = Mathf.Clamp(m_Rigidbody.velocity.x, -maxVelocity, maxVelocity);
 		m_Rigidbody.velocity = new Vector3 (ax, m_Rigidbody.velocity.y, 0);
-		if (IsThereFloor())
-		{
-			m_isWallJumping = false;
-			m_canJump = true;
-		}
 
 		//Jump
-		if (m_isJumping && IsThereFloor() && m_canJump)
-		{
-			m_Rigidbody.AddForce(0, DefaultJumpForce * Time.deltaTime, 0, ForceMode.VelocityChange);
-			m_canJump = false;
+		if (IsThereFloor())
+		{//Debug.Log("truuuuueuh");
+			m_isWallJumping = false;
+			m_canJump = true;
+			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
+			{ 
+				Debug.Log("Jump!");
+				m_Rigidbody.velocity = Vector3.zero;
+				m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
+				m_canJump = false;
+				m_isInAir = true;
+			}
 		}
 		else if (IsThereWall())
 		{
@@ -108,11 +114,12 @@ public class PlayerMovement : MonoBehaviour
 	//Checks if there is floor under the player.
 	private bool IsThereFloor()
 	{
-		if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.01f))
+		Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
+		foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position, m_Feet.GetComponent<BoxCollider>().size.y))
 		{
-			if (!hit.collider.isTrigger)
+			if (!obj.isTrigger)
 			{
-				Debug.Log("Floor");
+				Debug.Log("Floor " + obj.gameObject);
 				return true;
 			}
 			
