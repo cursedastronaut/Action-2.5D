@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-	[SerializeField]
-						private Transform		player;
+	[SerializeField]	private Transform		player;
+	[SerializeField]	private	float			offsetY;
                         private float			initialZPosition;
 	[Header("Shaking Effect")]
 	[SerializeField]	private AnimationCurve	CamShakeX;
@@ -22,7 +22,7 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(player.position.x, player.position.y, initialZPosition);
+        transform.position = new Vector3(player.position.x, player.position.y + offsetY, initialZPosition);
 		if (ShakeTime > 0)
 		{
 			transform.position += new Vector3(CamShakeX.Evaluate(Time.time * CamShakeSpeed), CamShakeY.Evaluate(Time.time * CamShakeSpeed), 0) * CamShakeForce;
