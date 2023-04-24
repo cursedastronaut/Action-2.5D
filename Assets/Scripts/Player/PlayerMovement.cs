@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
 		float direction = Mathf.Sign(Vector3.Dot(wallNormal, transform.up));
 		Debug.Log(direction);
 		Debug.Log(wallNormal);
-		m_Rigidbody.velocity = new Vector3(direction * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
+		m_Rigidbody.velocity = new Vector3(wallNormal.x * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
     }
 
 	public void Move(InputAction.CallbackContext context)
