@@ -97,7 +97,10 @@ public class PlayerColor : MonoBehaviour
 
 
 		if (isHidden)
+		{
+			Debug.Log("uwu");
 			HideCheck();
+		}
 		objectCheck();
 		//UIColorPalette();
 		UIColorTriangleUpdate();
@@ -188,7 +191,8 @@ public class PlayerColor : MonoBehaviour
 		foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.1f)))
 		{
 			if (obj.tag == "Object" &&
-				obj.GetComponent<Platform>().currentColor == SingletonPlayerColor.instance.GetPlayerColor() && obj.GetComponent<Platform>().shouldAllowHiding) //If ObjectColor == PlayerColor
+				(obj.TryGetComponent(out Platform plat) && plat.currentColor == SingletonPlayerColor.instance.GetPlayerColor() && plat.shouldAllowHiding) || 
+				(obj.TryGetComponent(out BackgroundHide bckg) && bckg.colorIndex == SingletonPlayerColor.instance.GetPlayerColor() && bckg.shouldAllowHiding))
 			{
 				isHidden = true;
 				return;

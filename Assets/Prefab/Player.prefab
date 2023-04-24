@@ -264,7 +264,19 @@ MonoBehaviour:
     m_ActionId: b62f80d1-9e9b-46c2-9535-3ac4dc107249
     m_ActionName: Player/Color Change -[/XInputControllerWindows/leftShoulder]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6650920004323593031}
+        m_TargetAssemblyTypeName: PlayerColor, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 382f3315-435c-4ec0-a771-9d2b1dd225c9
     m_ActionName: Player/Hide[/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
@@ -309,7 +321,6 @@ MonoBehaviour:
   DeadZone: 0.1
   WallSlidingSpeed: 0
   maxVelocity: 5
-  CoyoteTime: 0
   ShowGPVariables: 1
   m_MovementInput: {x: 0, y: 0}
   m_isSprinting: 0
