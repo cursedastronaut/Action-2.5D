@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (m_PlayerColor.isHidden) return;
 
-		float factorInAir = m_canJump ? 1 : 4;
+		float factorInAir = m_canJump ? 1 : 50;
 		bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
 		if ((m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint))
 			m_canSprint = true;
