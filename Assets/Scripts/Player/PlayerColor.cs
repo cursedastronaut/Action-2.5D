@@ -71,7 +71,7 @@ public class PlayerColor : MonoBehaviour
 		//If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
 		ColorChangingDelay += Time.deltaTime;
 		int NumberOfColors = SingletonPlayerColor.instance.SelectableColors.Length-1;
-		UIColorGauge();
+		
 		if (m_IsChanging != 0)
 		{
 			SingletonPlayerColor.instance.AddToPlayerColor(m_IsChanging);
@@ -82,7 +82,7 @@ public class PlayerColor : MonoBehaviour
 		//RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
 		//rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
 
-		if (/*SingletonPlayerColor.instance.GetPlayerColor() > ColorUnlocked ||*/ SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
+		if (SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
 			SingletonPlayerColor.instance.ModifyColorIndex(0);
 		if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
 			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
@@ -94,7 +94,7 @@ public class PlayerColor : MonoBehaviour
 			m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, isHidden ? 0.5f : 1.0f );
 			prev_isHidden = isHidden;
 		}
-
+		UIColorGauge();
 
 		if (isHidden)
 		{

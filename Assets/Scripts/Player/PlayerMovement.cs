@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
 	[IGP, SerializeField] private bool m_isSprinting	= false;
 	[IGP, SerializeField] private bool m_canSprint		= false;
 	[IGP, SerializeField] private bool m_isJumping		= false;
-	[IGP, SerializeField] private bool m_isInAir		= false;
 	[IGP, SerializeField] private bool m_canJump		= false;
     [IGP, SerializeField] private bool m_isMoving		= false;
     [IGP, SerializeField] private bool m_isWallJumping	= false;
@@ -85,11 +84,10 @@ public class PlayerMovement : MonoBehaviour
 			m_canJump = true;
 			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
 			{ 
-				Debug.Log("Jump!");
+				//Debug.Log("Jump!");
 				m_Rigidbody.velocity = Vector3.zero;
 				m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
 				m_canJump = false;
-				m_isInAir = true;
 			}
 		}
 		else if (IsThereWall())
@@ -114,12 +112,12 @@ public class PlayerMovement : MonoBehaviour
 	//Checks if there is floor under the player.
 	private bool IsThereFloor()
 	{
-		Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
-		foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position, m_Feet.GetComponent<BoxCollider>().size.y))
+		//Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
+		foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position, m_Feet.GetComponent<BoxCollider>().size.y, ~(1<<3) ))
 		{
 			if (!obj.isTrigger)
 			{
-				Debug.Log("Floor " + obj.gameObject);
+				//Debug.Log("Floor " + obj.gameObject);
 				return true;
 			}
 			
@@ -184,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
 			
 		}
 		
-		Debug.Log(wallNormal);
+		//Debug.Log(wallNormal);
 		m_Rigidbody.velocity = new Vector3(wallNormal.x * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
     }
 

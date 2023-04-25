@@ -249,7 +249,7 @@
                 {
                     "name": "",
                     "id": "d64eaf31-4783-4391-8c0e-df12f8676098",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -260,7 +260,7 @@
                 {
                     "name": "",
                     "id": "b3f19ecc-d6b4-4ac2-9441-696eff48f0c4",
-                    "path": "<XInputController>/buttonNorth",
+                    "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -272,6 +272,17 @@
                     "name": "",
                     "id": "5ca27376-2315-4633-a7cf-d84d787af342",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c40121c5-73a4-4c65-a491-4e0b28759bac",
+                    "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
