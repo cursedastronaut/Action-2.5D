@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour
 
 	private void Animation()
 	{
-		if (EnemyKind == 0 || EnemyKind == 1 || EnemyKind == 3)
+		if (EnemyKind == 2 || EnemyKind == 1)
 			transform.LookAt(m_Path[m_CurrentPath]);
 		if (EnemyKind == 0)
 			FloatingEnemyModel.position = transform.position + new Vector3(0, FloatingAnimationCurve.Evaluate(Time.time * FloatingAnimationSpeed) , 0) * FloatingAnimationForce;
