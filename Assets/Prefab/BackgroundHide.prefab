@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1601153550841460480}
   m_Layer: 0
   m_Name: BackgroundHide
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,5 +114,4 @@ MonoBehaviour:
   colorIndex: 1
   ShowGPVariables: 0
   m_Renderer: {fileID: 0}
-  m_IsPlayerColliding: 0
   m_Player: {fileID: 0}
