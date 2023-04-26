@@ -9,6 +9,7 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerDeath>().editCheckpoint(transform.position);
+			SingletonMediaPlayer.instance.PlaySoundEffect("checkpoint");
         }
     }
     

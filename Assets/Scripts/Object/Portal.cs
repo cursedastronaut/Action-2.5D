@@ -29,6 +29,7 @@ public class Portal : MonoBehaviour
 		{
 			other.transform.position = m_PortalMate.transform.position;
 			SingletonPlayerColor.instance.isBeingTeleported = this.gameObject;
+			SingletonMediaPlayer.instance.PlaySoundEffect("portal");
 		}
 	}
 

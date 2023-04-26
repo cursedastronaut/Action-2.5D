@@ -21,6 +21,7 @@ public class PlayerDeath : MonoBehaviour
 	public void killPlayer()
 	{
 		transform.position = m_Checkpoint;
+		SingletonMediaPlayer.instance.PlaySoundEffect("player_death");
 	}
 
 	public void editCheckpoint(Vector3 input)
