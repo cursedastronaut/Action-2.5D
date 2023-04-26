@@ -22,36 +22,35 @@ public class PlayerColor : MonoBehaviour
 
 	//Game Programming Variables
 	[Header("Game Programming Variables")]
-	[SerializeField]			private bool			ShowGPVariables			= false;
-	//[IGP,SerializeField]		private GameObject		UIColPalette;
-	//[IGP,SerializeField]		private GameObject		UIColPaletteSelected;
+	[SerializeField]			private bool			ShowGPVariables					= false;
+	[IGP,SerializeField]		private GameObject		m_Eyes;
 	[IGP,SerializeField]		private RectTransform	UIGauge;
 	[IGP,SerializeField]		private RectTransform	UITriangle;
 	[IGP,SerializeField]		private PlayerCamera	m_Camera;
-	[IGP,SerializeField]		public  bool			isHidden				= false;
-	[IGP,SerializeField]		private bool			prev_isHidden			= false;
+	[IGP,SerializeField]		public  bool			isHidden						= false;
+	[IGP,SerializeField]		private bool			prev_isHidden					= false;
 
 	//Color Change Variables
-	[IGP,SerializeField]		public  int		ColorUnlocked		= 0;
-	[IGP,SerializeField]		private int		PreviousIndex		= 0;
-	[IGP,SerializeField]		private int		m_IsChanging		= 0;
-	[IGP,SerializeField]		private float   ColorChangingDelay	= 0;
+	[IGP,SerializeField]		public  int				ColorUnlocked					= 0;
+	[IGP,SerializeField]		private int				PreviousIndex					= 0;
+	[IGP,SerializeField]		private int				m_IsChanging					= 0;
+	[IGP,SerializeField]		private float			ColorChangingDelay				= 0;
 
 	//UI Color Palette
-	[IGP,SerializeField]		private Vector3 m_UiColorPalette_initialPos;
+	[IGP,SerializeField]		private Vector3			m_UiColorPalette_initialPos;
 	//UI Color Gauge
-	[IGP,SerializeField]		private Vector2 m_UIGauge_maxSize;
-	[IGP,SerializeField]		private Vector3 m_UIGauge_InitialPosition;
-	[IGP,SerializeField]		private float m_ColorTimer;
-	[IGP,SerializeField]		private float m_ColorGaugeDefXPos;
+	[IGP,SerializeField]		private Vector2			m_UIGauge_maxSize;
+	[IGP,SerializeField]		private Vector3			m_UIGauge_InitialPosition;
+	[IGP,SerializeField]		private float			m_ColorTimer;
+	[IGP,SerializeField]		private float			m_ColorGaugeDefXPos;
 
 	//UI Color Triangle
 	[IGP, SerializeField]		private float			m_TriangleAnimationTime;
 	[IGP, SerializeField]		private float			m_TriangleAnimationProgress;
 	[IGP, SerializeField]		private AnimationCurve	m_TriangleAnimation;
-	[IGP, SerializeField]		private bool			m_TriangleShouldAnim		= false;
-	[IGP]						private Quaternion		ui_TriangleStartRot = Quaternion.identity;
-	[IGP,SerializeField]		private Renderer m_Renderer;
+	[IGP, SerializeField]		private bool			m_TriangleShouldAnim			= false;
+	[IGP]						private Quaternion		ui_TriangleStartRot				= Quaternion.identity;
+	[IGP,SerializeField]		private Renderer		m_Renderer;
 	void Start()
 	{
 		if (ShowGPVariables) { } //Avoid a warning.
@@ -94,14 +93,12 @@ public class PlayerColor : MonoBehaviour
 			prev_isHidden = isHidden;
 			m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, 1.0f );
 			m_Renderer.gameObject.SetActive(!isHidden);
+			m_Eyes.SetActive(isHidden);
 		}
 		UIColorGauge();
 
 		if (isHidden)
-		{
-			Debug.Log("uwu");
 			HideCheck();
-		}
 		objectCheck();
 		//UIColorPalette();
 		UIColorTriangleUpdate();
@@ -121,8 +118,8 @@ public class PlayerColor : MonoBehaviour
 			}
 			else if (obj.tag == "Object" && bckg != null && SingletonPlayerColor.instance.GetPlayerColor() != bckg.colorIndex)
 			{
-				//if (isHidden)
-					//isHidden = false;
+				if (isHidden)
+					isHidden = false;
 			}
 		}
 	}
@@ -146,11 +143,6 @@ public class PlayerColor : MonoBehaviour
 		}
 	}
 
-	//Handles Color Palette UI (to show all colors you call loop through)
-	/*private void UIColorPalette()
-	{
-		UIColPalette.transform.position = new Vector3(m_UiColorPalette_initialPos.x - (UIColPalette.GetComponent<RectTransform>().sizeDelta.y * (ColorUnlocked+1)) * UIColPalette.transform.localScale.x, m_UiColorPalette_initialPos.y, m_UiColorPalette_initialPos.z);
-	}*/
 
 	private void UIColorGauge()
 	{
@@ -184,7 +176,6 @@ public class PlayerColor : MonoBehaviour
 		if (isHidden)
 		{
 			isHidden = false;
-			Debug.Log("ENVIE DE CREVER");
 			return;
 		}
 		else
@@ -204,7 +195,7 @@ public class PlayerColor : MonoBehaviour
 				}
 				if (obj.TryGetComponent(out BackgroundHide bckg) && bckg.colorIndex == SingletonPlayerColor.instance.GetPlayerColor() && bckg.shouldAllowHiding)
 				{
-					isHidden = true; Debug.Log("awful"); return;
+					isHidden = true; return;
 				}
 			}
 			
