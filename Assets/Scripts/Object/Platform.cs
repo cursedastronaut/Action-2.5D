@@ -28,7 +28,7 @@ public class Platform : MonoBehaviour
 	[IGP,SerializeField]	private float			m_Timer				= 0;
 	[IGP,SerializeField]	private int				m_CurrentPath		= 0;
 	[IGP,SerializeField]	private bool			m_IsPlayerColliding = false;
-	[IGP,SerializeField]	private Transform		m_Player;
+	[IGP,SerializeField]	private GameObject		m_Player;
 
 	//Called elsewhere variables
 	[IGP]	public int currentColor = 0;
@@ -75,6 +75,8 @@ public class Platform : MonoBehaviour
 		Vector3 current = transform.position;
 		Vector3 previous = transform.position;
 		transform.position = Vector3.MoveTowards(current, target, m_Speed * Time.deltaTime);
+		Vector3 delta = transform.position - previous;
+		movePlayerWithPlatform(delta);
 		//movePlayerWithPlatform(previous);
 
 		if (Vector3.Distance(current, target) < 0.5f)
@@ -107,9 +109,7 @@ public class Platform : MonoBehaviour
 	{
 		if (m_IsPlayerColliding)
 		{
-			m_Player.position = (m_Player.position - 
-			previous)
-			+ transform.position;
+			m_Player.transform.position +=  previous;
 		}
 	}
 
@@ -119,7 +119,7 @@ public class Platform : MonoBehaviour
 		if (collision.collider.CompareTag("Player"))
 		{
 			m_IsPlayerColliding = true;
-			m_Player = collision.collider.transform;
+			m_Player = collision.collider.gameObject;
 		}
 	}
 	private void OnCollisionExit(Collision collision)
