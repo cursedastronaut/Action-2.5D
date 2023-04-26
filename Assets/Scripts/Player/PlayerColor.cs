@@ -87,13 +87,9 @@ public class PlayerColor : MonoBehaviour
 		if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
 			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
 
-
-		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
-		{
-			Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
-			m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, isHidden ? 0.5f : 1.0f );
-			prev_isHidden = isHidden;
-		}
+		Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
+		m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, isHidden ? 0.5f : 1.0f );
+		prev_isHidden = isHidden;
 		UIColorGauge();
 
 		if (isHidden)
@@ -111,14 +107,17 @@ public class PlayerColor : MonoBehaviour
 	{
 		foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.01f, 0.01f, 0.01f)))
 		{
-			if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != obj.GetComponent<Platform>().currentColor) //If ObjectColor == PlayerColor
+			bool isPlatform = obj.TryGetComponent(out Platform plat);
+			obj.TryGetComponent(out BackgroundHide bckg);
+			if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != (isPlatform ? plat.currentColor : null)) //If ObjectColor == PlayerColor
 			{
 				GetComponent<PlayerDeath>().killPlayer();
 				return;
 			}
-			else if (obj.tag == "Portal")
+			else if (obj.tag == "Object" && bckg != null && SingletonPlayerColor.instance.GetPlayerColor() != bckg.colorIndex)
 			{
-				
+				//if (isHidden)
+					//isHidden = false;
 			}
 		}
 	}
@@ -180,6 +179,7 @@ public class PlayerColor : MonoBehaviour
 		if (isHidden)
 		{
 			isHidden = false;
+			Debug.Log("ENVIE DE CREVER");
 			return;
 		}
 		else
@@ -188,15 +188,21 @@ public class PlayerColor : MonoBehaviour
 
 	private void HideCheck()
 	{
+		Physics.queriesHitTriggers = true;
 		foreach (var obj in Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.1f)))
 		{
-			if (obj.tag == "Object" &&
-				((obj.TryGetComponent(out Platform plat) && plat.currentColor == SingletonPlayerColor.instance.GetPlayerColor() && plat.shouldAllowHiding)) || 
-				((obj.TryGetComponent(out BackgroundHide bckg) && bckg.colorIndex == SingletonPlayerColor.instance.GetPlayerColor() && bckg.shouldAllowHiding)))
+			if (obj.tag == "Object")
 			{
-				isHidden = true;
-				return;
+				if (obj.TryGetComponent(out Platform plat) && plat.currentColor == SingletonPlayerColor.instance.GetPlayerColor() && plat.shouldAllowHiding)
+				{
+						isHidden = true; return;
+				}
+				if (obj.TryGetComponent(out BackgroundHide bckg) && bckg.colorIndex == SingletonPlayerColor.instance.GetPlayerColor() && bckg.shouldAllowHiding)
+				{
+					isHidden = true; Debug.Log("awful"); return;
+				}
 			}
+			
 		}
 		isHidden = false;
 	}

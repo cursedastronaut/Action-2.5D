@@ -234,8 +234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Textures:
   - {fileID: 2800000, guid: 9982539bde7788842b713fe5f083f07c, type: 3}
-  - {fileID: 2800000, guid: 299e9947c5d47094baac073f7b80e3db, type: 3}
   - {fileID: 2800000, guid: 42ad744ec5833d7498b434f9651372e0, type: 3}
+  - {fileID: 2800000, guid: 299e9947c5d47094baac073f7b80e3db, type: 3}
 --- !u!1 &5880613918153340500
 GameObject:
   m_ObjectHideFlags: 0
