@@ -79,12 +79,11 @@ public class PlayerMovement : MonoBehaviour
 
 		//Jump
 		if (IsThereFloor())
-		{//Debug.Log("truuuuueuh");
+		{
 			m_isWallJumping = false;
 			m_canJump = true;
 			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
 			{ 
-				//Debug.Log("Jump!");
 				m_Rigidbody.velocity = Vector3.zero;
 				m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
 				m_canJump = false;
@@ -113,14 +112,17 @@ public class PlayerMovement : MonoBehaviour
 	private bool IsThereFloor()
 	{
 		//Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
-		foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position, m_Feet.GetComponent<BoxCollider>().size.y, ~(1<<3) ))
+		for (float i = 0; i <= 1; i+=0.1f)
 		{
-			if (!obj.isTrigger)
+			Vector3 offset = new Vector3(i,0,0);
+			foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position + offset, m_Feet.GetComponent<BoxCollider>().size.y, ~(1<<3) ))
 			{
-				//Debug.Log("Floor " + obj.gameObject);
-				return true;
+				if (!obj.isTrigger)
+				{
+					//Debug.Log("Floor " + obj.gameObject);
+					return true;
+				}
 			}
-			
 		}
 		return false;
 	}
