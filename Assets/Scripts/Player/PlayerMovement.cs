@@ -26,11 +26,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Game Programming Variables")]
 	[SerializeField] private bool ShowGPVariables = false;
 	[IGP, SerializeField] private Vector2 m_MovementInput = Vector2.zero;
-	[IGP, SerializeField] private bool m_isSprinting	= false;
+	[IGP, SerializeField] public bool m_isSprinting	= false;
 	[IGP, SerializeField] private bool m_canSprint		= false;
 	[IGP, SerializeField] private bool m_isJumping		= false;
 	[IGP, SerializeField] private bool m_canJump		= false;
-    [IGP, SerializeField] private bool m_isMoving		= false;
+    [IGP, SerializeField] public bool m_isMoving		= false;
     [IGP, SerializeField] private bool m_isWallJumping	= false;
 	[IGP, SerializeField] private float m_SprintDelay	= 0.0f;
 	[IGP, SerializeField] private float CoyoteTimeCD;
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 		if ((m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint))
 			m_canSprint = true;
 		if (m_MovementInput.x > DeadZone || m_MovementInput.x < -DeadZone)
-			m_SprintDelay += Time.deltaTime;
+		{ m_SprintDelay += Time.deltaTime; m_isMoving = true; }
 		if (m_MovementInput.x < DeadZone && m_MovementInput.x > -DeadZone)
 		{ m_SprintDelay = 0; m_isSprinting = false; m_isMoving = false; }
 		if (m_canSprint && m_SprintDelay >= DefaultSprintDelay + DefaultSprintOffsetDelay)
@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-		if (m_isMoving == false && IsThereFloor() && m_isJumping == false)
+		if (IsThereFloor() && m_isJumping == false)
 		{
 			m_Rigidbody.velocity = Vector3.zero;
 		}
@@ -109,10 +109,10 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	//Checks if there is floor under the player.
-	private bool IsThereFloor()
+	public bool IsThereFloor()
 	{
 		//Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
-		for (float i = 0; i <= 1; i+=0.1f)
+		for (float i = 0; i <= 2; i+=0.1f)
 		{
 			Vector3 offset = new Vector3(i,0,0);
 			foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position + offset, m_Feet.GetComponent<BoxCollider>().size.y, ~(1<<3) ))
