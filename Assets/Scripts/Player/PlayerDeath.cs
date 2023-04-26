@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
+	public bool m_isDead;
 	private Vector3 m_Checkpoint;
 	
 	// Start is called before the first frame update
@@ -20,8 +21,10 @@ public class PlayerDeath : MonoBehaviour
 
 	public void killPlayer()
 	{
-		transform.position = m_Checkpoint;
+		m_isDead = true;
 		SingletonMediaPlayer.instance.PlaySoundEffect("player_death");
+		if (m_isDead == false)
+		transform.position = m_Checkpoint;
 	}
 
 	public void editCheckpoint(Vector3 input)

@@ -616,6 +616,32 @@ SkinnedMeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 1665925167650198286}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2615024588793447067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3698828718276235669, guid: 8146374d820c3ac45baeed5014144363,
+    type: 3}
+  m_PrefabInstance: {fileID: 1665925167650198286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &469774475060791452
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2615024588793447067}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cf8d1ba78ace0d04cbedb4e5bb533b36, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &2921436290841771144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4581718618250850182, guid: 8146374d820c3ac45baeed5014144363,
