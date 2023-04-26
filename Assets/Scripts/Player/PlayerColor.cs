@@ -87,9 +87,14 @@ public class PlayerColor : MonoBehaviour
 		if (SingletonPlayerColor.instance.GetPlayerColor() < 0)
 			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
 
-		Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
-		m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, isHidden ? 0.5f : 1.0f );
-		prev_isHidden = isHidden;
+
+		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
+		{
+			Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
+			prev_isHidden = isHidden;
+			m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, 1.0f );
+			m_Renderer.gameObject.SetActive(!isHidden);
+		}
 		UIColorGauge();
 
 		if (isHidden)
@@ -109,7 +114,7 @@ public class PlayerColor : MonoBehaviour
 		{
 			bool isPlatform = obj.TryGetComponent(out Platform plat);
 			obj.TryGetComponent(out BackgroundHide bckg);
-			if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != (isPlatform ? plat.currentColor : null)) //If ObjectColor == PlayerColor
+			if (obj.tag == "Object" && SingletonPlayerColor.instance.GetPlayerColor() != (isPlatform ? plat.currentColor : SingletonPlayerColor.instance.GetPlayerColor())) //If ObjectColor == PlayerColor
 			{
 				GetComponent<PlayerDeath>().killPlayer();
 				return;
