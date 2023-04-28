@@ -10,7 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private GameObject m_PlayerGameObject;
     Quaternion m_InitialRotation;
     private Quaternion m_OldRotation;
-    private Quaternion m_LastRotation;
+    public Quaternion m_LastRotation;
     private Vector3 m_InitialPosition;
     private void Awake()
     {
@@ -43,7 +43,7 @@ public class PlayerAnimation : MonoBehaviour
         if (GetComponent<PlayerDeath>().m_isDead)
         {
             StartCoroutine(DeathCoroutine());
-            m_Animator.SetBool("Dead", true);
+            m_Animator.SetBool("Dead", GetComponent<PlayerDeath>().m_isDead);
             
         }
         else
@@ -52,13 +52,14 @@ public class PlayerAnimation : MonoBehaviour
         }
         m_OldRotation = m_PlayerGameObject.transform.rotation;
         SetRotationAnimator();
+        //StartCoroutine(WalkCoroutine());
 
     }
 
     private IEnumerator DeathCoroutine()
     {
         Debug.Log("Sympa");
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         m_PlayerGameObject.transform.rotation = m_InitialRotation;
         
@@ -69,6 +70,12 @@ public class PlayerAnimation : MonoBehaviour
         Debug.Log("Saut");
         yield return new WaitForSeconds(1);
         m_PlayerGameObject.transform.rotation = m_InitialRotation;
+    }
+
+    private IEnumerator WalkCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        m_PlayerGameObject.transform.rotation = m_OldRotation * m_LastRotation;
     }
 
     private void SetRotationAnimator()
