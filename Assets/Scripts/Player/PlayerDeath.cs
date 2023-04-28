@@ -23,12 +23,18 @@ public class PlayerDeath : MonoBehaviour
 	{
 		m_isDead = true;
 		SingletonMediaPlayer.instance.PlaySoundEffect("player_death");
-		if (m_isDead == false)
-		transform.position = m_Checkpoint;
+		StartCoroutine(DeathCoolDown());
 	}
 
 	public void editCheckpoint(Vector3 input)
 	{
 		m_Checkpoint = input;
 	}
+
+    private IEnumerator DeathCoolDown()
+	{
+		yield return new WaitForSeconds(5);
+        transform.position = m_Checkpoint;
+		m_isDead = false;
+    }
 }
