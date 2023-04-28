@@ -12,30 +12,31 @@ public class PlayerMovement : MonoBehaviour
 {
 	//Game Design Variables
 	[Header("Game Design Variables")]
-	[SerializeField, Tooltip(h)]	private float DefaultSpeed;
-	[SerializeField, Tooltip(a)]	private float DefaultSprintSpeed;
-	[SerializeField, Tooltip(b)]	private float DefaultJumpForce;
-	[SerializeField, Tooltip(c)]	private Vector2 DefaultWallJumpForce;
-	[SerializeField, Tooltip(d)]	private float DefaultSprintDelay;
-	[SerializeField, Tooltip(e)]	private float DefaultSprintOffsetDelay;
-	[SerializeField, Tooltip(f)]	private float DeadZone;
-	[SerializeField, Tooltip(g)]	private float WallSlidingSpeed;
-	[SerializeField]				private float maxVelocity;
+	[SerializeField, Tooltip(h)]	private float		DefaultSpeed;
+	[SerializeField, Tooltip(a)]	private float		DefaultSprintSpeed;
+	[SerializeField, Tooltip(b)]	private float		DefaultJumpForce;
+	[SerializeField, Tooltip(c)]	private Vector2		DefaultWallJumpForce;
+	[SerializeField, Tooltip(d)]	private float		DefaultSprintDelay;
+	[SerializeField, Tooltip(e)]	private float		DefaultSprintOffsetDelay;
+	[SerializeField, Tooltip(f)]	private float		DeadZone;
+	[SerializeField, Tooltip(g)]	private float		WallSlidingSpeed;
+	[SerializeField]				private float		maxVelocity;
 
     //Game Programming Variables
     [Header("Game Programming Variables")]
-	[SerializeField] private bool ShowGPVariables = false;
-	[IGP, SerializeField] private Vector2 m_MovementInput = Vector2.zero;
-	[IGP, SerializeField] public bool m_isSprinting	= false;
-	[IGP, SerializeField] private bool m_canSprint		= false;
-	[IGP, SerializeField] private bool m_isJumping		= false;
-	[IGP, SerializeField] private bool m_canJump		= false;
-    [IGP, SerializeField] public bool m_isMoving		= false;
-    [IGP, SerializeField] private bool m_isWallJumping	= false;
-	[IGP, SerializeField] private float m_SprintDelay	= 0.0f;
-	[IGP, SerializeField] private float CoyoteTimeCD;
-	[IGP, SerializeField] private PlayerColor m_PlayerColor;
-	[IGP, SerializeField] private GameObject m_Feet;
+	[SerializeField]				private bool		ShowGPVariables = false;
+	[IGP, SerializeField]			private Vector2		m_MovementInput = Vector2.zero;
+	[IGP, SerializeField]			public	bool		m_isSprinting	= false;
+	[IGP, SerializeField]			public	bool		m_isOnPlatform	= false;
+	[IGP, SerializeField]			private bool		m_canSprint		= false;
+	[IGP, SerializeField]			private bool		m_isJumping		= false;
+	[IGP, SerializeField]			private bool		m_canJump		= false;
+    [IGP, SerializeField]			public	bool		m_isMoving		= false;
+    [IGP, SerializeField]			private bool		m_isWallJumping	= false;
+	[IGP, SerializeField]			private float		m_SprintDelay	= 0.0f;
+	[IGP, SerializeField]			private float		CoyoteTimeCD;
+	[IGP, SerializeField]			private PlayerColor	m_PlayerColor;
+	[IGP, SerializeField]			private GameObject	m_Feet;
 
 
 	[SerializeField]
@@ -85,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
 			{ 
 				m_Rigidbody.velocity = Vector3.zero;
-				m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
+				m_Rigidbody.AddForce(0, DefaultJumpForce * (m_isOnPlatform ? 2 : 1), 0, ForceMode.VelocityChange);
 				m_canJump = false;
 			}
 		}

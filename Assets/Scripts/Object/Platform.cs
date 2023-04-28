@@ -77,55 +77,30 @@ public class Platform : MonoBehaviour
 		transform.position = Vector3.MoveTowards(current, target, m_Speed * Time.deltaTime);
 		Vector3 delta = transform.position - previous;
 		movePlayerWithPlatform(delta);
-		//movePlayerWithPlatform(previous);
 
 		if (Vector3.Distance(current, target) < 0.5f)
 			m_CurrentPath = (m_CurrentPath + 1) % m_Path.Length;
-		/*
-				//If the platform arrived to its desired destination
-				if (m_CurrentStep >= numberOfSteps)
-				{
-					m_CurrentPath++; m_CurrentStep= 0;
-					if (m_Path.Length <= m_CurrentPath)
-						m_CurrentPath = 0;
-				}
-
-				if (m_NextPath == m_CurrentPath)
-				{
-					m_NextPath = m_CurrentPath+1 >= m_Path.Length ? 0 : m_CurrentPath+1;
-				}
-
-				if (m_StepTimer >= TimeBetweenSteps)
-				{
-					m_CurrentStep++;
-					m_StepTimer = 0;
-					transform.position += ((m_Path[m_NextPath].position - m_Path[m_CurrentPath].position) / numberOfSteps) ;
-					movePlayerWithPlatform();
-				}
-				m_StepTimer += Time.fixedDeltaTime;*/
 
 	}
 	private void movePlayerWithPlatform(Vector3 previous)
 	{
 		if (m_IsPlayerColliding)
-		{
 			m_Player.transform.position += new Vector3(previous.x, previous.y);
-		}
 	}
 
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.collider.CompareTag("Player"))
-		{
-			m_IsPlayerColliding = true;
-			m_Player = collision.collider.gameObject;
-		}
+		if (collision.collider.CompareTag("Player")) return;
+		m_IsPlayerColliding = true;
+		collision.collider.gameObject.GetComponent<PlayerMovement>().m_isOnPlatform = true;
+		m_Player = collision.collider.gameObject;
 	}
 	private void OnCollisionExit(Collision collision)
 	{
-		if (collision.collider.CompareTag("Player"))
-			m_IsPlayerColliding = false;
+		if (collision.collider.CompareTag("Player")) return;
+		m_IsPlayerColliding = false;
+		collision.collider.gameObject.GetComponent<PlayerMovement>().m_isOnPlatform = false;
 	}
 
 
