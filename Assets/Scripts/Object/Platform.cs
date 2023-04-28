@@ -109,7 +109,7 @@ public class Platform : MonoBehaviour
 	{
 		if (m_IsPlayerColliding)
 		{
-			m_Player.transform.position +=  previous;
+			m_Player.transform.position += new Vector3(previous.x, previous.y);
 		}
 	}
 
