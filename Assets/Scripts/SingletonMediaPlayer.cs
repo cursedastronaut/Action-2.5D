@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -9,6 +10,7 @@ public class SingletonMediaPlayer : MonoBehaviour
 	[HideInInspector]	public	static	SingletonMediaPlayer	instance;
 	[HideInInspector]	private			AudioSource				m_AudioSource;
 	[SerializeField]	private			AudioClip[]				m_AudioClips;
+	[SerializeField]	private			float[]					m_AudioVolume;
 	[HideInInspector]
 	public string[] AudioNames = {
 		"amb_boss"				,
@@ -66,7 +68,13 @@ public class SingletonMediaPlayer : MonoBehaviour
 
     public void PlaySoundEffect(string index)
 	{
-		m_AudioSource.PlayOneShot(m_AudioClips[ArrayUtility.IndexOf(AudioNames, index)]);
+		
+		m_AudioSource.PlayOneShot(m_AudioClips[ArrayUtility.IndexOf(AudioNames, index)], SelectVolume(index));
+	}
+
+	private float SelectVolume(string index)
+	{
+		return m_AudioVolume[ArrayUtility.IndexOf(AudioNames, index)];
 	}
 
 }
