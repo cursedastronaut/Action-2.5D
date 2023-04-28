@@ -58,7 +58,6 @@ public class PlayerColor : MonoBehaviour
 		m_Renderer = GetComponentInChildren<Renderer>();
 		Color temp = SingletonPlayerColor.instance.SelectableColors[0];
 		m_Renderer.material.color = new Color(temp.r, temp.g, temp.b, 1.0f) ;
-		//m_UiColorPalette_initialPos = UIColPalette.transform.position;
 		m_UIGauge_maxSize = UIGauge.sizeDelta;
 		m_UIGauge_InitialPosition = UIGauge.GetComponentInParent<Transform>().position;
 		m_ColorTimer = defColorTimer;
@@ -67,7 +66,6 @@ public class PlayerColor : MonoBehaviour
 	
 	void Update()
 	{
-		//If you are not using FixedUpdate(), avoid using Time.fixedDeltaTime
 		ColorChangingDelay += Time.deltaTime;
 		int NumberOfColors = SingletonPlayerColor.instance.SelectableColors.Length-1;
 		
@@ -78,8 +76,6 @@ public class PlayerColor : MonoBehaviour
 			UIGauge.GetComponent<UIColor>().ChangeIndex(SingletonPlayerColor.instance.ColorIndex);
 			m_IsChanging = 0;
 		}
-		//RectTransform rt = UIColPaletteSelected.GetComponent<RectTransform>();
-		//rt.transform.localPosition = new Vector3(SingletonPlayerColor.instance.GetPlayerColor() * 96, rt.localPosition.y, 0);
 
 		if (SingletonPlayerColor.instance.GetPlayerColor() > NumberOfColors)
 			SingletonPlayerColor.instance.ModifyColorIndex(0);
@@ -100,7 +96,6 @@ public class PlayerColor : MonoBehaviour
 		if (isHidden)
 			HideCheck();
 		objectCheck();
-		//UIColorPalette();
 		UIColorTriangleUpdate();
 		PreviousIndex = SingletonPlayerColor.instance.GetPlayerColor();
 	}
