@@ -410,6 +410,38 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5239c2befae69b841b25efd25b8cc3a8, type: 3}
   - {fileID: 8300000, guid: 0ca310afcdb80ab4596e7037848c12a1, type: 3}
   - {fileID: 8300000, guid: 9c2036e47ad93a84983593822cbcd2f8, type: 3}
+  m_AudioVolume:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
   AudioNames:
   - "amb_ing\xE9_loop"
   - amb_paint_loop

@@ -9,15 +9,16 @@ public class Enemy : MonoBehaviour
 {
     //Game Design Variables
     [Header("Game Design Variables")]
-    [SerializeField]				private Transform[] m_Path;
-	[SerializeField]				private float m_Speed;
-    [SerializeField]				private bool m_TurnOff;
-    [SerializeField]				protected float m_TurnOffSpeed = 5;
-	[SerializeField][Tooltip(a)]	public int EnemyKind;
-	[SerializeField]				private	AnimationCurve	FloatingAnimationCurve;
-	[SerializeField]				private float			FloatingAnimationForce;
-	[SerializeField]				private float			FloatingAnimationSpeed;
-	[SerializeField]				private Transform		FloatingEnemyModel;
+    [SerializeField]				private		Transform[]		m_Path;
+	[SerializeField]				private		float			m_Speed;
+    [SerializeField]				private		bool			m_TurnOff;
+    [SerializeField]				protected	float			m_TurnOffSpeed			= 5;
+	[SerializeField]				private		bool			noMoveIfOff				= false;
+	[SerializeField][Tooltip(a)]	public		int				EnemyKind;
+	[SerializeField]				private		AnimationCurve	FloatingAnimationCurve;
+	[SerializeField]				private		float			FloatingAnimationForce;
+	[SerializeField]				private		float			FloatingAnimationSpeed;
+	[SerializeField]				private		Transform		FloatingEnemyModel;
 
 
 
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]		private Transform	m_DetectionBox;
     [SerializeField]		private GameObject	m_Light;
 	[IGP][SerializeField]	private int			m_CurrentPath;
-    [IGP][SerializeField]	private bool		m_IsOff;
+    [IGP][SerializeField]	public	bool		m_IsOff;
     [IGP][SerializeField]	private float		m_TurnOffTime;
 
 
@@ -52,11 +53,12 @@ public class Enemy : MonoBehaviour
             return;
 
         m_TurnOffTime += Time.deltaTime;
-        if (m_TurnOffTime < m_TurnOffSpeed)
-            return;
+        if (m_TurnOffTime > m_TurnOffSpeed)
+        {
+			m_IsOff = !m_IsOff;
+			m_TurnOffTime = 0;
+		}
 
-        m_IsOff = !m_IsOff;
-        m_TurnOffTime = 0;
 
 
         
@@ -85,17 +87,18 @@ public class Enemy : MonoBehaviour
 
     private void playerDetection()
     {
+		if (m_IsOff) { return; }
         Collider[] objArray = Physics.OverlapBox(m_DetectionBox.position, m_DetectionBox.localScale);
-        if (m_IsOff == false)
-            foreach (var obj in objArray)
-            {
-                if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
-                    obj.GetComponent<PlayerDeath>().killPlayer();
-            }
+        foreach (var obj in objArray)
+        {
+			if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
+				obj.GetComponent<PlayerDeath>().killPlayer();
+        }
     }
 	
 	private void Movement()
 	{
+		if (m_IsOff && noMoveIfOff) return;
 		Vector3 target = m_Path[m_CurrentPath].position;
 		Vector3 current = transform.position;
 		
