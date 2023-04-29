@@ -84,7 +84,7 @@ public class Platform : MonoBehaviour
 	}
 	private void movePlayerWithPlatform(Vector3 previous)
 	{
-		if (m_IsPlayerColliding)
+		if (m_IsPlayerColliding && !m_Player.GetComponent<PlayerColor>().isHidden)
 			m_Player.transform.position += new Vector3(previous.x, previous.y);
 	}
 
