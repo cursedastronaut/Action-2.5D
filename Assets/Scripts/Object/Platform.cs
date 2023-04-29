@@ -91,14 +91,14 @@ public class Platform : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.collider.CompareTag("Player")) return;
+		if (!collision.collider.CompareTag("Player")) return;
 		m_IsPlayerColliding = true;
 		collision.collider.gameObject.GetComponent<PlayerMovement>().m_isOnPlatform = true;
 		m_Player = collision.collider.gameObject;
 	}
 	private void OnCollisionExit(Collision collision)
 	{
-		if (collision.collider.CompareTag("Player")) return;
+		if (!collision.collider.CompareTag("Player")) return;
 		m_IsPlayerColliding = false;
 		collision.collider.gameObject.GetComponent<PlayerMovement>().m_isOnPlatform = false;
 	}

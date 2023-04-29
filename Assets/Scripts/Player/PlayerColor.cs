@@ -86,7 +86,10 @@ public class PlayerColor : MonoBehaviour
 		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex  || isHidden != prev_isHidden)
 		{
 			if (isHidden != prev_isHidden)
+			{
 				SingletonMediaPlayer.instance.PlaySoundEffect( isHidden == false ? "player_hide" : "player_uncover");
+				//GetComponent<Rigidbody>() = isHidden;
+			}
 			else
 				SingletonMediaPlayer.instance.PlaySoundEffect("change_color");
 
