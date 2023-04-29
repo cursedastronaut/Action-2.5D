@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 	public bool IsThereFloor()
 	{
 		//Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
-		for (float i = -0.5f; i <= 0.5f; i+=0.1f)
+		for (float i = -0.4f; i <= 0.4f; i+=0.1f)
 		{
 			Vector3 offset = new Vector3(i,0,0);
 			foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position + offset, m_Feet.GetComponent<BoxCollider>().size.y, ~(1<<3) ))
