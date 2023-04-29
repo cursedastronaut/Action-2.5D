@@ -448,6 +448,7 @@ MonoBehaviour:
   ShowGPVariables: 1
   m_MovementInput: {x: 0, y: 0}
   m_isSprinting: 0
+  m_isOnPlatform: 0
   m_canSprint: 0
   m_isJumping: 0
   m_canJump: 0
@@ -471,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerGameObject: {fileID: 2615024588793447067}
+  m_LastRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5540862014566645743
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5540862014566645743}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -1.0002, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
