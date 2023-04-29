@@ -82,8 +82,11 @@ public class PlayerMovement : MonoBehaviour
 		if (IsThereFloor())
 		{
 			m_isWallJumping = false;
-			if (!m_canJump) SingletonMediaPlayer.instance.PlaySoundEffect("jump_impact_"+ m_RandomSound.ToString());
-			m_canJump = true;
+			if (!m_canJump)
+			{
+				SingletonMediaPlayer.instance.PlaySoundEffect("jump_impact_" + m_RandomSound.ToString());
+				m_canJump = true;
+			}
 			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
 			{ 
 				m_Rigidbody.velocity = Vector3.zero;
@@ -122,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				if (!obj.isTrigger)
 				{
-					//Debug.Log("Floor " + obj.gameObject);
+					Debug.Log("Floor " + obj.gameObject);
 					return true;
 				}
 			}
@@ -138,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 				if (hit.collider.isTrigger == false)
 					if (hit.collider.gameObject.CompareTag("Object"))
 					{
-						//Debug.Log("Wall touched");
+						Debug.Log("Wall touched");
 						return true;
 					}
 		}
