@@ -83,8 +83,13 @@ public class PlayerColor : MonoBehaviour
 			SingletonPlayerColor.instance.ModifyColorIndex(ColorUnlocked > NumberOfColors ? NumberOfColors : ColorUnlocked);
 
 
-		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex || isHidden != prev_isHidden)
+		if (SingletonPlayerColor.instance.GetPlayerColor() != PreviousIndex  || isHidden != prev_isHidden)
 		{
+			if (isHidden != prev_isHidden)
+				SingletonMediaPlayer.instance.PlaySoundEffect( isHidden == false ? "player_hide" : "player_uncover");
+			else
+				SingletonMediaPlayer.instance.PlaySoundEffect("change_color");
+
 			Color colorWant = SingletonPlayerColor.instance.SelectableColors[SingletonPlayerColor.instance.GetPlayerColor()];
 			prev_isHidden = isHidden;
 			m_Renderer.material.color = new Color(colorWant.r, colorWant.g, colorWant.b, 1.0f );

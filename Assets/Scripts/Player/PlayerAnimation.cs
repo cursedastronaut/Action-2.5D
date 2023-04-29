@@ -58,7 +58,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private IEnumerator DeathCoroutine()
     {
-        Debug.Log("Sympa");
+        //Debug.Log("Sympa");
         yield return new WaitForSeconds(3);
 
         m_PlayerGameObject.transform.rotation = m_InitialRotation;
@@ -67,7 +67,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private IEnumerator JumpCoroutine()
     {
-        Debug.Log("Saut");
+        //Debug.Log("Saut");
         yield return new WaitForSeconds(1);
         m_PlayerGameObject.transform.rotation = m_InitialRotation;
     }

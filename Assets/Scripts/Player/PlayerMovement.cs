@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		if (m_PlayerColor.isHidden) return;
-
+		int m_RandomSound = UnityEngine.Random.Range(0,3);
 		float factorInAir = m_canJump ? 1 : 50;
 		bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
 		if ((m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint))
@@ -82,11 +82,13 @@ public class PlayerMovement : MonoBehaviour
 		if (IsThereFloor())
 		{
 			m_isWallJumping = false;
+			if (!m_canJump) SingletonMediaPlayer.instance.PlaySoundEffect("jump_impact_"+ m_RandomSound.ToString());
 			m_canJump = true;
 			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
 			{ 
 				m_Rigidbody.velocity = Vector3.zero;
 				m_Rigidbody.AddForce(0, DefaultJumpForce * (m_isOnPlatform ? 2 : 1), 0, ForceMode.VelocityChange);
+				SingletonMediaPlayer.instance.PlaySoundEffect("player_jump_" + m_RandomSound.ToString());
 				m_canJump = false;
 			}
 		}
@@ -95,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 			WallSliding();
 			if (m_isJumping && IsWallJumpable())
 			{
-				//Debug.Log("Wall jump");
+				SingletonMediaPlayer.instance.PlaySoundEffect("walljump_" + m_RandomSound.ToString());
 				WallJump();
 				m_isWallJumping = true;
 
