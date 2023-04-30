@@ -112,11 +112,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldMove: 0
   shouldSwitchColors: 1
+  WallJumpAllowed: 0
+  shouldAllowHiding: 1
   colorIndex: 000000000100000002000000
   timeBetweenColorSwitch: 1
   m_Path:
   - {fileID: 0}
   - {fileID: 0}
-  numberOfSteps: 100
-  TimeBetweenSteps: 0.005
+  m_Speed: 0
+  ShowGPVariables: 1
+  m_Renderer: {fileID: 0}
+  m_Index: 0
+  m_Timer: 0
+  m_CurrentPath: 0
+  m_IsPlayerColliding: 0
+  m_Player: {fileID: 0}
+  m_YAxis:
+  - 0
+  - 0
   currentColor: 0
