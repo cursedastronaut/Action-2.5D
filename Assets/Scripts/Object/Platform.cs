@@ -29,6 +29,7 @@ public class Platform : MonoBehaviour
 	[IGP,SerializeField]	private int				m_CurrentPath		= 0;
 	[IGP,SerializeField]	private bool			m_IsPlayerColliding = false;
 	[IGP,SerializeField]	private GameObject		m_Player;
+	[IGP,SerializeField]	private float[]			m_YAxis = {0,0};
 
 	//Called elsewhere variables
 	[IGP]	public int currentColor = 0;
@@ -43,6 +44,7 @@ public class Platform : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
+		
 		if (SingletonPlayerColor.instance.GetPlayerColor() == colorIndex[m_Index])
 			GetComponent<BoxCollider>().isTrigger = true;
 		else
@@ -55,6 +57,7 @@ public class Platform : MonoBehaviour
 		//Changes material color to the corresponding color in the Universal Color Array.
 		m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[colorIndex[m_Index]];
 		currentColor = colorIndex[m_Index];
+
 	}
 	private void SwitchColor()
 	{
@@ -70,7 +73,7 @@ public class Platform : MonoBehaviour
 
 	private void Movement()
 	{
-
+		m_YAxis[0] = transform.position.y;
 		Vector3 target = m_Path[m_CurrentPath].position;
 		Vector3 current = transform.position;
 		Vector3 previous = transform.position;
@@ -84,8 +87,12 @@ public class Platform : MonoBehaviour
 	}
 	private void movePlayerWithPlatform(Vector3 previous)
 	{
-		if (m_IsPlayerColliding && !m_Player.GetComponent<PlayerColor>().isHidden)
+		bool condition = m_IsPlayerColliding && !m_Player.GetComponent<PlayerColor>().isHidden;
+		if (condition)
 			m_Player.transform.position += new Vector3(previous.x, previous.y);
+		if (condition && m_YAxis[0] > m_YAxis[1])
+			m_Player.GetComponent<PlayerMovement>().m_isOnPlatform = true;
+
 	}
 
 
@@ -93,7 +100,7 @@ public class Platform : MonoBehaviour
 	{
 		if (!collision.collider.CompareTag("Player")) return;
 		m_IsPlayerColliding = true;
-		collision.collider.gameObject.GetComponent<PlayerMovement>().m_isOnPlatform = true;
+		
 		m_Player = collision.collider.gameObject;
 	}
 	private void OnCollisionExit(Collision collision)
