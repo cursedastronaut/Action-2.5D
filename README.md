@@ -26,4 +26,4 @@ Changing colors allows you to hide inside walls of the same color.
 - [Shanna Fellmann](https://gitlabstudents.isartintra.com/s.fellmann)
 #### Music and Sound Designers
 - [Romain Schmit](https://gitlabstudents.isartintra.com/r.schmit)
-- [Loni Corroyer?](https://gitlabstudents.isartintra.com/l.corroyer)
+- [Loni Rudzky--Clerot](https://gitlabstudents.isartintra.com/l.rudzkyclerot)
