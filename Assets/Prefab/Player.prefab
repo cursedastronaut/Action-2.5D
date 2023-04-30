@@ -5252,12 +5252,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultSpeed: 275
   DefaultSprintSpeed: 400
-  DefaultJumpForce: 9.5
-  DefaultWallJumpForce: {x: 200, y: 800}
+  DefaultJumpForce: 8
+  DefaultWallJumpForce: {x: 300, y: 800}
   DefaultSprintDelay: 1.2
   DefaultSprintOffsetDelay: 0.01
   DeadZone: 0.01
-  WallSlidingSpeed: 750
+  WallSlidingSpeed: 2000
   maxVelocity: 5
   ShowGPVariables: 1
   m_MovementInput: {x: 0, y: 0}
