@@ -31,13 +31,14 @@ public class Enemy : MonoBehaviour
     [SerializeField]		private Transform	m_DetectionBox;
     [SerializeField]		private Vector3		m_DetectionBoxAInit;
     [SerializeField]		private Vector3		m_DetectionBoxBInit;
-	[SerializeField]		private GameObject	m_Light;
+	[SerializeField]		public	GameObject	m_Light;
 	[IGP][SerializeField]	private int			m_CurrentPath;
     [IGP][SerializeField]	public	bool		m_IsOff;
     [IGP][SerializeField]	private float		m_TurnOffTime;
+    [IGP][SerializeField]	public	bool		m_IsVictorBoss = false;
 
 
-    private void Awake()
+	private void Awake()
     {
         if (ShowGPVariables) { } //Avoid a warning.
 		m_DetectionBoxAInit= m_DetectionBox.localPosition;
@@ -65,8 +66,8 @@ public class Enemy : MonoBehaviour
 
 
 
-        
-
+		if (m_IsVictorBoss) return;
+		
         // Check if the game object is not null and m_IsOff is true
         if (m_DetectionBox != null && m_IsOff)
         {
@@ -97,7 +98,10 @@ public class Enemy : MonoBehaviour
 		foreach (var obj in objArray)
         {
 			if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
+			{
 				obj.GetComponent<PlayerDeath>().killPlayer();
+				if (m_IsVictorBoss) GetComponentInParent<MiniBoss>().Reset();
+			}
 
 			
 		}
