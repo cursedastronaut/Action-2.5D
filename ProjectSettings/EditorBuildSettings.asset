@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/DefaultScene 1.unity
     guid: 256c39f29fa52c942adb2474fd6399a1
+  - enabled: 1
+    path: Assets/Scenes/Levels/Adam/Boss 6.unity
+    guid: 72b8d1bbbf003bc42833a6cf0db38ccd
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 779ea3aa0e674f84c9dfbb2dad5bff9a,
       type: 2}
