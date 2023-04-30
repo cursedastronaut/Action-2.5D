@@ -121,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
 	//Checks if there is floor under the player.
 	public bool IsThereFloor()
 	{
-		//Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
 		for (float i = -0.4f; i <= 0.4f; i+=0.1f)
 		{
 			Vector3 offset = new Vector3(i,0,0);
@@ -129,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
 			{
 				if (!obj.isTrigger)
 				{
-					Debug.Log("Floor " + obj.gameObject);
 					return true;
 				}
 			}
@@ -145,12 +143,11 @@ public class PlayerMovement : MonoBehaviour
 				if (hit.collider.isTrigger == false)
 					if (hit.collider.gameObject.CompareTag("Object"))
 					{
-						Debug.Log("Wall touched");
 						return true;
 					}
 		}
 		return false;
-	} //
+	}
 
 	private bool IsWallJumpable()
 	{
@@ -194,7 +191,6 @@ public class PlayerMovement : MonoBehaviour
 			
 		}
 		
-		//Debug.Log(wallNormal);
 		m_Rigidbody.velocity = new Vector3(wallNormal.x * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
     }
 
