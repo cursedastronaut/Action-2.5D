@@ -13,11 +13,12 @@ public class MiniBoss : MonoBehaviour
 	[IGP, SerializeField]	private Transform		m_Player;
 	[IGP, SerializeField]	private GameObject[]	m_Enemies;
 	[IGP, SerializeField]	private Platform		m_Platform;
-	[IGP, SerializeField]	private List<Steps>		allSteps;
+	[IGP, SerializeField]	private List<Steps>		allSteps;						//Function array
 	private delegate void Steps();
 	// Start is called before the first frame update
 	void Start()
 	{
+		if (ShowGPVariables) { } //Avoid a warning
 		allSteps = new List<Steps>();
 		allSteps.Add(Step1);
 		allSteps.Add(Step1);
