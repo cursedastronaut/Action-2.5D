@@ -56,7 +56,11 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
-		if (m_PlayerColor.isHidden) return;
+		if (m_PlayerColor.isHidden)
+		{
+			m_Rigidbody.velocity = Vector3.zero;
+		}
+		m_Rigidbody.useGravity = !m_PlayerColor.isHidden;
 		int m_RandomSound = UnityEngine.Random.Range(0,3);
 		float factorInAir = m_canJump ? 1 : 50;
 		bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
