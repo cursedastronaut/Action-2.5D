@@ -8,10 +8,15 @@ public class PlayerAnimation : MonoBehaviour
     private Animator m_Animator;
     private PlayerMovement m_PlayerMovement;
     [SerializeField] private GameObject m_PlayerGameObject;
-    Quaternion m_InitialRotation;
+
+    private Quaternion m_InitialRotation;
     private Quaternion m_OldRotation;
     public Quaternion m_LastRotation;
     private Vector3 m_InitialPosition;
+
+    [SerializeField] private ParticleSystem m_PlayerParticleSystem;
+
+
     private void Awake()
     {
         m_Animator = GetComponentInChildren<Animator>();
@@ -33,6 +38,7 @@ public class PlayerAnimation : MonoBehaviour
         if (m_PlayerMovement.IsThereFloor() == true && (GetComponent<Rigidbody>().velocity.y > 0 || GetComponent<Rigidbody>().velocity.y < 0))
         {
             m_Animator.SetBool("Jump", true);
+            StartCoroutine(ParticuleCoroutine());
             StartCoroutine(JumpCoroutine());
         }
         else 
@@ -76,6 +82,13 @@ public class PlayerAnimation : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         m_PlayerGameObject.transform.rotation = m_OldRotation * m_LastRotation;
+    }
+
+    private IEnumerator ParticuleCoroutine()
+    {
+        m_PlayerParticleSystem.Play();
+        yield return new WaitForSeconds(0.5f);
+        m_PlayerParticleSystem.Stop(true);
     }
 
     private void SetRotationAnimator()
