@@ -21,6 +21,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         m_Animator = GetComponentInChildren<Animator>();
         m_PlayerMovement = GetComponent<PlayerMovement>();
+        m_PlayerGameObject.transform.Rotate(new Vector3(0, -90, 0));
         if (m_Animator != null)
         {
             Debug.Log("Null");
@@ -34,8 +35,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         m_Animator.SetBool("IsMoving", m_PlayerMovement.m_isMoving);
         m_Animator.SetBool("IsSprinting", m_PlayerMovement.m_isSprinting);
-
-        if (m_PlayerMovement.IsThereFloor() == true && (GetComponent<Rigidbody>().velocity.y > 0 || GetComponent<Rigidbody>().velocity.y < 0))
+        Debug.Log(GetComponent<Rigidbody>().velocity.y);
+        if (m_PlayerMovement.IsThereFloor() == true && GetComponent<Rigidbody>().velocity.y < -0.1f)
         {
             m_Animator.SetBool("Jump", true);
             StartCoroutine(ParticuleCoroutine());
@@ -58,7 +59,6 @@ public class PlayerAnimation : MonoBehaviour
         }
         m_OldRotation = m_PlayerGameObject.transform.rotation;
         SetRotationAnimator();
-        //StartCoroutine(WalkCoroutine());
 
     }
 
@@ -75,7 +75,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         //Debug.Log("Saut");
         yield return new WaitForSeconds(1);
-        m_PlayerGameObject.transform.rotation = m_InitialRotation;
+        m_PlayerGameObject.transform.localPosition = m_InitialPosition;
     }
 
     private IEnumerator WalkCoroutine()
@@ -88,6 +88,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         m_PlayerParticleSystem.Play();
         yield return new WaitForSeconds(0.5f);
+        Debug.Log("O");
         m_PlayerParticleSystem.Stop(true);
     }
 
