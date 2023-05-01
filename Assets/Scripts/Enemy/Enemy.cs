@@ -111,7 +111,6 @@ public class Enemy : MonoBehaviour
 		{
 			if (!obj.CompareTag("Player") && obj.gameObject != gameObject && !obj.gameObject.TryGetComponent(out KillZone kill))
 			{
-				Debug.Log("uwu" + obj.gameObject);
 				float temp = (obj.transform.position.y - transform.position.y) / 2;
 				m_DetectionBox.transform.position = new Vector3(m_DetectionBox.transform.position.x, transform.position.y + temp, m_DetectionBox.transform.position.z);
 				m_DetectionBox.transform.localScale = new Vector3(m_DetectionBox.transform.localScale.x,
