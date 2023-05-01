@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 			m_Rigidbody.velocity = Vector3.zero;
 		}
 		m_Rigidbody.useGravity = !m_PlayerColor.isHidden;
+		GetComponent<CapsuleCollider>().enabled = !m_PlayerColor.isHidden;
 		int m_RandomSound = UnityEngine.Random.Range(0,3);
 		float factorInAir = m_canJump ? 1 : 50;
 		bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
