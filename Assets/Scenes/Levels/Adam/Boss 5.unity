@@ -1356,7 +1356,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 788736241}
-  m_RootOrder: 34
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -27.713, y: -84.566, z: 206.438}
 --- !u!73398921 &898511190
 VFXRenderer:
@@ -1951,6 +1951,18 @@ PrefabInstance:
     - {fileID: 2921436290841771147, guid: 46d4bca212523fa47980dbb252deaf82, type: 3}
     - {fileID: 2921436290841771146, guid: 46d4bca212523fa47980dbb252deaf82, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 46d4bca212523fa47980dbb252deaf82, type: 3}
+--- !u!114 &1357854356 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5004581460615622489, guid: 46d4bca212523fa47980dbb252deaf82,
+    type: 3}
+  m_PrefabInstance: {fileID: 1357854355}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427565265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b67f8fa47c38dd48b2b43628d961c6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1393436525 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4069607285294599602, guid: 46d4bca212523fa47980dbb252deaf82,
@@ -2317,7 +2329,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 788736241}
-  m_RootOrder: 32
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 9.231, y: -3.519, z: 0.203}
 --- !u!114 &1548585989
 MonoBehaviour:
@@ -2789,7 +2801,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 788736241}
-  m_RootOrder: 33
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -27.713, y: -84.566, z: 206.438}
 --- !u!73398921 &1790934286
 VFXRenderer:
@@ -3083,7 +3095,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 788736241}
-  m_RootOrder: 35
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 29.163, y: -90.262, z: 211.733}
 --- !u!73398921 &1837922983
 VFXRenderer:
@@ -3175,6 +3187,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 737846599824032142, guid: 99aaa747e8f616748bd954e485f78117,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1357854356}
+    - target: {fileID: 737846599824032142, guid: 99aaa747e8f616748bd954e485f78117,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1487272782660783076, guid: 99aaa747e8f616748bd954e485f78117,
         type: 3}
       propertyPath: m_Pivot.x
