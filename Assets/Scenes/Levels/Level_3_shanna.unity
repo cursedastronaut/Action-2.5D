@@ -2283,6 +2283,231 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[5]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[6]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[7]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[8]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[9]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[10]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[11]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[12]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[13]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[14]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[15]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[16]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[17]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[18]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[19]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[20]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[21]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[22]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[23]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[24]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[25]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[26]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[27]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[28]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[29]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[30]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[31]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[32]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[33]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[34]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[35]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[36]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[37]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[38]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[39]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[40]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[41]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[42]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[43]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413051569695578011, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_AudioVolume.Array.data[44]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7052193126209289909, guid: 707cfb7f2377632438ed306e7bb48208,
         type: 3}
       propertyPath: m_Name
@@ -2353,6 +2578,21 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1136566281}
+    - target: {fileID: 7973504515940260306, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973504515940260306, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973504515940260306, guid: 707cfb7f2377632438ed306e7bb48208,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d10b1805c8cde5418e7af4deec9297e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707cfb7f2377632438ed306e7bb48208, type: 3}
 --- !u!114 &428809722 stripped
@@ -2361,7 +2601,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 428809721}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1688733533}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc69965d7648c604797ff26d3dcee603, type: 3}
@@ -10324,6 +10564,108 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 547122184}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1688733533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7052193126209289909, guid: 707cfb7f2377632438ed306e7bb48208,
+    type: 3}
+  m_PrefabInstance: {fileID: 428809721}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1688733534
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688733533}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7fc4a063e14b78340b2fe43dc8ffb153, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.01
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1692487301
 GameObject:
   m_ObjectHideFlags: 0
