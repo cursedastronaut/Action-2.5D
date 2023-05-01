@@ -13,7 +13,7 @@ public class SingletonMediaPlayer : MonoBehaviour
 
 	public string[] AudioNames = {/*
 		"amb_boss"				,
-		"amb_ingé_loop"			,
+		"amb_ingï¿½_loop"			,
 		"amb_paint_loop"		,
 		"amb_tuto"				,
 		"amb_zapground_loop"	,
@@ -49,6 +49,7 @@ public class SingletonMediaPlayer : MonoBehaviour
 	{
 	 // If there is an instance, and it's not me, delete myself.
 
+		m_AudioSource = GetComponent<AudioSource>();
 		if (instance != null && instance != this)
 		{
 			Destroy(this);
@@ -77,7 +78,6 @@ public class SingletonMediaPlayer : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		m_AudioSource = GetComponent<AudioSource>();
 	}
 
     public void PlaySoundEffect(int index)
