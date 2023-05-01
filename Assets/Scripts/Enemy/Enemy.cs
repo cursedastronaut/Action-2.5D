@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour
 		objArray = Physics.OverlapBox(m_DetectionBox.position + new Vector3(0.01f, 500, 0.01f)/2, new Vector3(0.01f,500,0.01f));
 		foreach (var obj in objArray)
 		{
-			if (!obj.CompareTag("Player") && obj.gameObject != gameObject)
+			if (!obj.CompareTag("Player") && obj.gameObject != gameObject && !obj.gameObject.TryGetComponent(out KillZone kill))
 			{
 				Debug.Log("uwu" + obj.gameObject);
 				float temp = (obj.transform.position.y - transform.position.y) / 2;
