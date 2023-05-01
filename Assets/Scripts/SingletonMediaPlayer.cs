@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
 public class SingletonMediaPlayer : MonoBehaviour
 {
 
@@ -11,8 +10,8 @@ public class SingletonMediaPlayer : MonoBehaviour
 	[HideInInspector]	private			AudioSource				m_AudioSource;
 	[SerializeField]	private			AudioClip[]				m_AudioClips;
 	[SerializeField]	private			float[]					m_AudioVolume;
-	[HideInInspector]
-	public string[] AudioNames = {
+
+	public string[] AudioNames = {/*
 		"amb_boss"				,
 		"amb_ingé_loop"			,
 		"amb_paint_loop"		,
@@ -43,7 +42,7 @@ public class SingletonMediaPlayer : MonoBehaviour
 		"projo_on"				,
 		"robot_close_loop"		,
 		"walljump"				,
-		"zap_death"
+		"zap_death"*/
 	};
 
 	private void Awake()
@@ -58,6 +57,21 @@ public class SingletonMediaPlayer : MonoBehaviour
 		{
 			instance = this;
 		}
+		string[] characters = System.IO.Directory.GetFiles(Application.dataPath + "/Sounds");
+		string[] charactersFinal = new string[characters.Length/2];
+		for (int i = 0, j = 0; i < characters.Length; i++)
+		{
+			if (!characters[i].Contains(".meta"))
+            {
+				charactersFinal[j] = characters[i];
+				j++;
+            }
+		}
+		AudioNames = new string[charactersFinal.Length];
+		for (int i = 0; i < charactersFinal.Length; i++)
+		{
+			AudioNames[i] = System.IO.Path.GetFileNameWithoutExtension(charactersFinal[i]);
+		}
 	}
 
 	// Start is called before the first frame update
@@ -69,7 +83,8 @@ public class SingletonMediaPlayer : MonoBehaviour
     public void PlaySoundEffect(string index)
 	{
 		
-		m_AudioSource.PlayOneShot(m_AudioClips[ArrayUtility.IndexOf(AudioNames, index)], SelectVolume(index));
+		m_AudioSource.PlayOneShot(m_AudioClips[ArrayUtility.IndexOf(AudioNames, index)], 
+		SelectVolume(index));
 	}
 
 	private float SelectVolume(string index)

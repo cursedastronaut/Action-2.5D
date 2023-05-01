@@ -7,37 +7,39 @@ public class PlayerAnimation : MonoBehaviour
 {
     private Animator m_Animator;
     private PlayerMovement m_PlayerMovement;
+    [SerializeField] private GameObject m_PlayerGameObject;
+
+    private Quaternion m_InitialRotation;
+    private Quaternion m_OldRotation;
+    public Quaternion m_LastRotation;
+    private Vector3 m_InitialPosition;
+
+    [SerializeField] private ParticleSystem m_PlayerParticleSystem;
+
+
     private void Awake()
     {
         m_Animator = GetComponentInChildren<Animator>();
         m_PlayerMovement = GetComponent<PlayerMovement>();
-        if (m_Animator != null )
+        if (m_Animator != null)
         {
             Debug.Log("Null");
         }
+        m_InitialRotation = m_PlayerGameObject.transform.rotation;
+        m_InitialPosition = m_PlayerGameObject.transform.localPosition;
 
     }
 
     private void Update()
     {
-        if (m_PlayerMovement.m_isMoving == true)
-        {
-            Debug.Log(m_PlayerMovement.m_isMoving == true);
-            m_Animator.SetBool("IsMoving", true);
-        }
-        else
-            m_Animator.SetBool("IsMoving", false);
+        m_Animator.SetBool("IsMoving", m_PlayerMovement.m_isMoving);
+        m_Animator.SetBool("IsSprinting", m_PlayerMovement.m_isSprinting);
 
-        if (m_PlayerMovement.m_isSprinting != false) 
-        { 
-            m_Animator.SetBool("IsSprinting", true) ;
-        }
-        else 
-            m_Animator.SetBool("IsSprinting", false);
-
-        if (m_PlayerMovement.IsThereFloor() != false && GetComponent<Rigidbody>().velocity.y > 0)
+        if (m_PlayerMovement.IsThereFloor() == true && (GetComponent<Rigidbody>().velocity.y > 0 || GetComponent<Rigidbody>().velocity.y < 0))
         {
             m_Animator.SetBool("Jump", true);
+            StartCoroutine(ParticuleCoroutine());
+            StartCoroutine(JumpCoroutine());
         }
         else 
         {
@@ -46,20 +48,83 @@ public class PlayerAnimation : MonoBehaviour
 
         if (GetComponent<PlayerDeath>().m_isDead)
         {
-            m_Animator.SetBool("Dead", true);
-            
             StartCoroutine(DeathCoroutine());
-                
+            m_Animator.SetBool("Dead", GetComponent<PlayerDeath>().m_isDead);
             
         }
+        else
+        {
+            m_Animator.SetBool("Dead", false) ;
+        }
+        m_OldRotation = m_PlayerGameObject.transform.rotation;
+        SetRotationAnimator();
+        //StartCoroutine(WalkCoroutine());
+
     }
 
     private IEnumerator DeathCoroutine()
     {
-        yield return new WaitForSeconds(10);
+        //Debug.Log("Sympa");
+        yield return new WaitForSeconds(3);
 
-        //
-        transform.rotation = new Quaternion(0,0,0,0); 
-        GetComponent<PlayerDeath>().m_isDead = false;
+        m_PlayerGameObject.transform.rotation = m_InitialRotation;
+        
+    }
+
+    private IEnumerator JumpCoroutine()
+    {
+        //Debug.Log("Saut");
+        yield return new WaitForSeconds(1);
+        m_PlayerGameObject.transform.rotation = m_InitialRotation;
+    }
+
+    private IEnumerator WalkCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        m_PlayerGameObject.transform.rotation = m_OldRotation * m_LastRotation;
+    }
+
+    private IEnumerator ParticuleCoroutine()
+    {
+        m_PlayerParticleSystem.Play();
+        yield return new WaitForSeconds(0.5f);
+        m_PlayerParticleSystem.Stop(true);
+    }
+
+    private void SetRotationAnimator()
+    {
+        Vector3 velocity = GetComponent<Rigidbody>().velocity;
+        float sign = Mathf.Sign(velocity.x); // get the sign of the x-velocity
+
+        Quaternion newRotation;
+        if (sign > 0)
+        { // if moving to the right
+            if (m_LastRotation == Quaternion.Euler(0, 90, 0))
+                return;
+            else if (m_LastRotation == Quaternion.Euler(0, -90, 0))
+            {
+                newRotation = m_OldRotation * Quaternion.Euler(0, 180, 0);
+            }
+            else
+                newRotation = m_OldRotation * Quaternion.Euler(0, 90, 0); // rotate 90 degrees to the right
+
+            m_LastRotation = Quaternion.Euler(0, 90, 0);
+
+            m_PlayerGameObject.transform.rotation = newRotation;
+        }
+        else if (sign < 0)
+        { // if moving to the left
+            if (m_LastRotation == Quaternion.Euler(0, -90, 0))
+                return;
+            else if (m_LastRotation == Quaternion.Euler(0, 90, 0))
+                newRotation = m_OldRotation * Quaternion.Euler(0, -180, 0);
+            else
+                newRotation = m_OldRotation * Quaternion.Euler(0, -90, 0); // rotate 90 degrees to the right
+
+            m_LastRotation = Quaternion.Euler(0, -90, 0);
+            m_PlayerGameObject.transform.rotation = newRotation;
+        }
+        else
+            return;
     }
 }

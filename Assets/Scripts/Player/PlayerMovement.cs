@@ -12,30 +12,31 @@ public class PlayerMovement : MonoBehaviour
 {
 	//Game Design Variables
 	[Header("Game Design Variables")]
-	[SerializeField, Tooltip(h)]	private float DefaultSpeed;
-	[SerializeField, Tooltip(a)]	private float DefaultSprintSpeed;
-	[SerializeField, Tooltip(b)]	private float DefaultJumpForce;
-	[SerializeField, Tooltip(c)]	private Vector2 DefaultWallJumpForce;
-	[SerializeField, Tooltip(d)]	private float DefaultSprintDelay;
-	[SerializeField, Tooltip(e)]	private float DefaultSprintOffsetDelay;
-	[SerializeField, Tooltip(f)]	private float DeadZone;
-	[SerializeField, Tooltip(g)]	private float WallSlidingSpeed;
-	[SerializeField]				private float maxVelocity;
+	[SerializeField, Tooltip(h)]	private float		DefaultSpeed;
+	[SerializeField, Tooltip(a)]	private float		DefaultSprintSpeed;
+	[SerializeField, Tooltip(b)]	private float		DefaultJumpForce;
+	[SerializeField, Tooltip(c)]	private Vector2		DefaultWallJumpForce;
+	[SerializeField, Tooltip(d)]	private float		DefaultSprintDelay;
+	[SerializeField, Tooltip(e)]	private float		DefaultSprintOffsetDelay;
+	[SerializeField, Tooltip(f)]	private float		DeadZone;
+	[SerializeField, Tooltip(g)]	private float		WallSlidingSpeed;
+	[SerializeField]				private float		maxVelocity;
 
     //Game Programming Variables
     [Header("Game Programming Variables")]
-	[SerializeField] private bool ShowGPVariables = false;
-	[IGP, SerializeField] private Vector2 m_MovementInput = Vector2.zero;
-	[IGP, SerializeField] public bool m_isSprinting	= false;
-	[IGP, SerializeField] private bool m_canSprint		= false;
-	[IGP, SerializeField] private bool m_isJumping		= false;
-	[IGP, SerializeField] private bool m_canJump		= false;
-    [IGP, SerializeField] public bool m_isMoving		= false;
-    [IGP, SerializeField] private bool m_isWallJumping	= false;
-	[IGP, SerializeField] private float m_SprintDelay	= 0.0f;
-	[IGP, SerializeField] private float CoyoteTimeCD;
-	[IGP, SerializeField] private PlayerColor m_PlayerColor;
-	[IGP, SerializeField] private GameObject m_Feet;
+	[SerializeField]				private bool		ShowGPVariables = false;
+	[IGP, SerializeField]			private Vector2		m_MovementInput = Vector2.zero;
+	[IGP, SerializeField]			public	bool		m_isSprinting	= false;
+	[IGP, SerializeField]			public	bool		m_isOnPlatform	= false;
+	[IGP, SerializeField]			private bool		m_canSprint		= false;
+	[IGP, SerializeField]			private bool		m_isJumping		= false;
+	[IGP, SerializeField]			private bool		m_canJump		= false;
+    [IGP, SerializeField]			public	bool		m_isMoving		= false;
+    [IGP, SerializeField]			private bool		m_isWallJumping	= false;
+	[IGP, SerializeField]			private float		m_SprintDelay	= 0.0f;
+	[IGP, SerializeField]			private float		CoyoteTimeCD;
+	[IGP, SerializeField]			private PlayerColor	m_PlayerColor;
+	[IGP, SerializeField]			private GameObject	m_Feet;
 
 
 	[SerializeField]
@@ -55,8 +56,12 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
-		if (m_PlayerColor.isHidden) return;
-
+		if (m_PlayerColor.isHidden)
+		{
+			m_Rigidbody.velocity = Vector3.zero;
+		}
+		m_Rigidbody.useGravity = !m_PlayerColor.isHidden;
+		int m_RandomSound = UnityEngine.Random.Range(0,3);
 		float factorInAir = m_canJump ? 1 : 50;
 		bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
 		if ((m_MovementInput.x > 0.9f && shouldSprint) || (m_MovementInput.x < -0.9f && shouldSprint))
@@ -81,11 +86,16 @@ public class PlayerMovement : MonoBehaviour
 		if (IsThereFloor())
 		{
 			m_isWallJumping = false;
-			m_canJump = true;
+			if (!m_canJump)
+			{
+				SingletonMediaPlayer.instance.PlaySoundEffect("jump_impact_" + m_RandomSound.ToString());
+				m_canJump = true;
+			}
 			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
 			{ 
 				m_Rigidbody.velocity = Vector3.zero;
-				m_Rigidbody.AddForce(0, DefaultJumpForce, 0, ForceMode.VelocityChange);
+				m_Rigidbody.AddForce(0, DefaultJumpForce * (m_isOnPlatform ? 2 : 1), 0, ForceMode.VelocityChange);
+				SingletonMediaPlayer.instance.PlaySoundEffect("player_jump_" + m_RandomSound.ToString());
 				m_canJump = false;
 			}
 		}
@@ -94,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 			WallSliding();
 			if (m_isJumping && IsWallJumpable())
 			{
-				//Debug.Log("Wall jump");
+				SingletonMediaPlayer.instance.PlaySoundEffect("walljump_" + m_RandomSound.ToString());
 				WallJump();
 				m_isWallJumping = true;
 
@@ -111,15 +121,13 @@ public class PlayerMovement : MonoBehaviour
 	//Checks if there is floor under the player.
 	public bool IsThereFloor()
 	{
-		//Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
-		for (float i = 0; i <= 2; i+=0.1f)
+		for (float i = -0.4f; i <= 0.4f; i+=0.1f)
 		{
 			Vector3 offset = new Vector3(i,0,0);
 			foreach (var obj in Physics.OverlapSphere(m_Feet.transform.position + offset, m_Feet.GetComponent<BoxCollider>().size.y, ~(1<<3) ))
 			{
 				if (!obj.isTrigger)
 				{
-					//Debug.Log("Floor " + obj.gameObject);
 					return true;
 				}
 			}
@@ -135,12 +143,11 @@ public class PlayerMovement : MonoBehaviour
 				if (hit.collider.isTrigger == false)
 					if (hit.collider.gameObject.CompareTag("Object"))
 					{
-						//Debug.Log("Wall touched");
 						return true;
 					}
 		}
 		return false;
-	} //
+	}
 
 	private bool IsWallJumpable()
 	{
@@ -184,7 +191,6 @@ public class PlayerMovement : MonoBehaviour
 			
 		}
 		
-		//Debug.Log(wallNormal);
 		m_Rigidbody.velocity = new Vector3(wallNormal.x * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
     }
 

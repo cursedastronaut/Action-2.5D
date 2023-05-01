@@ -5,28 +5,23 @@ using UnityEngine;
 
 public class SingletonPlayerColor : MonoBehaviour
 {
-	[HideInInspector]		public static SingletonPlayerColor instance;
+	[HideInInspector]				public static	SingletonPlayerColor	instance;
+	[SerializeField][Tooltip(a)]	public			Color[]					SelectableColors;
 
-	[SerializeField][Tooltip("Where all colors the player and the platforms can switch through are set.")]
-		public Color[] SelectableColors;
 	[Header("Game Programming Variables")]
-	[SerializeField]		private bool ShowGPVariables = false;
-	[IGP][SerializeField]	public int ColorIndex = 0;
-	[IGP][SerializeField]	public GameObject isBeingTeleported;
+	[SerializeField]				private			bool					ShowGPVariables		= false;
+	[IGP][SerializeField]			public			int						ColorIndex			= 0;
+	[IGP][SerializeField]			public			GameObject				isBeingTeleported;
 
 	private void Awake()
 	{
 		if (ShowGPVariables) { } //Avoid a warning.
-		// If there is an instance, and it's not me, delete myself.
 
+		// If there is an instance, and it's not me, delete myself.
 		if (instance != null && instance != this)
-		{
 			Destroy(this);
-		}
 		else
-		{
 			instance = this;
-		}
 	}
 
 	public void AddToPlayerColor(int colorIndex)
@@ -50,4 +45,6 @@ public class SingletonPlayerColor : MonoBehaviour
 	{
 		return ColorIndex;
 	}
+
+	private const string a = "Where all colors the player and the platforms can switch through are set.";
 }

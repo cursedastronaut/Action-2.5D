@@ -10,11 +10,11 @@ public class Platform : MonoBehaviour
 {
 	//Game Design Variables
 	[Header("Game Design Variables")]
-	[SerializeField]	private bool		shouldMove			= false;
-	[SerializeField]	private bool		shouldSwitchColors	= false;
-	[SerializeField]	public bool			WallJumpAllowed = false;
-	[SerializeField]	public	bool		shouldAllowHiding	= true;
-	[SerializeField]	public int[]		colorIndex;
+	[SerializeField]				public	bool		shouldMove				= false;
+	[SerializeField]				private bool		shouldSwitchColors		= false;
+	[SerializeField]				public	bool		WallJumpAllowed			= false;
+	[SerializeField]				public	bool		shouldAllowHiding		= true;
+	[SerializeField]				public	int[]		colorIndex;
 	[SerializeField,SWC,Tooltip(a)]	public float		timeBetweenColorSwitch;
 	[SerializeField,SM,Tooltip(b)]	private	Transform[]	m_Path;
 	[SerializeField,SM,Tooltip(c)]	private	float		m_Speed;
@@ -29,6 +29,7 @@ public class Platform : MonoBehaviour
 	[IGP,SerializeField]	private int				m_CurrentPath		= 0;
 	[IGP,SerializeField]	private bool			m_IsPlayerColliding = false;
 	[IGP,SerializeField]	private GameObject		m_Player;
+	[IGP,SerializeField]	private float[]			m_YAxis = {0,0};
 
 	//Called elsewhere variables
 	[IGP]	public int currentColor = 0;
@@ -43,6 +44,7 @@ public class Platform : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
+		
 		if (SingletonPlayerColor.instance.GetPlayerColor() == colorIndex[m_Index])
 			GetComponent<BoxCollider>().isTrigger = true;
 		else
@@ -55,6 +57,7 @@ public class Platform : MonoBehaviour
 		//Changes material color to the corresponding color in the Universal Color Array.
 		m_Renderer.material.color = SingletonPlayerColor.instance.SelectableColors[colorIndex[m_Index]];
 		currentColor = colorIndex[m_Index];
+
 	}
 	private void SwitchColor()
 	{
@@ -70,62 +73,41 @@ public class Platform : MonoBehaviour
 
 	private void Movement()
 	{
-
+		m_YAxis[0] = transform.position.y;
 		Vector3 target = m_Path[m_CurrentPath].position;
 		Vector3 current = transform.position;
 		Vector3 previous = transform.position;
 		transform.position = Vector3.MoveTowards(current, target, m_Speed * Time.deltaTime);
 		Vector3 delta = transform.position - previous;
 		movePlayerWithPlatform(delta);
-		//movePlayerWithPlatform(previous);
 
 		if (Vector3.Distance(current, target) < 0.5f)
 			m_CurrentPath = (m_CurrentPath + 1) % m_Path.Length;
-		/*
-				//If the platform arrived to its desired destination
-				if (m_CurrentStep >= numberOfSteps)
-				{
-					m_CurrentPath++; m_CurrentStep= 0;
-					if (m_Path.Length <= m_CurrentPath)
-						m_CurrentPath = 0;
-				}
-
-				if (m_NextPath == m_CurrentPath)
-				{
-					m_NextPath = m_CurrentPath+1 >= m_Path.Length ? 0 : m_CurrentPath+1;
-				}
-
-				if (m_StepTimer >= TimeBetweenSteps)
-				{
-					m_CurrentStep++;
-					m_StepTimer = 0;
-					transform.position += ((m_Path[m_NextPath].position - m_Path[m_CurrentPath].position) / numberOfSteps) ;
-					movePlayerWithPlatform();
-				}
-				m_StepTimer += Time.fixedDeltaTime;*/
 
 	}
 	private void movePlayerWithPlatform(Vector3 previous)
 	{
-		if (m_IsPlayerColliding)
-		{
-			m_Player.transform.position +=  previous;
-		}
+		bool condition = m_IsPlayerColliding && !m_Player.GetComponent<PlayerColor>().isHidden;
+		if (condition)
+			m_Player.transform.position += new Vector3(previous.x, previous.y);
+		if (condition && m_YAxis[0] > m_YAxis[1])
+			m_Player.GetComponent<PlayerMovement>().m_isOnPlatform = true;
+
 	}
 
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.collider.CompareTag("Player"))
-		{
-			m_IsPlayerColliding = true;
-			m_Player = collision.collider.gameObject;
-		}
+		if (!collision.collider.CompareTag("Player")) return;
+		m_IsPlayerColliding = true;
+		
+		m_Player = collision.collider.gameObject;
 	}
 	private void OnCollisionExit(Collision collision)
 	{
-		if (collision.collider.CompareTag("Player"))
-			m_IsPlayerColliding = false;
+		if (!collision.collider.CompareTag("Player")) return;
+		m_IsPlayerColliding = false;
+		collision.collider.gameObject.GetComponent<PlayerMovement>().m_isOnPlatform = false;
 	}
 
 
