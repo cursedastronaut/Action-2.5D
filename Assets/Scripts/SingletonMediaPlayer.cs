@@ -80,16 +80,16 @@ public class SingletonMediaPlayer : MonoBehaviour
 		m_AudioSource = GetComponent<AudioSource>();
 	}
 
-    public void PlaySoundEffect(string index)
+    public void PlaySoundEffect(int index)
 	{
-		
-		m_AudioSource.PlayOneShot(m_AudioClips[ArrayUtility.IndexOf(AudioNames, index)], 
-		SelectVolume(index));
+
+		m_AudioSource.PlayOneShot(m_AudioClips[index]);
+		SelectVolume(index);
 	}
 
-	private float SelectVolume(string index)
+	private float SelectVolume(int index)
 	{
-		return m_AudioVolume[ArrayUtility.IndexOf(AudioNames, index)];
+		return m_AudioVolume[index];
 	}
 
 }

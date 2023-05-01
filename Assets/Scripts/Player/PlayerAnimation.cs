@@ -24,7 +24,7 @@ public class PlayerAnimation : MonoBehaviour
         m_PlayerGameObject.transform.Rotate(new Vector3(0, -90, 0));
         if (m_Animator != null)
         {
-            Debug.Log("Null");
+            //Debug.Log("Null");
         }
         m_InitialRotation = m_PlayerGameObject.transform.rotation;
         m_InitialPosition = m_PlayerGameObject.transform.localPosition;
@@ -35,7 +35,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         m_Animator.SetBool("IsMoving", m_PlayerMovement.m_isMoving);
         m_Animator.SetBool("IsSprinting", m_PlayerMovement.m_isSprinting);
-        Debug.Log(GetComponent<Rigidbody>().velocity.y);
         if (m_PlayerMovement.IsThereFloor() == true && GetComponent<Rigidbody>().velocity.y < -0.1f)
         {
             m_Animator.SetBool("Jump", true);
@@ -88,7 +87,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         m_PlayerParticleSystem.Play();
         yield return new WaitForSeconds(0.5f);
-        Debug.Log("O");
         m_PlayerParticleSystem.Stop(true);
     }
 

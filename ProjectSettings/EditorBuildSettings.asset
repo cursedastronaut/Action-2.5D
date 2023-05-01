@@ -8,9 +8,42 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Levels/DefaultScene 1.unity
     guid: 256c39f29fa52c942adb2474fd6399a1
+  - enabled: 0
+    path: Assets/Scenes/MainMenu.unity
+    guid: 65277160a21e065458b03c6f98c4c62f
+  - enabled: 0
+    path: Assets/Scenes/OptionMenu.unity
+    guid: a0280e7c96958df4d9b1345f97f88b69
+  - enabled: 0
+    path: Assets/Scenes/Levels/Shanna/MainMenu.unity
+    guid: 2ab6bdcda43cb3f42aa0aa67a004873b
+  - enabled: 0
+    path: Assets/Scenes/Levels/Shanna/LevelSelector.unity
+    guid: 50cfd5828502b964c970aa5fd6b7497f
+  - enabled: 1
+    path: Assets/Scenes/Levels/kmi/kmi_level_tuto.unity
+    guid: dc9155c70b4aa6a4c9c991a7d7651cdb
+  - enabled: 1
+    path: Assets/Scenes/Levels/Niveau_2_Martin.unity
+    guid: 74f98dd21265b6b4c83482e3f665b091
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level_3_shanna.unity
+    guid: 18a912ab2075b6c488ef18a3a994574a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level_3_-_Victor.unity
+    guid: 060d8087b783ff940acce52ca2c31c0b
+  - enabled: 1
+    path: Assets/Scenes/Levels/Adam/Boss 1.unity
+    guid: b035bee5a4f08804c917f68fffeb6abc
+  - enabled: 1
+    path: Assets/Scenes/Levels/Adam/Boss 2.unity
+    guid: b68723327cc960a47961f9cfcd51f4a5
+  - enabled: 1
+    path: Assets/Scenes/Levels/Adam/Boss 5.unity
+    guid: 5abd6f6e664331f4689126729661553b
   - enabled: 1
     path: Assets/Scenes/Levels/Adam/Boss 6.unity
     guid: 72b8d1bbbf003bc42833a6cf0db38ccd

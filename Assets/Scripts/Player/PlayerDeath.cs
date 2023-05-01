@@ -18,7 +18,7 @@ public class PlayerDeath : MonoBehaviour
 	{
 		m_isDead = true;
 		StartCoroutine(DeathCoolDown());
-		SingletonMediaPlayer.instance.PlaySoundEffect("player_death");
+		SingletonMediaPlayer.instance.PlaySoundEffect(28);
 	}
 
 	public void editCheckpoint(Vector3 input)

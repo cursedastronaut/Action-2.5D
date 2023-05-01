@@ -89,14 +89,14 @@ public class PlayerMovement : MonoBehaviour
 			m_isWallJumping = false;
 			if (!m_canJump)
 			{
-				SingletonMediaPlayer.instance.PlaySoundEffect("jump_impact_" + m_RandomSound.ToString());
+				SingletonMediaPlayer.instance.PlaySoundEffect(20 + m_RandomSound);
 				m_canJump = true;
 			}
 			if (m_isJumping && m_Rigidbody.velocity.y <= 0)
 			{ 
 				m_Rigidbody.velocity = Vector3.zero;
 				m_Rigidbody.AddForce(0, DefaultJumpForce * (m_isOnPlatform ? 2 : 1), 0, ForceMode.VelocityChange);
-				SingletonMediaPlayer.instance.PlaySoundEffect("player_jump_" + m_RandomSound.ToString());
+				SingletonMediaPlayer.instance.PlaySoundEffect(31 + m_RandomSound);
 				m_canJump = false;
 			}
 		}
@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 			WallSliding();
 			if (m_isJumping && IsWallJumpable())
 			{
-				SingletonMediaPlayer.instance.PlaySoundEffect("walljump_" + m_RandomSound.ToString());
+				SingletonMediaPlayer.instance.PlaySoundEffect(41 + m_RandomSound);
 				WallJump();
 				m_isWallJumping = true;
 
