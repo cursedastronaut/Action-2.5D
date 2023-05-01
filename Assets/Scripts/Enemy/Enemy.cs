@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField]				private		float			FloatingAnimationForce;
 	[SerializeField]				private		float			FloatingAnimationSpeed;
 	[SerializeField]				private		Transform		FloatingEnemyModel;
+	[SerializeField]				private		bool			ShouldResizeDetection	= false;
 
 
 
@@ -28,16 +29,20 @@ public class Enemy : MonoBehaviour
 	[Header("Game Programming Variables")]
     [SerializeField]		private bool		ShowGPVariables		= false;
     [SerializeField]		private Transform	m_DetectionBox;
-    [SerializeField]		private GameObject	m_Light;
+    [SerializeField]		private Vector3		m_DetectionBoxAInit;
+    [SerializeField]		private Vector3		m_DetectionBoxBInit;
+	[SerializeField]		public	GameObject	m_Light;
 	[IGP][SerializeField]	private int			m_CurrentPath;
     [IGP][SerializeField]	public	bool		m_IsOff;
     [IGP][SerializeField]	private float		m_TurnOffTime;
+    [IGP][SerializeField]	public	bool		m_IsVictorBoss = false;
 
 
-    private void Awake()
+	private void Awake()
     {
         if (ShowGPVariables) { } //Avoid a warning.
-								 // Get the game object that you want to disable
+		m_DetectionBoxAInit= m_DetectionBox.localPosition;
+		m_DetectionBoxBInit= m_DetectionBox.localScale;
 	}
 
 
@@ -61,8 +66,8 @@ public class Enemy : MonoBehaviour
 
 
 
-        
-
+		if (m_IsVictorBoss) return;
+		
         // Check if the game object is not null and m_IsOff is true
         if (m_DetectionBox != null && m_IsOff)
         {
@@ -88,13 +93,34 @@ public class Enemy : MonoBehaviour
     private void playerDetection()
     {
 		if (m_IsOff) { return; }
-        Collider[] objArray = Physics.OverlapBox(m_DetectionBox.position, m_DetectionBox.localScale);
-        foreach (var obj in objArray)
+
+		Collider[] objArray = Physics.OverlapBox(m_DetectionBox.position, m_DetectionBox.localScale);
+		foreach (var obj in objArray)
         {
 			if (obj.CompareTag("Player") && !obj.GetComponent<PlayerColor>().isHidden)
+			{
 				obj.GetComponent<PlayerDeath>().killPlayer();
-        }
-    }
+				if (m_IsVictorBoss) GetComponentInParent<MiniBoss>().Reset();
+			}
+
+			
+		}
+		if (!ShouldResizeDetection) return;
+		objArray = Physics.OverlapBox(m_DetectionBox.position + new Vector3(0.01f, 500, 0.01f)/2, new Vector3(0.01f,500,0.01f));
+		foreach (var obj in objArray)
+		{
+			if (!obj.CompareTag("Player") && obj.gameObject != gameObject && !obj.gameObject.TryGetComponent(out KillZone kill))
+			{
+				float temp = (obj.transform.position.y - transform.position.y) / 2;
+				m_DetectionBox.transform.position = new Vector3(m_DetectionBox.transform.position.x, transform.position.y + temp, m_DetectionBox.transform.position.z);
+				m_DetectionBox.transform.localScale = new Vector3(m_DetectionBox.transform.localScale.x,
+				temp, m_DetectionBox.transform.localScale.z);
+				return;
+			}
+		}
+		m_DetectionBox.localPosition	= m_DetectionBoxAInit;
+		m_DetectionBox.localScale		= m_DetectionBoxBInit;
+	}
 	
 	private void Movement()
 	{

@@ -397,12 +397,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 20265b3e098a6724d98b65483eb7e1f6, type: 3}
   - {fileID: 8300000, guid: 342763c3a6b9eb6449dd57b6001612b3, type: 3}
   - {fileID: 8300000, guid: 7f496560206bd9c419463d8617f8e593, type: 3}
+  - {fileID: 8300000, guid: ceff244f7e2027b4d9a465f2f372dcef, type: 3}
   - {fileID: 8300000, guid: 6361db102e234e442976491cb22efcbf, type: 3}
   - {fileID: 8300000, guid: 69d4cc2c72eaebc4c80d1c5163d803da, type: 3}
   - {fileID: 8300000, guid: c7b372f159cece343ad8749f7ebb9121, type: 3}
   - {fileID: 8300000, guid: 5872d94c11b03224aa1b951f58ff113b, type: 3}
+  - {fileID: 8300000, guid: 7fc4a063e14b78340b2fe43dc8ffb153, type: 3}
   - {fileID: 8300000, guid: f5202b452eb3f0e45bb8e2f664b88549, type: 3}
   - {fileID: 8300000, guid: a44a8289928144043aa2b6940e16e0f5, type: 3}
+  - {fileID: 8300000, guid: 85c3f2a8d4ecaef43912949bbd8cb707, type: 3}
+  - {fileID: 8300000, guid: a76c44c758806ac40b3c95d8b59c73c6, type: 3}
   - {fileID: 8300000, guid: 3ec78064a44bf0e4c88aa742cf19e688, type: 3}
   - {fileID: 8300000, guid: c928195c230210f4dbef813dfe4dfd7f, type: 3}
   - {fileID: 8300000, guid: fbd06a5f474fe2e4ba4f33375c0769b3, type: 3}
@@ -414,51 +418,58 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3c0b5cfe8cfa0b4bb7c9246d2ca0025, type: 3}
   - {fileID: 8300000, guid: 6232a5cbf1f66b44baaeeb047354c024, type: 3}
   - {fileID: 8300000, guid: 5239c2befae69b841b25efd25b8cc3a8, type: 3}
+  - {fileID: 8300000, guid: b74ec449a401b1141abac9bfb76814c0, type: 3}
   - {fileID: 8300000, guid: 0ca310afcdb80ab4596e7037848c12a1, type: 3}
   - {fileID: 8300000, guid: 11b169cde165c424094a3ac8e26f0598, type: 3}
   - {fileID: 8300000, guid: fa94810b1b99ff34f9a2dd808a73a8bd, type: 3}
   - {fileID: 8300000, guid: 645724069b6ed48449e4fcb79300c1fe, type: 3}
   - {fileID: 8300000, guid: 9c2036e47ad93a84983593822cbcd2f8, type: 3}
   m_AudioVolume:
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.45
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.55
+  - 0.55
+  - 0.55
+  - 0.55
+  - 0.45
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.3
+  - 0.3
+  - 0.3
+  - 0.3
+  - 0.4
+  - 0.4
   - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0.4
+  - 0.35
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
   AudioNames: []
 --- !u!82 &7973504515940260306
 AudioSource:

@@ -56,7 +56,12 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
-		if (m_PlayerColor.isHidden) return;
+		if (m_PlayerColor.isHidden)
+		{
+			m_Rigidbody.velocity = Vector3.zero;
+		}
+		m_Rigidbody.useGravity = !m_PlayerColor.isHidden;
+		GetComponent<CapsuleCollider>().enabled = !m_PlayerColor.isHidden;
 		int m_RandomSound = UnityEngine.Random.Range(0,3);
 		float factorInAir = m_canJump ? 1 : 50;
 		bool shouldSprint = m_SprintDelay < DefaultSprintDelay;
@@ -117,7 +122,6 @@ public class PlayerMovement : MonoBehaviour
 	//Checks if there is floor under the player.
 	public bool IsThereFloor()
 	{
-		//Debug.Log(m_Feet.GetComponent<BoxCollider>().size.y);
 		for (float i = -0.4f; i <= 0.4f; i+=0.1f)
 		{
 			Vector3 offset = new Vector3(i,0,0);
@@ -125,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
 			{
 				if (!obj.isTrigger)
 				{
-					Debug.Log("Floor " + obj.gameObject);
 					return true;
 				}
 			}
@@ -141,12 +144,11 @@ public class PlayerMovement : MonoBehaviour
 				if (hit.collider.isTrigger == false)
 					if (hit.collider.gameObject.CompareTag("Object"))
 					{
-						Debug.Log("Wall touched");
 						return true;
 					}
 		}
 		return false;
-	} //
+	}
 
 	private bool IsWallJumpable()
 	{
@@ -190,7 +192,6 @@ public class PlayerMovement : MonoBehaviour
 			
 		}
 		
-		//Debug.Log(wallNormal);
 		m_Rigidbody.velocity = new Vector3(wallNormal.x * DefaultWallJumpForce.x * Time.deltaTime, DefaultWallJumpForce.y * Time.deltaTime /2, 0);
     }
 
